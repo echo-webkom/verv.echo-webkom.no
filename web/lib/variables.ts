@@ -10,7 +10,7 @@ export const fieldOfStudy = {
   INF: "Master i informatikk",
   PROG: "Master i programvareutvikling",
   DSC: "Master i data science",
-  //
+  // Other
   OTHER: "Annet (ikke på listen)",
 } as const;
 

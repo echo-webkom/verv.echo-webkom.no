@@ -1,5 +1,5 @@
+import { cn } from "@/lib/utils";
 import React, { ComponentPropsWithoutRef } from "react";
-import clsx from "clsx";
 
 export type LabelProps = ComponentPropsWithoutRef<"label">;
 
@@ -8,7 +8,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
     <label
       {...props}
       ref={ref}
-      className={clsx("text-gray-600 text-lg", className)}
+      className={cn("text-gray-600 text-lg", className)}
     />
   )
 );

@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import React, { ComponentPropsWithoutRef } from "react";
 
 export type FormControlProps = ComponentPropsWithoutRef<"div">;
@@ -8,7 +8,7 @@ export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     <div
       {...props}
       ref={ref}
-      className={clsx("flex flex-col gap-2", className)}
+      className={cn("flex flex-col gap-2", className)}
     />
   )
 );

@@ -1,5 +1,5 @@
 import React, { ComponentPropsWithoutRef } from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 export type FormHintProps = ComponentPropsWithoutRef<"p"> & {
   error?: boolean;
@@ -10,7 +10,7 @@ export const FormHint = React.forwardRef<HTMLParagraphElement, FormHintProps>(
     <p
       {...props}
       ref={ref}
-      className={clsx(
+      className={cn(
         "text-gray-600 text-sm",
         {
           "text-red-500": error,

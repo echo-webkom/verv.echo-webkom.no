@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { fieldOfStudy, yearOfStudy } from "@/lib/variables";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, "Navn må være minst 2 tegn"),
@@ -32,6 +33,7 @@ export const Form = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const { toast } = useToast();
 
   const onSubmit = form.handleSubmit(async (data) => {
     const resp = await fetch("/api/apply", {
@@ -47,7 +49,10 @@ export const Form = () => {
       return;
     }
 
-    console.log("Success!");
+    toast({
+      title: "Søknad sendt",
+      description: "Vi tar kontakt med deg så fort vi kan",
+    });
 
     form.reset();
   });

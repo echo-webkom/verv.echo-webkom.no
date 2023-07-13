@@ -15,27 +15,27 @@ const applyEntrySchema = z.object({
   reason: z.string().min(10),
   createdAt: z.number(),
 });
-type ApplyEntry = z.infer<typeof applyEntrySchema>;
+// type ApplyEntry = z.infer<typeof applyEntrySchema>;
 
 const applyEntryPayloadSchema = applyEntrySchema.omit({
   createdAt: true,
 });
 
-applyRouter.get("/", async ({ response }) => {
-  const entries = db.list<ApplyEntry>({ prefix: [APPLY_PREFIX] });
+// applyRouter.get("/", async ({ response }) => {
+//   const entries = db.list<ApplyEntry>({ prefix: [APPLY_PREFIX] });
 
-  const applications = [];
+//   const applications = [];
 
-  for await (const entry of entries) {
-    applications.push({
-      id: entry.key[1],
-      ...entry.value,
-    });
-  }
+//   for await (const entry of entries) {
+//     applications.push({
+//       id: entry.key[1],
+//       ...entry.value,
+//     });
+//   }
 
-  response.status = 200;
-  response.body = applications;
-});
+//   response.status = 200;
+//   response.body = applications;
+// });
 
 applyRouter.post("/", async ({ request, response }) => {
   try {

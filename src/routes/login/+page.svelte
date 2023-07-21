@@ -21,8 +21,8 @@
 	});
 </script>
 
-<div class="flex min-h-screen flex-col gap-4 max-w-2xl w-full mx-auto py-24 md:px-0 px-4">
-	<form method="post" use:enhance>
+<div class="flex min-h-screen flex-col gap-4 max-w-lg w-full mx-auto py-24 md:px-0 px-4">
+	<form class="space-y-4" method="post" use:enhance>
 		<FormControl>
 			<Label for="email">E-post:</Label>
 			<Input id="email" name="email" autocomplete="email" bind:value={$form.email} />

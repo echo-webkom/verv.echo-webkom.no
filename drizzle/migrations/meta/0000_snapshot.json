@@ -1,0 +1,107 @@
+{
+	"version": "5",
+	"dialect": "pg",
+	"id": "e3c46984-066b-4c8b-a9f8-a3a898a0f8b8",
+	"prevId": "00000000-0000-0000-0000-000000000000",
+	"tables": {
+		"applications": {
+			"name": "applications",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
+				},
+				"name": {
+					"name": "name",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"email": {
+					"name": "email",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"year": {
+					"name": "year",
+					"type": "year_enum",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"study": {
+					"name": "study",
+					"type": "study_enum",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"body": {
+					"name": "body",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"ip": {
+					"name": "ip",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {
+				"email_idx": {
+					"name": "email_idx",
+					"columns": ["email"],
+					"isUnique": true
+				}
+			},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		}
+	},
+	"enums": {
+		"study_enum": {
+			"name": "study_enum",
+			"values": {
+				"DTEK": "DTEK",
+				"DSIK": "DSIK",
+				"DSCI": "DSCI",
+				"DVIT": "DVIT",
+				"BINF": "BINF",
+				"IMO": "IMO",
+				"INF": "INF",
+				"PROG": "PROG",
+				"DSC": "DSC",
+				"OTHER": "OTHER"
+			}
+		},
+		"year_enum": {
+			"name": "year_enum",
+			"values": {
+				"1": "1",
+				"2": "2",
+				"3": "3",
+				"4": "4",
+				"5": "5"
+			}
+		}
+	},
+	"schemas": {},
+	"_meta": {
+		"schemas": {},
+		"tables": {},
+		"columns": {}
+	}
+}

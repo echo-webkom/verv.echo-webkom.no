@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: #0d0e0e;
+		--foreground: #f5f5f5;
+
+		--black-ebony: #080402;
+		--black-crow: #0d0907;
+		--black-oil: #050100;
+		--black-ink: #070504;
+		--black-jet: #030303;
+		--black-dull: #161616;
+
+		--border: #6b7280;
+
+		--echo-yellow: #fed679;
+		--echo-yellow-select: #fed67966;
+	}
+
+	html,
+	body {
+		@apply bg-background text-foreground antialiased;
+		@apply selection:bg-[var(--echo-yellow-select)];
+	}
+}

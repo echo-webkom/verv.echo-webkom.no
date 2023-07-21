@@ -22,3 +22,8 @@ export const applicationFormSchema = z.object({
 		.min(10, 'Søknaden din må innholde minst 10 tegn')
 		.max(1000, 'Søknaden din kan ikke være lengre enn 1000 tegn.')
 });
+
+export const loginFormSchema = z.object({
+	email: z.string().min(1, 'E-post er påkrevd.').email('Må være en gyldig e-postadresse.'),
+	password: z.string().min(1, 'Passord er påkrevd.')
+});

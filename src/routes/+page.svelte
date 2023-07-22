@@ -17,6 +17,7 @@
 
 	const { form, errors, enhance } = superForm(data.form, {
 		resetForm: true,
+		taintedMessage: null,
 		onResult: ({ result }) => {
 			if (result.type === 'success') {
 				toast.success('Takk for søknaden! Du vil høre fra oss i løpet av kort tid.');

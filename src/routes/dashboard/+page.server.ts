@@ -1,31 +1,27 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/db/drizzle';
-import { profiles } from '$lib/db/schema';
 
-export const load = (async ({ locals }) => {
-	const { getSession } = locals;
-
-	const session = await getSession();
+export const load = (async ({ parent }) => {
+	const { session } = await parent();
 
 	if (!session) {
-		throw error(401, 'Unauthorized');
+		throw error(403, 'Du har ikke tilgang til denne siden.');
 	}
 
-	const id = session.user.id;
+	const { id } = session.user;
 
 	const profile = await db.query.profiles.findFirst({
 		where: (profiles, { eq }) => eq(profiles.id, id)
 	});
 
 	if (!profile?.isWebkom) {
-		throw error(403, 'Forbidden');
+		throw error(403, 'Du har ikke tilgang til denne siden.');
 	}
 
 	const applications = await db.query.applications.findMany();
 
 	return {
-		applications,
-		session
+		applications
 	};
 }) satisfies PageServerLoad;

@@ -9,7 +9,7 @@ export const load = (async ({ locals }) => {
 	const session = await getSession();
 
 	if (session) {
-		throw redirect(301, '/');
+		throw redirect(302, '/');
 	}
 
 	const form = await superValidate(loginFormSchema);
@@ -20,7 +20,7 @@ export const load = (async ({ locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, url, locals: { supabase } }) => {
+	register: async ({ request, url, locals: { supabase } }) => {
 		const form = await superValidate(request, loginFormSchema);
 
 		if (!form.valid) {
@@ -48,6 +48,35 @@ export const actions = {
 
 		return {
 			form
+		};
+	},
+
+	signin: async ({ request, locals: { supabase } }) => {
+		const form = await superValidate(request, loginFormSchema);
+
+		if (!form.valid) {
+			return fail(400, {
+				form
+			});
+		}
+
+		const { email, password } = form.data;
+
+		const { error } = await supabase.auth.signInWithPassword({
+			email,
+			password
+		});
+
+		if (error) {
+			setError(form, 'email', 'Fikk ikke til å logge deg inn.');
+			return fail(500, {
+				form
+			});
+		}
+
+		return {
+			form,
+			signin: true
 		};
 	}
 };

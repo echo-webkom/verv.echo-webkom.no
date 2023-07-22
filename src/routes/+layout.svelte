@@ -3,11 +3,13 @@
 	import { invalidate } from '$app/navigation';
 	import { Toaster } from 'svelte-sonner';
 	import { onMount } from 'svelte';
+	import { session as sessionStore } from '$lib/stores/session';
 
 	export let data;
 
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
+	$: sessionStore.set(session);
 
 	onMount(() => {
 		const {
@@ -29,10 +31,18 @@
 
 <Toaster theme="dark" />
 
-{#if session}
-	<div class="fixed top-0 right-0 p-5">
-		<button on:click={handleSignout}>Logg ut</button>
-	</div>
-{/if}
+<div class="min-h-screen flex flex-col gap-2">
+	{#if session}
+		<div class="fixed top-0 right-0 p-5">
+			<button on:click={handleSignout}>Logg ut</button>
+		</div>
+	{/if}
 
-<slot />
+	<slot />
+
+	<footer class="text-center border-t border-white/10 mt-auto py-5">
+		<p class="text-sm">
+			<a class="text-neutral-500 no-underline hover:underline" href="/dashboard"> Dashboard </a>
+		</p>
+	</footer>
+</div>

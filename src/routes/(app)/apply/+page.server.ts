@@ -3,8 +3,11 @@ import { applications } from '$lib/db/schema';
 import { applicationFormSchema } from '$lib/validators';
 import type { Actions, PageServerLoad } from './$types';
 import { fail } from '@sveltejs/kit';
-import { PostgresError } from 'postgres';
+import postgres from 'postgres';
 import { setError, superValidate } from 'sveltekit-superforms/server';
+
+// Hack to get around the fact that the PostgresError class is not exported
+const { PostgresError } = postgres;
 
 export const load = (async () => {
 	const form = await superValidate(applicationFormSchema);
@@ -30,13 +33,13 @@ export const actions = {
 			});
 		} catch (error) {
 			if (error instanceof PostgresError) {
-				console.log(error.code);
+				if (error.code === '23505') {
+					setError(form, 'email', 'Du kan ikke søke flere ganger');
+					return fail(400, { form });
+				}
 
-				setError(form, 'email', 'Du kan ikke søke flere ganger');
-				return fail(400, { form });
+				console.log(error);
 			}
-
-			console.log(error);
 
 			setError(form, '', 'Noe gikk galt');
 			return fail(500, { form });

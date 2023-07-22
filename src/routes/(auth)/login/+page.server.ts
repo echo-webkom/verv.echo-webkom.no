@@ -76,8 +76,7 @@ export const actions = {
 		}
 
 		return {
-			form,
-			signin: true
+			form
 		};
 	}
 };

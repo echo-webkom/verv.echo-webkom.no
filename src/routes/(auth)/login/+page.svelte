@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Action, ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import Button from '$lib/components/Button.svelte';
 	import FormControl from '$lib/components/FormControl.svelte';
 	import Input from '$lib/components/Input.svelte';
@@ -8,19 +8,12 @@
 	import { toast } from 'svelte-sonner';
 
 	export let data: PageData;
-	export let actionData: ActionData;
 
 	const { form, enhance, errors } = superForm(data.form, {
 		taintedMessage: null,
 		resetForm: true,
 		onResult: ({ result }) => {
-			if (result.type === 'success') {
-				if (actionData?.signin === true) {
-					toast.success('Du er nå logget inn.');
-				} else {
-					toast.success('Bruker opprettet, sjekk e-posten din for magisk lenke.');
-				}
-			} else {
+			if (result.type === 'error') {
 				toast.error('Noe gikk galt. Prøv igjen senere.');
 			}
 		}

@@ -14,7 +14,7 @@
 </script>
 
 <h1 class="text-3xl font-bold">Dashboard</h1>
-<p class="text-neutral-200">Welcome back, {$session?.user.email}!</p>
+<p class="text-neutral-200">Velkommen tilbake, {$session?.user.email}!</p>
 
 <ul>
 	{#each applications as { id, name, email, fieldOfStudy, yearOfStudy, ip, createdAt, reason }}

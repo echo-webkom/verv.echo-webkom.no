@@ -47,38 +47,47 @@
 				<h2 class="text-xl font-semibold">Om oss</h2>
 
 				<p>
-					Webkom er en undergruppe som drifter og videreutvikle echo sine webløsninger, blant annet{' '}
-					<a class="text-blue-500 underline hover:no-underline" href="https://echo.uib.no/">
+					Webkom er en undergruppe i echo som drifter og videreutvikler linjeforeningens
+					webløsninger, blant annet{' '}
+					<a
+						class="text-blue-500 underline hover:no-underline"
+						href="https://echo.uib.no/"
+						target="_blank"
+					>
 						echo.uib.no
-					</a>
-					. Et verv i Webkom er utrolig relevant erfaring til senere i arbeidslivet, da mye av det du
-					vil jobbe med her vil komme til god nytte i senere jobb.
+					</a>.
+				</p>
+
+				<h2 class="text-xl font-semibold pt-4">Hvorfor Webkom?</h2>
+
+				<p>
+					I Webkom vil du lære en hel del om full-stack webutvikling, ta en idé ut i produksjon og
+					få uvurderlig erfaring du ikke får noe annet sted på studiet!
 				</p>
 
 				<p>
-					Noe av det du kan være med å utvikle som medlem i Webkom, er blant annet
-					publiseringssytemet til{' '}
-					<a class="text-blue-500 underline hover:no-underline" href="https://echo.uib.no/">
-						echo.uib.no
-					</a>
-					, påmeldingsløsninger til bedriftspresentasjoner og arrangementer, eller design av ulike interne
-					webapplikasjoner.
+					Du vil også få muligheten til å bli kjent med andre studenter på tvers av år,
+					studieretninger og undergrupper — og ikke minst ha det gøy sammen med dem!
+				</p>
+
+				<h2 class="text-xl font-semibold pt-4">Hvorfor deg?</h2>
+
+				<p>
+					Vi ser etter motiverte, engasjerte og hyggelige folk! Relevant erfaring er selvsagt et
+					pluss, men ikke et krav.
 				</p>
 
 				<p>
-					Vi har også morsomme sosiale arrangementer internt og med andre undergrupper, som
-					teambuilding og komvors.
+					Så lenge du er en lagspiller, åpen for å lære og utvikle deg, og at du er engasjert i å
+					bidra til å gjøre echo til et bedre sted for alle studenter.
 				</p>
 
-				<p>
-					Det er ikke et krav at du trenger å ha erfaring innenfor webutvikling eller webdesign for
-					å søke Webkom; vi ser hovedsaklig etter motivierte og engasjerte studenter!
-				</p>
+				<h2 class="text-xl font-semibold pt-8">Kjenner du deg igjen? — Søk da vel!</h2>
 			</article>
 		</section>
 
 		<section class="py-10">
-			<form class="flex flex-col gap-4" method="post" use:enhance>
+			<form class="flex flex-col gap-6" method="post" use:enhance>
 				<FormControl>
 					<Label for="name">Navn</Label>
 					<Input

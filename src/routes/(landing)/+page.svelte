@@ -1,9 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import Logo from '$lib/assets/webkom-logo.png';
 </script>
 
 <main class="flex flex-col py-10 sm:py-24 px-3 transition-all duration-150">
 	<div class="text-center py-24">
+		<img class="w-40 h-auto mx-auto" src={Logo} alt="Webkom-logo" />
 		<h1 class="text-5xl font-bold py-10">Søk verv i echo Webkom</h1>
 		<a
 			class="text-lg block w-fit mx-auto font-medium bg-background text-foreground border px-5 py-2 rounded-lg transition-colors duration-150"

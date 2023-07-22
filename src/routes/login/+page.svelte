@@ -52,7 +52,7 @@
 			{/if}
 		</FormControl>
 
-		<div class="flex flex-col sm:block">
+		<div class="flex flex-col sm:block gap-2">
 			<Button type="submit">Lag bruker</Button>
 			<Button type="submit" formaction="?/signin">Logg inn</Button>
 		</div>

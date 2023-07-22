@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { HTMLAnchorAttributes } from 'svelte/elements';
 	import type { VariantProps } from 'class-variance-authority';
 	import { button } from '$lib/variants';
 
-	interface $$Props extends HTMLButtonAttributes, VariantProps<typeof button> {}
+	interface $$Props extends HTMLAnchorAttributes, VariantProps<typeof button> {}
 
 	export let intent: $$Props['intent'] = 'primary';
 	export let size: $$Props['size'] = 'medium';
 </script>
 
-<button {...$$props} class={button({ intent, size, class: $$props.class })}>
+<a {...$$props} href={$$props.href} class={button({ intent, size, class: $$props.class })}>
 	<slot />
-</button>
+</a>

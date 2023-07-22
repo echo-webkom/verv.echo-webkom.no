@@ -18,7 +18,7 @@
 				if (actionData?.signin === true) {
 					toast.success('Du er nå logget inn.');
 				} else {
-					toast.success('Takk for søknaden! Du vil høre fra oss i løpet av kort tid.');
+					toast.success('Bruker opprettet, sjekk e-posten din for magisk lenke.');
 				}
 			} else {
 				toast.error('Noe gikk galt. Prøv igjen senere.');

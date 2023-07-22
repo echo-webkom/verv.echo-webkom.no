@@ -40,7 +40,8 @@ export const actions = {
 		});
 
 		if (error) {
-			setError(form, 'email', 'Fikk ikke til å logge deg inn.');
+			console.error(error);
+			setError(form, 'email', 'Fikk ikke til å lage en bruker.');
 			return fail(500, {
 				form
 			});

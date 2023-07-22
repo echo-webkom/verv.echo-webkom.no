@@ -9,6 +9,7 @@
 	import { studyNames, yearNames } from '$lib/constants';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { toast } from 'svelte-sonner';
+	import FormHint from '$lib/components/FormHint.svelte';
 
 	export let data: PageData;
 
@@ -35,7 +36,7 @@
 	{/if}
 
 	<FormControl>
-		<Label for="name">Navn</Label>
+		<Label for="name">Fullt navn</Label>
 		<Input
 			id="name"
 			name="name"
@@ -63,6 +64,7 @@
 			autocapitalize="off"
 			bind:value={$form.email}
 		/>
+		<FormHint>Vi vil bruke denne til å kontakte deg om intervju.</FormHint>
 		{#if $errors.email}
 			{#each $errors.email as error}
 				<p class="text-red-500 text-sm">{error}</p>
@@ -120,6 +122,10 @@
 			autocomplete="off"
 			bind:value={$form.reason}
 		/>
+		<FormHint>
+			Fortell oss litt om deg selv, hvorfor du vil være med i Webkom og hva du kan bidra med. Det er
+			helt greit å ikke ha noen erfaring fra før.
+		</FormHint>
 		{#if $errors.reason}
 			{#each $errors.reason as error}
 				<p class="text-red-500 text-sm">{error}</p>

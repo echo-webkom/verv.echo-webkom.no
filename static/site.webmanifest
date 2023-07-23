@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/web-manifest.json",
     "name": "verv - echo Webkom",
     "short_name": "verv - echo Webkom",
     "description": "Verv til echo Webkom",

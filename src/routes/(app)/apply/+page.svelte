@@ -44,6 +44,7 @@
 			type="text"
 			autocapitalize="words"
 			autocomplete="name"
+			placeholder="Ola Nordmann"
 			bind:value={$form.name}
 		/>
 		{#if $errors.name}
@@ -62,6 +63,7 @@
 			type="email"
 			autocomplete="email"
 			autocapitalize="off"
+			placeholder="ola.nordman@uib.no"
 			bind:value={$form.email}
 		/>
 		<FormHint>Vi vil bruke denne til å kontakte deg om intervju.</FormHint>
@@ -120,6 +122,7 @@
 			rows={5}
 			aria-invalid={$errors.reason ? 'true' : undefined}
 			autocomplete="off"
+			placeholder="Jeg vil være med i Webkom fordi..."
 			bind:value={$form.reason}
 		/>
 		<FormHint>

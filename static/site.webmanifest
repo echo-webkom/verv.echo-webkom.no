@@ -2,11 +2,12 @@
     "$schema": "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/web-manifest.json",
     "name": "verv - echo Webkom",
     "short_name": "verv - echo Webkom",
-    "start_url": "https://verv.echo-webkom.no",
+    "description": "Verv til echo Webkom",
+    "start_url": ".",
     "lang": "nb",
-    "orientation": "any",
-    "dir": "ltr",
-    "scope": "/",
+    "display": "standalone",
+    "theme_color": "#0d0e0e",
+    "background_color": "#0d0e0e",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -18,8 +19,5 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ],
-    "theme_color": "#0d0e0e",
-    "background_color": "#0d0e0e",
-    "display": "standalone"
+    ]
 }

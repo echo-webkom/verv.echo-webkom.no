@@ -52,5 +52,3 @@
 		<Button type="submit" formaction="?/signin">Logg inn</Button>
 	</div>
 </form>
-
-<a href="/" class="text-center underline hover:no-underline"> Tilbake til forsiden </a>

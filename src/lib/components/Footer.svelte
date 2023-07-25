@@ -1,17 +1,9 @@
-<footer class="border-t border-white/10 mt-auto py-5 px-3">
-	<!-- Links -->
-	<div class="max-w-xl w-full mx-auto">
-		<div>
-			<p class="text-lg font-medium">Internt</p>
+<hr class="border-t-border mt-auto" />
 
-			<ul class="text-sm text-neutral-300">
-				<li>
-					<a class="no-underline hover:underline" href="/login">Logg inn</a>
-				</li>
-				<li>
-					<a class="no-underline hover:underline" href="/dashboard">Dashboard</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-</footer>
+<div class="w-full bg-black-ebony">
+	<footer class="max-w-2xl w-full mx-auto py-10">
+		<a href="/dashboard">
+			<p class="text-center text-gray-400">Dasboard</p>
+		</a>
+	</footer>
+</div>

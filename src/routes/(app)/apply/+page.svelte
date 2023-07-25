@@ -26,9 +26,9 @@
 	});
 </script>
 
-<h2 class="text-2xl font-semibold">Søknadsskjema</h2>
+<h2 class="text-2xl font-semibold mb-5">Søknadsskjema</h2>
 
-<form class="flex flex-col gap-6" method="post" use:enhance>
+<form class="flex flex-col gap-6 mb-10" method="post" use:enhance>
 	{#if $errors._errors}
 		{#each $errors._errors as error}
 			<p class="text-red-500 text-sm">{error}</p>

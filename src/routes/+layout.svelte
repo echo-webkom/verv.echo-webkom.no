@@ -4,9 +4,11 @@
 	import { Toaster } from 'svelte-sonner';
 	import { onMount } from 'svelte';
 	import { session as sessionStore } from '$lib/stores/session';
+	import Header from '$lib/components/Header.svelte';
+	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
 
-	export let data;
+	export let data: LayoutData;
 
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
@@ -27,10 +29,8 @@
 
 <Toaster theme="dark" />
 
-<div class="min-h-screen flex flex-col gap-6">
-	<div>
-		<slot />
-	</div>
+<Header {supabase} />
 
-	<Footer />
-</div>
+<slot />
+
+<Footer />

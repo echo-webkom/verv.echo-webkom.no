@@ -10,6 +10,7 @@ const config = {
 				background: 'var(--background)',
 				foreground: 'var(--foreground)',
 				black: {
+					DEFAULT: '#000',
 					ebony: 'var(--black-ebony)',
 					crow: 'var(--black-crow)',
 					oil: 'var(--black-oil)',

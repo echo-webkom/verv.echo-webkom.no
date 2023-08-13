@@ -66,7 +66,7 @@
 	<p>
 		Har du spørsmål om vervet eller Webkom generelt? Ta kontakt med oss på <a
 			class="text-blue-500 underline hover:no-underline"
-			href="mailto:styret-webkom@echo.uib.no"
+			href="mailto:webkom-styret@echo.uib.no"
 		>
 			e-post
 		</a>

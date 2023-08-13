@@ -1,25 +1,17 @@
-import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/db/drizzle';
 
-export const load = (async ({ parent }) => {
-	const { session } = await parent();
+export const load = (async ({ depends }) => {
+	depends('supabase:auth');
 
-	const id = session?.user?.id;
-
-	if (!id) {
-		throw error(401, 'Unauthorized');
-	}
-
-	const profile = await db.query.profiles.findFirst({
-		where: (profiles, { eq }) => eq(profiles.id, id)
+	const applications = await db.query.applications.findMany({
+		columns: {
+			id: true,
+			name: true,
+			createdAt: true
+		},
+		orderBy: (application, { desc }) => desc(application.createdAt)
 	});
-
-	if (!profile?.isWebkom) {
-		throw error(403, 'Forbidden');
-	}
-
-	const applications = await db.query.applications.findMany();
 
 	return {
 		applications

@@ -7,17 +7,26 @@
 		--background: #0d0e0e;
 		--foreground: #f5f5f5;
 
-		--black-ebony: #080402;
-		--black-crow: #0d0907;
-		--black-oil: #050100;
-		--black-ink: #070504;
-		--black-jet: #030303;
-		--black-dull: #161616;
+		--footer: #080402;
+
+		--nav-text: #f5f5f5;
+		--nav-text-hover: #fed679;
+
+		--input: #1d1d1d;
 
 		--border: #6b7280;
 
 		--echo-yellow: #fed679;
 		--echo-yellow-select: #fed67966;
+	}
+
+	.admin {
+		--background: #fff;
+		--foreground: #1d1d1d;
+		--footer: #f5f5f5;
+		--input: #f5f5f5;
+		--nav-text: #1d1d1d;
+		--nav-text-hover: #555;
 	}
 
 	html,

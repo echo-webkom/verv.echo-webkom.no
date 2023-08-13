@@ -2,6 +2,7 @@
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import WebkomLogo from '$lib/assets/webkom-logo.png';
 	import { session } from '$lib/stores/session';
+	import { invalidate } from '$app/navigation';
 
 	export let supabase: SupabaseClient;
 
@@ -12,7 +13,7 @@
 </script>
 
 <div
-	class="fixed w-full bg-background/10 hover:bg-background transition-all duration-500 backdrop-blur"
+	class="sticky top-0 w-full bg-background/10 hover:bg-background transition-all duration-500 backdrop-blur"
 >
 	<header class="flex flex-row items-center p-5 max-w-5xl mx-auto">
 		<a href="/" class="flex justify-center">
@@ -21,18 +22,12 @@
 
 		<div class="flex-grow" />
 
-		<nav class="flex flex-row items-center gap-3">
-			{#if false}
-				<a href="/dashboard" class="text-neutral-300 font-bold hover:text-white">Dashboard</a>
-			{/if}
-
-			{#if $session}
-				<button class="text-neutral-300 font-bold hover:text-white" on:click={handleSignout}>
+		{#if $session}
+			<nav class="flex flex-row items-center gap-3">
+				<button class="text-nav-text font-bold hover:text-nav-text-hover" on:click={handleSignout}>
 					Logg ut
 				</button>
-			{:else}
-				<a href="/login" class="text-neutral-300 font-bold hover:text-white">Logg inn</a>
-			{/if}
-		</nav>
+			</nav>
+		{/if}
 	</header>
 </div>

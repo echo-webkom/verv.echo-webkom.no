@@ -7,6 +7,8 @@
 	import Header from '$lib/components/Header.svelte';
 	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
+	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
 
 	export let data: LayoutData;
 
@@ -25,6 +27,13 @@
 
 		return () => subscription.unsubscribe();
 	});
+
+	$: {
+		const isAdminPage = $page.url.pathname.startsWith('/dashboard');
+		if (browser) {
+			document.body.classList.toggle('admin', isAdminPage);
+		}
+	}
 </script>
 
 <Toaster theme="dark" />

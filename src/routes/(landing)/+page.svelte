@@ -3,7 +3,7 @@
 	import ButtonLink from '$lib/components/ButtonLink.svelte';
 </script>
 
-<div class="text-center flex flex-col items-center justify-center gap-3 min-h-screen">
+<div class="text-center flex flex-col items-center justify-center gap-3 min-h-[70vh]">
 	<img class="w-40 h-auto mx-auto" src={Logo} alt="Webkom-logo" />
 	<div class="space-y-6">
 		<h1 class="text-5xl font-bold">Søk verv i echo Webkom</h1>

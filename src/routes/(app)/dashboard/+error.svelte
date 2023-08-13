@@ -13,5 +13,5 @@
 		</p>
 	{/if}
 
-	<a class="underline hover:no-underline underline-offset-2" href="/"> Tilbake til forsiden </a>
+	<a class="underline hover:no-underline underline-offset-2" href="/">Tilbake til forsiden</a>
 </div>

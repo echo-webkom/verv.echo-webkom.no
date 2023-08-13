@@ -9,14 +9,11 @@ const config = {
 			colors: {
 				background: 'var(--background)',
 				foreground: 'var(--foreground)',
-				black: {
-					DEFAULT: '#000',
-					ebony: 'var(--black-ebony)',
-					crow: 'var(--black-crow)',
-					oil: 'var(--black-oil)',
-					ink: 'var(--black-ink)',
-					jet: 'var(--black-jet)',
-					dull: 'var(--black-dull)'
+				footer: 'var(--footer)',
+				input: 'var(--input)',
+				'nav-text': {
+					DEFAULT: 'var(--nav-text)',
+					hover: 'var(--nav-text-hover)'
 				},
 				echo: {
 					yellow: 'var(--echo-yellow)'

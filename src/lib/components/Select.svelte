@@ -5,6 +5,6 @@
 	interface $$Props extends HTMLSelectAttributes {}
 </script>
 
-<select {...$$props} class={clsx('bg-black-jet border rounded-lg px-3 py-2', $$props.class)}>
+<select {...$$props} class={clsx('bg-input border rounded-lg px-3 py-2', $$props.class)}>
 	<slot />
 </select>

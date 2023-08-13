@@ -5,4 +5,4 @@
 	interface $$Props extends HTMLTextareaAttributes {}
 </script>
 
-<textarea {...$$props} class={clsx('bg-black-jet border rounded-lg px-3 py-2', $$props.class)} />
+<textarea {...$$props} class={clsx('bg-input border rounded-lg px-3 py-2', $$props.class)} />

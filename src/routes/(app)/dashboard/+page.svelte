@@ -1,34 +1,31 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { session } from '$lib/stores/session';
-	import { goto } from '$app/navigation';
+	import { format } from '$lib/date';
 
 	export let data: PageData;
 	const { applications } = data;
-
-	$: {
-		if (!$session) {
-			goto('/');
-		}
-	}
 </script>
 
-<h1 class="text-3xl font-bold">Dashboard</h1>
-<p class="text-neutral-200">Velkommen tilbake, {$session?.user.email}!</p>
+<div class="space-y-4 max-w-2xl mx-auto w-full">
+	<h1 class="text-3xl font-bold">Søkere</h1>
+	<p>Velkommen tilbake, {$session?.user.email}!</p>
+	<p>Antall søkere: {applications.length}</p>
 
-<ul>
-	{#each applications as { id, name, email, fieldOfStudy, yearOfStudy, ip, createdAt, reason }}
-		<li class="flex flex-col gap-2 border border-neutral-600 px-3 py-6 rounded-lg">
-			<p class="text-xs text-neutral-600">{id}</p>
-
-			<h2 class="text-xl font-bold">{name}</h2>
-			<p class="text-xs">E-post: {email}</p>
-			<p class="text-xs">Studie: {fieldOfStudy}</p>
-			<p class="text-xs">Årstrinn: {yearOfStudy}</p>
-
-			<hr class="border-t-neutral-600 my-2" />
-
-			<p class="text-sm">{reason}</p>
-		</li>
-	{/each}
-</ul>
+	<div>
+		<ul class="flex flex-col gap-2">
+			{#each applications as { id, name, createdAt }}
+				<li>
+					<a
+						href={`/dashboard/application/${id}`}
+						class="group block space-y-2 border border-neutral-600 p-2 rounded"
+					>
+						<p class="text-xs text-neutral-600">{id}</p>
+						<h2 class="text-xl font-bold group-hover:underline">{name}</h2>
+						<p>Sendt inn: {format(createdAt)}</p>
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</div>
+</div>

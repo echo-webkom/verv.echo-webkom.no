@@ -2,6 +2,10 @@ import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/publi
 import type { LayoutLoad } from './$types';
 import type { Database } from '$lib/types/supabase';
 import { createSupabaseLoadClient } from '@supabase/auth-helpers-sveltekit';
+import { dev } from '$app/environment';
+import { inject } from '@vercel/analytics';
+
+inject({ mode: dev ? 'development' : 'production' });
 
 export const load = (async ({ fetch, data, depends }) => {
 	depends('supabase:auth');

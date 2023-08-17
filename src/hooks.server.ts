@@ -30,7 +30,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			where: (profiles, { eq }) => eq(profiles.id, id)
 		});
 
-		if (!profile?.isWebkom) {
+		if (!profile?.group) {
 			throw redirect(303, '/');
 		}
 	}

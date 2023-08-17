@@ -11,11 +11,13 @@
 			Vil du være med å utvikle linjeforeningens webløsninger? Vi søker nye medlemmer til
 			undergruppen vår!
 		</p>
-		<ButtonLink class="w-fit mx-auto" href="/verv/webkom" size="large">Klikk her for å søke</ButtonLink>
+		<ButtonLink class="w-fit mx-auto" href="/verv/webkom" size="large"
+			>Klikk her for å søke</ButtonLink
+		>
 	</div>
 </div>
 
-<article class="space-y-4 text-lg pt-10 pb-4 max-w-2xl mx-auto w-full">
+<article class="space-y-4 text-lg pt-10 pb-4">
 	<h2 class="text-xl font-semibold">Om oss</h2>
 
 	<p>

@@ -21,12 +21,15 @@
 
 		<div class="flex-grow" />
 
-		{#if $page.data.session}
-			<nav class="flex flex-row items-center gap-3">
+		<nav class="flex flex-row items-center gap-4">
+			<a href="https://echo.uib.no/" class="text-nav-text font-bold hover:text-nav-text-hover">
+				echo.uib.no
+			</a>
+			{#if $page.data.session}
 				<button class="text-nav-text font-bold hover:text-nav-text-hover" on:click={handleSignout}>
 					Logg ut
 				</button>
-			</nav>
-		{/if}
+			{/if}
+		</nav>
 	</header>
 </div>

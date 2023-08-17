@@ -1,4 +1,4 @@
-import { boolean, pgEnum } from 'drizzle-orm/pg-core';
+import { pgEnum } from 'drizzle-orm/pg-core';
 import { pgTable, text, timestamp, uniqueIndex, uuid, varchar } from 'drizzle-orm/pg-core';
 
 export const yearEnum = pgEnum('year_enum', ['1', '2', '3', '4', '5']);
@@ -13,6 +13,22 @@ export const studyEnum = pgEnum('study_enum', [
 	'DSC',
 	'OTHER'
 ]);
+export const groupEnum = pgEnum('group_enum', [
+	'webkom',
+	'tilde',
+	'bedkom',
+	'makerspace',
+	'hyggkom',
+	'gnist',
+	'esc',
+	'bar'
+]);
+export const roleEnum = pgEnum('role_enum', ['admin', 'leader']);
+
+export type Year = (typeof yearEnum.enumValues)[number];
+export type Study = (typeof studyEnum.enumValues)[number];
+export type Group = (typeof groupEnum.enumValues)[number];
+export type Role = (typeof roleEnum.enumValues)[number];
 
 export const applications = pgTable(
 	'applications',
@@ -24,6 +40,7 @@ export const applications = pgTable(
 		fieldOfStudy: studyEnum('study').notNull(),
 		reason: text('body').notNull(),
 		createdAt: timestamp('created_at').notNull().defaultNow(),
+		group: groupEnum('group').notNull(),
 		ip: varchar('ip', { length: 255 }).notNull()
 	},
 	(users) => ({
@@ -33,5 +50,6 @@ export const applications = pgTable(
 
 export const profiles = pgTable('profiles', {
 	id: uuid('id').primaryKey().notNull(),
-	isWebkom: boolean('is_webkom').default(false).notNull()
+	role: roleEnum('role'),
+	group: groupEnum('group')
 });

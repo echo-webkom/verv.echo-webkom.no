@@ -26,7 +26,7 @@
 	});
 </script>
 
-<h2 class="text-2xl font-semibold mb-5">Søknadsskjema</h2>
+<h2 class="text-3xl font-semibold text-center mb-5">Søknadsskjema for {data.groupName}</h2>
 
 <form class="flex flex-col gap-6 mb-10" method="post" use:enhance>
 	{#if $errors._errors}
@@ -37,6 +37,7 @@
 
 	<FormControl>
 		<Label for="name">Fullt navn</Label>
+
 		<Input
 			id="name"
 			name="name"
@@ -47,6 +48,7 @@
 			placeholder="Ola Nordmann"
 			bind:value={$form.name}
 		/>
+
 		{#if $errors.name}
 			{#each $errors.name as error}
 				<p class="text-red-500 text-sm">{error}</p>
@@ -56,6 +58,7 @@
 
 	<FormControl>
 		<Label for="email">E-post</Label>
+
 		<Input
 			id="email"
 			name="email"
@@ -66,7 +69,9 @@
 			placeholder="ola.nordman@uib.no"
 			bind:value={$form.email}
 		/>
+
 		<FormHint>Vi vil bruke denne til å kontakte deg om intervju.</FormHint>
+
 		{#if $errors.email}
 			{#each $errors.email as error}
 				<p class="text-red-500 text-sm">{error}</p>
@@ -76,6 +81,7 @@
 
 	<FormControl>
 		<Label for="yearOfStudy">Årstrinn</Label>
+
 		<Select
 			id="yearOfStudy"
 			name="yearOfStudy"
@@ -96,6 +102,7 @@
 
 	<FormControl>
 		<Label for="fieldOfStudy">Studieretning</Label>
+
 		<Select
 			id="fieldOfStudy"
 			name="fieldOfStudy"
@@ -107,6 +114,7 @@
 				<option {value}>{name}</option>
 			{/each}
 		</Select>
+
 		{#if $errors.fieldOfStudy}
 			{#each $errors.fieldOfStudy as error}
 				<p class="text-red-500 text-sm">{error}</p>
@@ -116,6 +124,7 @@
 
 	<FormControl>
 		<Label for="reason">Hvorfor?</Label>
+
 		<Textarea
 			id="reason"
 			name="reason"
@@ -125,10 +134,12 @@
 			placeholder="Jeg vil være med i Webkom fordi..."
 			bind:value={$form.reason}
 		/>
+
 		<FormHint>
 			Fortell oss litt om deg selv, hvorfor du vil være med i Webkom og hva du kan bidra med. Det er
 			helt greit å ikke ha noen erfaring fra før.
 		</FormHint>
+
 		{#if $errors.reason}
 			{#each $errors.reason as error}
 				<p class="text-red-500 text-sm">{error}</p>

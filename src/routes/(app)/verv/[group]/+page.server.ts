@@ -1,18 +1,27 @@
+import { groupNames } from '$lib/constants';
 import { db } from '$lib/db/drizzle';
-import { applications } from '$lib/db/schema';
+import { applications, groupEnum, type Group } from '$lib/db/schema';
 import { applicationFormSchema } from '$lib/validators';
 import type { Actions, PageServerLoad } from './$types';
-import { fail } from '@sveltejs/kit';
+import { error, fail } from '@sveltejs/kit';
 import postgres from 'postgres';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 
 // Hack to get around the fact that the PostgresError class is not exported
 const { PostgresError } = postgres;
 
-export const load = (async () => {
+export const load = (async ({ params }) => {
+	const { group } = params;
+
+	if (!groupEnum.enumValues.includes(group as Group)) {
+		throw error(404);
+	}
+
 	const form = await superValidate(applicationFormSchema);
 
-	return { form };
+	const groupName = groupNames[group as Group];
+
+	return { groupName, form };
 }) satisfies PageServerLoad;
 
 export const actions = {

@@ -1,7 +1,4 @@
-import type { studyEnum, yearEnum } from './db/schema';
-
-type Study = (typeof studyEnum.enumValues)[number];
-type Year = (typeof yearEnum.enumValues)[number];
+import type { Group, Study, Year } from './db/schema';
 
 export const yearNames = {
 	1: '1. trinn',
@@ -22,3 +19,14 @@ export const studyNames = {
 	DSC: 'Master i Data Science',
 	OTHER: 'Annet (ikke på listen)'
 } satisfies Record<Study, string>;
+
+export const groupNames = {
+	webkom: 'Webkom',
+	tilde: 'Tilde',
+	bedkom: 'Bedkom',
+	makerspace: 'Makerspace',
+	hyggkom: 'Hyggkom',
+	gnist: 'Gnist',
+	esc: 'echo Sports Club',
+	bar: 'Programmerbar'
+} satisfies Record<Group, string>;

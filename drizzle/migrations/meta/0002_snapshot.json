@@ -1,0 +1,162 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "74eb4c22-7623-4c58-9d9c-466465a22a99",
+  "prevId": "6b9a5a0a-bb65-441c-b785-5c3f9733e8d7",
+  "tables": {
+    "applications": {
+      "name": "applications",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "year_enum",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "study": {
+          "name": "study",
+          "type": "study_enum",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "body": {
+          "name": "body",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "group": {
+          "name": "group",
+          "type": "group_enum",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ip": {
+          "name": "ip",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "email_idx": {
+          "name": "email_idx",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "profiles": {
+      "name": "profiles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "role_enum",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "group": {
+          "name": "group",
+          "type": "group_enum",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "group_enum": {
+      "name": "group_enum",
+      "values": {
+        "webkom": "webkom",
+        "tilde": "tilde",
+        "bedkom": "bedkom",
+        "makerspace": "makerspace",
+        "hyggkom": "hyggkom",
+        "gnist": "gnist",
+        "esc": "esc",
+        "bar": "bar"
+      }
+    },
+    "role_enum": {
+      "name": "role_enum",
+      "values": {
+        "admin": "admin",
+        "leader": "leader"
+      }
+    },
+    "study_enum": {
+      "name": "study_enum",
+      "values": {
+        "DTEK": "DTEK",
+        "DSIK": "DSIK",
+        "DVIT": "DVIT",
+        "BINF": "BINF",
+        "IMO": "IMO",
+        "INF": "INF",
+        "PROG": "PROG",
+        "DSC": "DSC",
+        "OTHER": "OTHER"
+      }
+    },
+    "year_enum": {
+      "name": "year_enum",
+      "values": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

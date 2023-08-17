@@ -1,7 +1,12 @@
 import { z } from 'zod';
-import { studyEnum, yearEnum } from './db/schema';
+import { groupEnum, studyEnum, yearEnum } from './db/schema';
 
 export const applicationFormSchema = z.object({
+	group: z.enum(groupEnum.enumValues, {
+		errorMap: () => ({
+			message: 'Du må velge en gyldig undergruppe.'
+		})
+	}),
 	name: z
 		.string()
 		.min(2, 'Navnet ditt må være minst 2 tegn.')

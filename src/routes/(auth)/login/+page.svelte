@@ -48,7 +48,17 @@
 	</FormControl>
 
 	<div class="flex flex-col sm:block gap-2">
-		<Button type="submit">Logg inn</Button>
+		<Button class="w-full" type="submit" formaction="?/emailPassword">Logg inn</Button>
+	</div>
+
+	<div class="flex items-center justify-evenly">
+		<div class="border-t-[1px] w-full border-gray-400" />
+		<span class="mx-2 text-gray-400">eller</span>
+		<div class="border-t-[1px] w-full border-gray-400" />
+	</div>
+
+	<div>
+		<Button class="w-full" type="submit" formaction="?/github">Logg inn med GitHub</Button>
 	</div>
 
 	<div class="flex flex-col">

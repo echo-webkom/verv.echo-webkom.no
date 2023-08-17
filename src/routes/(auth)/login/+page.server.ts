@@ -20,7 +20,7 @@ export const load = (async ({ locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals: { supabase } }) => {
+	emailPassword: async ({ request, locals: { supabase } }) => {
 		const form = await superValidate(request, loginFormSchema);
 
 		if (!form.valid) {
@@ -46,5 +46,25 @@ export const actions = {
 		return {
 			form
 		};
+	},
+
+	github: async ({ url, locals: { supabase } }) => {
+		const form = await superValidate(loginFormSchema);
+
+		const { data, error } = await supabase.auth.signInWithOAuth({
+			provider: 'github',
+			options: {
+				redirectTo: `${url.origin}/auth/callback`
+			}
+		});
+
+		if (error || !data.url) {
+			console.log('errorr');
+			return fail(500, {
+				error
+			});
+		}
+
+		throw redirect(302, data.url);
 	}
 };

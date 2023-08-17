@@ -49,8 +49,6 @@ export const actions = {
 	},
 
 	github: async ({ url, locals: { supabase } }) => {
-		const form = await superValidate(loginFormSchema);
-
 		const { data, error } = await supabase.auth.signInWithOAuth({
 			provider: 'github',
 			options: {

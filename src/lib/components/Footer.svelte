@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { session } from '$lib/stores/session';
+	import { page } from '$app/stores';
 </script>
 
 <hr class="border-t-border mt-auto" />
@@ -13,7 +13,7 @@
 				<li>
 					<a href="/dashboard" class="text-center text-gray-400 hover:underline">Til dashboard</a>
 				</li>
-				{#if !$session}
+				{#if !$page.data.session}
 					<li>
 						<a href="/login" class="text-center text-gray-400 hover:underline">Logg inn</a>
 					</li>

@@ -3,7 +3,6 @@
 	import { invalidate } from '$app/navigation';
 	import { Toaster } from 'svelte-sonner';
 	import { onMount } from 'svelte';
-	import { session as sessionStore } from '$lib/stores/session';
 	import Header from '$lib/components/Header.svelte';
 	import type { LayoutData } from './$types';
 	import Footer from '$lib/components/Footer.svelte';
@@ -14,7 +13,6 @@
 
 	let { supabase, session } = data;
 	$: ({ supabase, session } = data);
-	$: sessionStore.set(session);
 
 	onMount(() => {
 		const {

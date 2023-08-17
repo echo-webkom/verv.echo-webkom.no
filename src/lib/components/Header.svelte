@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { SupabaseClient } from '@supabase/supabase-js';
 	import WebkomLogo from '$lib/assets/webkom-logo.png';
-	import { session } from '$lib/stores/session';
-	import { invalidate } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	export let supabase: SupabaseClient;
 
@@ -22,7 +21,7 @@
 
 		<div class="flex-grow" />
 
-		{#if $session}
+		{#if $page.data.session}
 			<nav class="flex flex-row items-center gap-3">
 				<button class="text-nav-text font-bold hover:text-nav-text-hover" on:click={handleSignout}>
 					Logg ut

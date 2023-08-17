@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { session } from '$lib/stores/session';
+	import { page } from '$app/stores';
 	import { format } from '$lib/date';
 
 	export let data: PageData;
@@ -9,7 +9,7 @@
 
 <div class="space-y-4 max-w-2xl mx-auto w-full">
 	<h1 class="text-3xl font-bold">Søkere</h1>
-	<p>Velkommen tilbake, {$session?.user.email}!</p>
+	<p>Velkommen tilbake, {$page.data.session?.user.email}!</p>
 	<p>Antall søkere: {applications.length}</p>
 
 	<div>

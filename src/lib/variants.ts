@@ -5,7 +5,7 @@ export const button = cva(
 	{
 		variants: {
 			intent: {
-				primary: ['bg-black-jet', 'text-white', 'hover:bg-black-dull'],
+				primary: ['bg-[#111111]', 'text-white', 'hover:bg-[#1d1d1d]'],
 				secondary: ['bg-white', 'text-gray-800', 'border-gray-400', 'hover:bg-gray-100']
 			},
 			size: {

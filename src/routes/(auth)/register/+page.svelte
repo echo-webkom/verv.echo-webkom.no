@@ -20,7 +20,7 @@
 	});
 </script>
 
-<h1 class="text-3xl font-medium">Logg inn</h1>
+<h1 class="text-3xl font-medium">Lag bruker</h1>
 
 <form class="space-y-4" method="post" use:enhance>
 	<FormControl>
@@ -37,7 +37,7 @@
 		<Input
 			type="password"
 			name="password"
-			autocomplete="current-password"
+			autocomplete="new-password"
 			bind:value={$form.password}
 		/>
 		{#if $errors.password}
@@ -46,14 +46,28 @@
 			{/each}
 		{/if}
 	</FormControl>
+	<FormControl>
+		<Label for="confirmPassword">Bekreft passord:</Label>
+		<Input
+			type="password"
+			name="confirmPassword"
+			autocomplete="new-password"
+			bind:value={$form.confirmPassword}
+		/>
+		{#if $errors.confirmPassword}
+			{#each $errors.confirmPassword as error}
+				<p class="text-red-500">{error}</p>
+			{/each}
+		{/if}
+	</FormControl>
 
 	<div class="flex flex-col sm:block gap-2">
-		<Button type="submit">Logg inn</Button>
+		<Button type="submit">Lag bruker</Button>
 	</div>
 
 	<div>
-		<a href="/register" class="text-center text-gray-400 hover:underline"
-			>Ingen bruker? Lag en her.</a
+		<a href="/login" class="text-center text-gray-400 hover:underline"
+			>Logg inn med eksisterende bruker</a
 		>
 	</div>
 </form>

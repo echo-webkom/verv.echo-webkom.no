@@ -17,6 +17,9 @@
 					<li>
 						<a href="/login" class="text-center text-gray-400 hover:underline">Logg inn</a>
 					</li>
+					<li>
+						<a href="/register" class="text-center text-gray-400 hover:underline">Lag bruker</a>
+					</li>
 				{/if}
 			</ul>
 		</div>

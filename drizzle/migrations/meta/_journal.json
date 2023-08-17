@@ -22,6 +22,13 @@
       "when": 1692289312994,
       "tag": "0002_illegal_rawhide_kid",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1692292496697,
+      "tag": "0003_odd_black_queen",
+      "breakpoints": true
     }
   ]
 }

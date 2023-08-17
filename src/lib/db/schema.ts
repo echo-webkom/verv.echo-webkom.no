@@ -44,7 +44,7 @@ export const applications = pgTable(
 		ip: varchar('ip', { length: 255 }).notNull()
 	},
 	(users) => ({
-		emailIndex: uniqueIndex('email_idx').on(users.email)
+		groupEmailIndex: uniqueIndex('group_email_index').on(users.group, users.email)
 	})
 );
 

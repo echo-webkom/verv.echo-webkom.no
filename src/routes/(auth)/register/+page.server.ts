@@ -1,7 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import { setError, superValidate } from 'sveltekit-superforms/server';
-import { loginFormSchema } from '$lib/validators';
+import { registerFormSchema } from '$lib/validators';
 
 export const load = (async ({ locals }) => {
 	const { getSession } = locals;
@@ -12,7 +12,7 @@ export const load = (async ({ locals }) => {
 		throw redirect(302, '/');
 	}
 
-	const form = await superValidate(loginFormSchema);
+	const form = await superValidate(registerFormSchema);
 
 	return {
 		form
@@ -20,8 +20,8 @@ export const load = (async ({ locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	default: async ({ request, locals: { supabase } }) => {
-		const form = await superValidate(request, loginFormSchema);
+	default: async ({ request, url, locals: { supabase } }) => {
+		const form = await superValidate(request, registerFormSchema);
 
 		if (!form.valid) {
 			return fail(400, {
@@ -31,13 +31,17 @@ export const actions = {
 
 		const { email, password } = form.data;
 
-		const { error } = await supabase.auth.signInWithPassword({
+		const { error } = await supabase.auth.signUp({
 			email,
-			password
+			password,
+			options: {
+				emailRedirectTo: `${url.origin}/auth/callback`
+			}
 		});
 
 		if (error) {
-			setError(form, 'email', 'Fikk ikke til å logge deg inn.');
+			console.error(error);
+			setError(form, 'email', 'Fikk ikke til å lage en bruker.');
 			return fail(500, {
 				form
 			});

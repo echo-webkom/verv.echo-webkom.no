@@ -11,7 +11,7 @@
 			Vil du være med å utvikle linjeforeningens webløsninger? Vi søker nye medlemmer til
 			undergruppen vår!
 		</p>
-		<ButtonLink class="w-fit mx-auto" href="/apply" size="large">Klikk her for å søke</ButtonLink>
+		<ButtonLink class="w-fit mx-auto" href="/verv/webkom" size="large">Klikk her for å søke</ButtonLink>
 	</div>
 </div>
 
@@ -58,7 +58,7 @@
 	<h2 class="text-xl font-semibold pt-10">Kjenner du deg igjen? — Søk da vel!</h2>
 
 	<div>
-		<ButtonLink class="w-full" href="/apply">Søk her</ButtonLink>
+		<ButtonLink class="w-full" href="/verv/webkom">Søk her</ButtonLink>
 	</div>
 
 	<h2 class="text-xl font-semibold pt-10">Kontakt oss</h2>

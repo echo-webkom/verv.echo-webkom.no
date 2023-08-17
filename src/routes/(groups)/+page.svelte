@@ -27,7 +27,7 @@
 		gruppenavnet. Husk du kan søke verv i flere grupper!
 	</p>
 
-	<ul class="grid gap-6 lg:grid-cols-3 lg:gap-10 py-6">
+	<ul class="grid gap-6 lg:grid-cols-2 lg:gap-10 py-6">
 		{#each groups as { title, value }}
 			<li>
 				<a

@@ -65,7 +65,7 @@
 		<Button type="submit">Lag bruker</Button>
 	</div>
 
-	<div>
+	<div class="flex flex-col">
 		<a href="/login" class="text-center text-gray-400 hover:underline"
 			>Logg inn med eksisterende bruker</a
 		>

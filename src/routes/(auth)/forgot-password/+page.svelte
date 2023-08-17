@@ -13,14 +13,16 @@
 		taintedMessage: null,
 		resetForm: true,
 		onResult: ({ result }) => {
-			if (result.type === 'error') {
+			if (result.type === 'success') {
+				toast.success('E-post sendt! Sjekk din inboks.');
+			} else if (result.type === 'error') {
 				toast.error('Noe gikk galt. Prøv igjen senere.');
 			}
 		}
 	});
 </script>
 
-<h1 class="text-3xl font-medium">Logg inn</h1>
+<h1 class="text-3xl font-medium">Glemt passord</h1>
 
 <form class="space-y-4" method="post" use:enhance>
 	<FormControl>
@@ -32,27 +34,15 @@
 			{/each}
 		{/if}
 	</FormControl>
-	<FormControl>
-		<Label for="password">Passord:</Label>
-		<Input
-			type="password"
-			name="password"
-			autocomplete="current-password"
-			bind:value={$form.password}
-		/>
-		{#if $errors.password}
-			{#each $errors.password as error}
-				<p class="text-red-500">{error}</p>
-			{/each}
-		{/if}
-	</FormControl>
 
 	<div class="flex flex-col sm:block gap-2">
-		<Button type="submit">Logg inn</Button>
+		<Button type="submit">Send e-post</Button>
 	</div>
 
 	<div class="flex flex-col">
-		<a href="/forgot-password" class="text-center text-gray-400 hover:underline">Glemt passord?</a>
+		<a href="/login" class="text-center text-gray-400 hover:underline"
+			>Logg inn med eksisterende bruker</a
+		>
 		<a href="/register" class="text-center text-gray-400 hover:underline"
 			>Ingen bruker? Lag en her.</a
 		>

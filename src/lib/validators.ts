@@ -42,3 +42,21 @@ export const registerFormSchema = z
 			});
 		}
 	});
+
+export const forgotPasswordFormSchema = z.object({
+	email: z.string().min(1, 'E-post er påkrevd.').email('Må være en gyldig e-postadresse.')
+});
+
+export const updatePasswordFormSchema = z
+	.object({
+		password: z.string().min(6, 'Passordet må være minst 6 tegn.'),
+		confirmPassword: z.string().min(6, 'Du må bekrefte passordet.')
+	})
+	.superRefine(({ password, confirmPassword }, ctx) => {
+		if (password !== confirmPassword) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: 'Passordene må være like.'
+			});
+		}
+	});

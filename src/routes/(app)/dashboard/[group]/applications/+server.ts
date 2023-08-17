@@ -3,6 +3,7 @@ import { Parser } from '@json2csv/plainjs';
 import { desc, eq } from 'drizzle-orm';
 import type { RequestHandler } from './$types';
 import type { Group } from '$lib/db/schema';
+import { studyNames, yearNames } from '$lib/constants';
 
 export const GET = (async ({ locals, params }) => {
 	const { getSession } = locals;
@@ -35,9 +36,18 @@ export const GET = (async ({ locals, params }) => {
 		orderBy: (application) => desc(application.createdAt)
 	});
 
-	const parser = new Parser();
+	const mappedApplications = applications.map(
+		({ email, fieldOfStudy, name, reason, yearOfStudy }) => ({
+			studieretning: studyNames[fieldOfStudy],
+			navn: name,
+			epost: email,
+			arstrinn: yearNames[yearOfStudy],
+			grunn: reason
+		})
+	);
 
-	const csv = parser.parse(applications);
+	const parser = new Parser();
+	const csv = parser.parse(mappedApplications);
 
 	const response = new Response(csv, {
 		status: 200,

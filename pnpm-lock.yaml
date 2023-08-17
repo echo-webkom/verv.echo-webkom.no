@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@json2csv/plainjs':
+    specifier: ^7.0.2
+    version: 7.0.2
   '@supabase/auth-helpers-sveltekit':
     specifier: ^0.10.1
     version: 0.10.1(@supabase/supabase-js@2.26.0)(@sveltejs/kit@1.22.3)
@@ -1793,6 +1796,18 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
 
+  /@json2csv/formatters@7.0.2:
+    resolution: {integrity: sha512-XbvRFzZJRltd6n6IUYHjg+Q4miMwd6h0EN3HvLv1u0s31IxpC9kWCBVh4dNHysRLvCcb4l4FkbUCc1GY8bfw8Q==}
+    dev: false
+
+  /@json2csv/plainjs@7.0.2:
+    resolution: {integrity: sha512-Cjkdc6/sF2XLLf7hi1N2DzMPzMMO0YnxetgLZVUqTT10EANm3SAWWRtluYFAeuqC0DtNBOTgIWgiwmDsEtf8Ag==}
+    dependencies:
+      '@json2csv/formatters': 7.0.2
+      '@streamparser/json': 0.0.16
+      lodash.get: 4.4.2
+    dev: false
+
   /@mapbox/node-pre-gyp@1.0.11:
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
     hasBin: true
@@ -1896,6 +1911,10 @@ packages:
 
   /@stitches/core@1.2.8:
     resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
+    dev: false
+
+  /@streamparser/json@0.0.16:
+    resolution: {integrity: sha512-9TYO1bTNtYhF6UA2+DMGvSkewSpSyXSK1ZaizGcVTeE2rpdH/QcmdIMQkmnglS6uRbzP5QcZ4Dydirf1org4oQ==}
     dev: false
 
   /@supabase/auth-helpers-shared@0.4.1(@supabase/supabase-js@2.26.0):
@@ -3976,6 +3995,10 @@ packages:
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
     dev: true
+
+  /lodash.get@4.4.2:
+    resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
+    dev: false
 
   /lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}

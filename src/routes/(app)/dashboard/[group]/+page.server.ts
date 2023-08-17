@@ -10,7 +10,9 @@ export const load = (async ({ parent, params }) => {
 
 	const { group } = params;
 
-	if (profile.group !== group && profile.role !== 'admin') {
+	const isWebkom = profile.role === 'admin' && group !== 'webkom';
+
+	if (profile.group !== group && !isWebkom) {
 		throw error(401, 'Du har ikke tilgang til denne siden.');
 	}
 
@@ -22,6 +24,7 @@ export const load = (async ({ parent, params }) => {
 	const groupName = groupNames[group as Group];
 
 	return {
+		isWebkom,
 		groupName,
 		applications
 	};

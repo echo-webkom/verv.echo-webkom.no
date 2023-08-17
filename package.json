@@ -18,6 +18,7 @@
 		"exec": "vite-node --options.transformMode.ssr='/.*/'"
 	},
 	"dependencies": {
+		"@json2csv/plainjs": "^7.0.2",
 		"@supabase/auth-helpers-sveltekit": "^0.10.1",
 		"@supabase/auth-ui-shared": "^0.1.6",
 		"@supabase/auth-ui-svelte": "^0.2.2",

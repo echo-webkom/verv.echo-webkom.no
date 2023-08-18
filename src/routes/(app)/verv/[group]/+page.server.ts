@@ -8,7 +8,6 @@ import { error, fail } from '@sveltejs/kit';
 import postgres from 'postgres';
 import { setError, superValidate } from 'sveltekit-superforms/server';
 
-// Hack to get around the fact that the PostgresError class is not exported
 const { PostgresError } = postgres;
 
 const isValidGroup = (group: string): group is Group => {
@@ -57,8 +56,6 @@ export const actions = {
 				semester: getSemesterCode()
 			});
 		} catch (error) {
-			console.log('error', error);
-
 			if (error instanceof PostgresError) {
 				if (error.code === '23505') {
 					setError(form, 'email', 'Du kan ikke søke flere ganger');

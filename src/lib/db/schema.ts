@@ -41,10 +41,15 @@ export const applications = pgTable(
 		reason: text('body').notNull(),
 		createdAt: timestamp('created_at').notNull().defaultNow(),
 		group: groupEnum('group').notNull(),
-		ip: varchar('ip', { length: 255 }).notNull()
+		ip: varchar('ip', { length: 255 }).notNull(),
+		semester: varchar('semester', { length: 3 }).notNull().default('23H')
 	},
 	(users) => ({
-		groupEmailIndex: uniqueIndex('group_email_index').on(users.group, users.email)
+		groupEmailSemesterIndex: uniqueIndex('group_email_semester_index').on(
+			users.group,
+			users.email,
+			users.semester
+		)
 	})
 );
 

@@ -1,4 +1,5 @@
 import { groupNames } from '$lib/constants';
+import { getSemesterCode } from '$lib/date';
 import { db } from '$lib/db/drizzle';
 import { applications, groupEnum, type Group } from '$lib/db/schema';
 import { applicationFormSchema } from '$lib/validators';
@@ -52,7 +53,8 @@ export const actions = {
 			await db.insert(applications).values({
 				...form.data,
 				ip,
-				group
+				group,
+				semester: getSemesterCode()
 			});
 		} catch (error) {
 			console.log('error', error);

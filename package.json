@@ -24,6 +24,7 @@
 		"@supabase/auth-ui-shared": "^0.1.6",
 		"@supabase/auth-ui-svelte": "^0.2.2",
 		"@supabase/supabase-js": "^2.26.0",
+		"@typescript-eslint/parser": "^6.0.0",
 		"@vercel/analytics": "^1.0.2",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.0.0",
@@ -31,7 +32,8 @@
 		"drizzle-orm": "^0.27.2",
 		"postgres": "^3.3.5",
 		"svelte-sonner": "^0.1.2",
-		"tailwindcss-animate": "^1.0.6"
+		"tailwindcss-animate": "^1.0.6",
+		"vite-plugin-pwa": ">=0.16.3 <1"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-vercel": "^3.0.2",

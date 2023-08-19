@@ -46,13 +46,15 @@ export const GET = (async ({ locals, params }) => {
 		})
 	);
 
-	const parser = new Parser();
+	const parser = new Parser({
+		withBOM: true
+	});
 	const csv = parser.parse(mappedApplications);
 
 	const response = new Response(csv, {
 		status: 200,
 		headers: {
-			'Content-Type': 'application/csv',
+			'Content-Type': 'application/csv; charset=utf-8',
 			'Content-Disposition': `attachment; filename="${group}-soknader.csv"`
 		}
 	});

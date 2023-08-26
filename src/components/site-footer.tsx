@@ -8,7 +8,7 @@ export async function SiteFooter() {
   const user = await getUser();
 
   return (
-    <footer className="bg-[#ffeabb]">
+    <footer className="bg-[#ffeabb] py-8">
       <div className="max-w-3xl w-full mx-auto px-6 py-8 flex justify-between items-center">
         <div>
           <div className="flex">
@@ -56,6 +56,20 @@ export async function SiteFooter() {
             <GitHubLogoIcon className="h-7 w-7" />
           </a>
         </div>
+      </div>
+      <div>
+        <p className="text-sm font-medium text-center text-gray-800">
+          Logo inspirert{" "}
+          <a
+            href="https://bekk.no/"
+            className="underline hover:no-underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Bekk
+          </a>{" "}
+          sin nye logo 🫶🏻
+        </p>
       </div>
     </footer>
   );

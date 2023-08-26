@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/session";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
+import { EchoBekkIcon } from "./icons/echo-bekk";
+import { Logo } from "./logo";
 
 export async function SiteHeader() {
   const session = await getSession();
@@ -8,13 +9,13 @@ export async function SiteHeader() {
   return (
     <>
       {session && (
-        <div className="bg-[#ffeabb] py-2">
+        <div className="z-30 bg-[#ffeabb] py-2">
           <p className="text-center text-sm font-bold">
             Du er logget inn som {session.user.name}
           </p>
         </div>
       )}
-      <header className="sticky top-0 bg-white/20 backdrop-blur border-b">
+      <header className="z-30 sticky top-0 bg-white">
         {new Date() > new Date("2023-09-04") && (
           <div className="bg-[#ff9b9b] py-2">
             <p className="text-center text-sm font-bold">
@@ -23,14 +24,9 @@ export async function SiteHeader() {
           </div>
         )}
 
-        <div className="mx-auto max-w-3xl w-full flex p-5 justify-between items-center">
-          <a href="/">
-            <Image
-              src="/images/echo-logo.png"
-              alt="echo logo"
-              width={50}
-              height={50}
-            />
+        <div className="mx-auto max-w-3xl w-full flex p-5 justify-between">
+          <a href="/" className="flex flex-col">
+            <Logo />
           </a>
 
           <nav>

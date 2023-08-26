@@ -7,7 +7,7 @@ import Link from "next/link";
 export default async function Dashboard() {
   const user = await getUser();
 
-  if (!user || user.role !== "admin") {
+  if (!user || (user.groups.length === 0 && user?.role !== "admin")) {
     return redirect("/");
   }
 

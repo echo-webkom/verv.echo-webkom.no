@@ -1,6 +1,6 @@
 # verv.echo-webkom.no
 
-Webkom sin nettside laget for å verve nye semesteret H23. Kan også bli brukt senere.
+Webkom sin nettside laget for å verve nye studenter til undergruppene i echo.
 
 ## Utvikling
 
@@ -28,4 +28,4 @@ pnpm dev
 
 ## Hjelp?
 
-Send melding til Ole Magnus om du trenger tokens for Supabase eller hjelp. 😄
+Send melding til Ole Magnus om du trenger hjelp. 😄

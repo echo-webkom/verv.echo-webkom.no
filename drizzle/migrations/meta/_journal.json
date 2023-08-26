@@ -5,36 +5,15 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1689889583759,
-      "tag": "0000_absent_nehzno",
+      "when": 1692992980714,
+      "tag": "0000_dashing_preak",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "5",
-      "when": 1690016621554,
-      "tag": "0001_parched_black_knight",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1692289312994,
-      "tag": "0002_illegal_rawhide_kid",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1692292496697,
-      "tag": "0003_odd_black_queen",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1692350136731,
-      "tag": "0004_cute_fabian_cortez",
+      "when": 1692995367990,
+      "tag": "0001_clear_baron_strucker",
       "breakpoints": true
     }
   ]

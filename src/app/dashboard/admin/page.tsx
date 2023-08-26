@@ -3,6 +3,7 @@ import { getUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { DataTable } from "./user-data-table";
 import { columns } from "./user-columns";
+import { ReloadButton } from "./reload-button";
 
 export default async function AdminDashboard() {
   const user = await getUser();
@@ -18,8 +19,10 @@ export default async function AdminDashboard() {
       <h1 className="text-3xl font-bold">Dashboard for admin</h1>
 
       <div className="space-y-4">
-        <div>
+        <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold">Brukere:</h2>
+
+          <ReloadButton />
         </div>
 
         <div>

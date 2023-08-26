@@ -38,6 +38,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useTransition } from "react";
 import { updateUserAction } from "./actions";
+import { useRouter } from "next/navigation";
 
 const userFormSchema = z.object({
   groups: z.enum(groupEnum.enumValues).array(),
@@ -46,7 +47,7 @@ const userFormSchema = z.object({
 
 const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
   const [isPending, startTransition] = useTransition();
-
+  const router = useRouter();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof userFormSchema>>({
@@ -75,6 +76,8 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
           description: "Kunne ikke oppdatere brukeren.",
         });
       }
+
+      router.refresh();
     });
   });
 
@@ -205,7 +208,7 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
                 {isPending && (
                   <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
                 )}
-                <span>Send inn</span>
+                <span>Lagre</span>
               </Button>
             </form>
           </Form>

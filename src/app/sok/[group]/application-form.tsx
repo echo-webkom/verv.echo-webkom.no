@@ -1,6 +1,5 @@
 "use client";
 
-import { studyEnum, yearEnum } from "@/lib/db/schema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,7 +37,6 @@ export function ApplicationForm({ group }: ApplicationFormProps) {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
-    // @ts-expect-error
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",

@@ -14,7 +14,7 @@ export default async function AdminDashboard() {
   const users = await selectAllUsers.execute();
 
   return (
-    <main className="space-y-8 max-w-2xl w-full mx-auto px-6">
+    <main className="space-y-8 max-w-4xl w-full mx-auto px-6">
       <h1 className="text-3xl font-bold">Dashboard for admin</h1>
 
       <div className="space-y-4">

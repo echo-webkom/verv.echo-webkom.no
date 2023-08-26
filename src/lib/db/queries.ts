@@ -2,7 +2,11 @@ import { desc, eq, sql } from "drizzle-orm";
 import { db } from "./drizzle";
 
 export const selectAllUsers = db.query.users
-  .findMany()
+  .findMany({
+    with: {
+      groups: true,
+    },
+  })
   .prepare("select-all-users");
 
 export const selectUserById = db.query.users

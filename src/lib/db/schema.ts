@@ -53,6 +53,9 @@ export const usersRelations = relations(users, ({ many }) => ({
 }));
 
 export type User = InferSelectModel<typeof users>;
+export type UserWithGroups = InferSelectModel<typeof users> & {
+  groups: Array<UserGroup>;
+};
 
 export const userGroups = pgTable(
   "userGroup",
@@ -66,6 +69,8 @@ export const userGroups = pgTable(
     compoundKey: primaryKey(userGroup.userId, userGroup.group),
   })
 );
+
+export type UserGroup = InferSelectModel<typeof userGroups>;
 
 export const userGroupsRelations = relations(userGroups, ({ one }) => ({
   user: one(users, {

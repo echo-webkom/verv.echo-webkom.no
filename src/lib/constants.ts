@@ -13,6 +13,11 @@ export const yearNames = {
   5: "5. trinn",
 } satisfies Record<Year, string>;
 
+export const roleNames = {
+  admin: "Admin",
+  leader: "Leder",
+} satisfies Record<Role, string>;
+
 export const studyNames = {
   DTEK: "Datateknologi",
   DSIK: "Datasikkerhet",

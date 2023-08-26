@@ -6,6 +6,7 @@ import { Group } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
 import { applications } from "@/lib/db/schema";
 import { PostgresError } from "postgres";
+import { revalidatePath } from "next/cache";
 
 type Result =
   | {
@@ -60,6 +61,8 @@ export const submitApplication = async (
       message: "En ukjent feil oppstod",
     };
   }
+
+  revalidatePath(`/dashboard/${group}`);
 
   return {
     result: "success",

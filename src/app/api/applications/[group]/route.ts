@@ -2,9 +2,9 @@ import { selectApplicationsByGroup } from "@/lib/db/queries";
 import { Parser } from "@json2csv/plainjs";
 import { groupEnum } from "@/lib/db/schema";
 import { getUser } from "@/lib/session";
-import { NextApiRequest } from "next";
 import { z } from "zod";
 import { studyNames, yearNames } from "@/lib/constants";
+import { NextRequest } from "next/server";
 
 const routeContextSchema = z.object({
   params: z.object({
@@ -13,7 +13,7 @@ const routeContextSchema = z.object({
 });
 
 export async function GET(
-  _request: NextApiRequest,
+  _request: NextRequest,
   ctx: z.infer<typeof routeContextSchema>
 ) {
   try {

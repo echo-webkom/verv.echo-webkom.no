@@ -44,10 +44,10 @@ export async function GET(
 
     const mappedApplications = applications.map(
       ({ email, fieldOfStudy, name, reason, yearOfStudy }) => ({
-        studieretning: studyNames[fieldOfStudy],
         navn: name,
-        epost: email,
-        arstrinn: yearNames[yearOfStudy],
+        "e-post": email,
+        studieretning: studyNames[fieldOfStudy],
+        årstrinn: yearNames[yearOfStudy],
         grunn: reason,
       })
     );

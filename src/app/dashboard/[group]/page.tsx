@@ -32,7 +32,7 @@ export default async function GroupDashboard({ params }: Props) {
   });
 
   return (
-    <main className="space-y-8 max-w-2xl w-full mx-auto px-6">
+    <main className="space-y-8 max-w-5xl w-full mx-auto px-6">
       <h1 className="text-3xl font-bold">
         Dashboard for {groupNames[params.group]}
       </h1>

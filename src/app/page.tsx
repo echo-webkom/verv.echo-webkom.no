@@ -1,4 +1,5 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 
 const groups = [
@@ -58,22 +59,40 @@ export default function Home() {
       </div>
 
       <div>
-        <h2 className="text-3xl font-bold text-center mb-4">
-          Våre undergrupper
-        </h2>
+        <div className="mb-2">
+          <h2 className="text-3xl font-bold text-center mb-2">
+            Våre undergrupper
+          </h2>
+          <p className="text-center text-gray-700">
+            Trykk på en av undergruppene for å lære mer.
+          </p>
+        </div>
 
         <ChevronDownIcon className="mx-auto animate-bounce h-6 w-6" />
 
         <ul className="divide-y">
-          {groups.map(({ to, name }) => (
-            <li key={name} className="py-6 flex flex-col">
-              <h2 className="text-2xl font-bold">{name}</h2>
+          {groups.map(({ to, name }) => {
+            const emoji = name.split(" ")[0];
+            const title = name.split(" ")[1];
 
-              <a href={to} className="text-lg py-2 hover:underline">
-                Les mer om {name.split(" ")[1]} &rarr;
-              </a>
-            </li>
-          ))}
+            return (
+              <li key={name} className="py-6 flex flex-row items-center">
+                <a href={to} className="flex-1">
+                  <h2 className="group text-2xl font-bold">
+                    <span aria-hidden="true">{emoji}</span>
+                    <span className="group-hover:underline ml-2">{title}</span>
+                  </h2>
+                </a>
+
+                <a
+                  href={to}
+                  className="py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center flex"
+                >
+                  <ChevronRightIcon />
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </main>

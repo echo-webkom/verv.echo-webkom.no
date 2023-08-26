@@ -29,6 +29,13 @@ export const submitApplication = async (
     };
   }
 
+  if (new Date() > new Date("2023-09-04")) {
+    return {
+      result: "error",
+      message: "Søknadsfristen har gått ut",
+    };
+  }
+
   try {
     await db.insert(applications).values({
       ...parsedForm.data,

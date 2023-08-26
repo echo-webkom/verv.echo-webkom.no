@@ -1,4 +1,5 @@
 import { SiteFooter } from "@/components/site-footer";
+import { Analytics } from "@vercel/analytics/react";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/toaster";
 import { baseURL } from "@/lib/config";
@@ -48,6 +49,7 @@ export default function RootLayout({
         <div className="flex-1 py-14">{children}</div>
         <SiteFooter />
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );

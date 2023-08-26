@@ -23,12 +23,15 @@ const getStep = (yOffset: number) => {
 
 export const Logo = () => {
   const [step, setStep] = useState(7);
+  const [yOffset, setYOffset] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const yOffset = window.scrollY;
+      const yOffset =
+        document.documentElement.scrollTop || document.body.scrollTop;
 
       setStep(getStep(yOffset));
+      setYOffset(yOffset);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -36,5 +39,5 @@ export const Logo = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return <CrazyStepped step={step} className="h-20 w-20" />;
+  return <CrazyStepped step={step} className="w-20" />;
 };

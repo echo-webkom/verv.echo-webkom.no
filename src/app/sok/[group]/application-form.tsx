@@ -173,9 +173,8 @@ export function ApplicationForm({ group }: ApplicationFormProps) {
                 />
               </FormControl>
               <FormDescription>
-                Fortell oss litt om deg selv, hvorfor du vil være med i Webkom
-                og hva du kan bidra med. Det er helt greit å ikke ha noen
-                erfaring fra før.
+                Fortell oss litt om deg selv, hvorfor du vil være med i{" "}
+                {groupName} og hva du kan bidra med.
               </FormDescription>
               <FormMessage />
             </FormItem>

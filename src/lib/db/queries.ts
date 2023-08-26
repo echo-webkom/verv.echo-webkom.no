@@ -1,4 +1,4 @@
-import { eq, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { db } from "./drizzle";
 
 export const selectAllUsers = db.query.users
@@ -17,5 +17,6 @@ export const selectUserById = db.query.users
 export const selectApplicationsByGroup = db.query.applications
   .findMany({
     where: (application) => eq(application.group, sql.placeholder("group")),
+    orderBy: (application) => desc(application.createdAt),
   })
   .prepare("get-applications-by-group");

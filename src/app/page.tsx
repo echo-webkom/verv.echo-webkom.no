@@ -1,4 +1,5 @@
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import Image from "next/image";
 
 const groups = [
   {
@@ -39,6 +40,15 @@ export default function Home() {
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
       <div className="text-center flex flex-col gap-4 pt-12 pb-24">
+        <Image
+          src="/images/echo-logo.png"
+          className="mx-auto"
+          width={200}
+          height={200}
+          alt="Echo logo"
+          quality={100}
+        />
+
         <h1 className="text-4xl md:text-5xl font-bold">Søk verv i echo!</h1>
 
         <p className="text-lg">

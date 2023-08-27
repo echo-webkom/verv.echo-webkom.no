@@ -32,7 +32,7 @@ const groups = [
     name: "🏟️ ESC",
   },
   {
-    to: "/bar",
+    to: "/programmerbar",
     name: "🍻 Programmerbar",
   },
 ];

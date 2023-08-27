@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
-import { Group, groupNames } from "@/lib/constants";
 import { selectApplicationsByGroup } from "@/lib/db/queries";
 import { getUser } from "@/lib/session";
+import { Group, groupNames } from "@/lib/constants";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 
@@ -14,12 +14,10 @@ type Props = {
 export default async function GroupDashboard({ params }: Props) {
   const user = await getUser();
 
-  const isAdmin = user && user.role === "admin";
-  const shouldRedirect =
-    !isAdmin &&
-    !user?.groups.map((group) => group.group).includes(params.group);
-
-  if (shouldRedirect) {
+  if (
+    !user?.isAdmin &&
+    !user?.groupsMemberships.map((group) => group.id).includes(params.group)
+  ) {
     return redirect("/dashboard");
   }
 

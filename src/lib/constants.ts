@@ -1,9 +1,10 @@
-import { groupEnum, roleEnum, studyEnum, yearEnum } from "./db/schema";
+import { groupEnum, studyEnum, yearEnum } from "./db/schema";
 
 export type Year = (typeof yearEnum.enumValues)[number];
 export type Study = (typeof studyEnum.enumValues)[number];
 export type Group = (typeof groupEnum.enumValues)[number];
-export type Role = (typeof roleEnum.enumValues)[number];
+
+export const APPLICATION_DEADLINE = new Date("2023-09-04");
 
 export const yearNames = {
   1: "1. trinn",
@@ -12,11 +13,6 @@ export const yearNames = {
   4: "4. trinn",
   5: "5. trinn",
 } satisfies Record<Year, string>;
-
-export const roleNames = {
-  admin: "Admin",
-  leader: "Leder",
-} satisfies Record<Role, string>;
 
 export const studyNames = {
   DTEK: "Datateknologi",
@@ -38,5 +34,5 @@ export const groupNames = {
   hyggkom: "Hyggkom",
   gnist: "Gnist",
   esc: "echo Sports Club",
-  bar: "Programmerbar",
+  programmerbar: "Programmerbar",
 } satisfies Record<Group, string>;

@@ -1,11 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "group_enum" AS ENUM('webkom', 'tilde', 'bedkom', 'makerspace', 'hyggkom', 'gnist', 'esc', 'bar');
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- CREATE TYPE "role_enum" AS ENUM('admin', 'leader');
+ CREATE TYPE "group_enum" AS ENUM('webkom', 'tilde', 'bedkom', 'makerspace', 'hyggkom', 'gnist', 'esc', 'programmerbar');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -37,16 +31,16 @@ CREATE TABLE IF NOT EXISTS "account" (
 	CONSTRAINT account_provider_providerAccountId PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "applications" (
+CREATE TABLE IF NOT EXISTS "application" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar(255) NOT NULL,
 	"email" varchar(255) NOT NULL,
 	"year" "year_enum" NOT NULL,
 	"study" "study_enum" NOT NULL,
 	"body" text NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"group" "group_enum" NOT NULL,
-	"ip" varchar(255) NOT NULL
+	"user_id" text NOT NULL,
+	"group_id" "group_enum" NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
@@ -55,12 +49,19 @@ CREATE TABLE IF NOT EXISTS "session" (
 	"expires" timestamp NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "user_group_membership" (
+	"id" "group_enum" NOT NULL,
+	"user_id" text NOT NULL,
+	CONSTRAINT user_group_membership_user_id_id PRIMARY KEY("user_id","id")
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
 	"email" text NOT NULL,
 	"emailVerified" timestamp,
-	"image" text
+	"image" text,
+	"is_admin" boolean DEFAULT false NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	CONSTRAINT verificationToken_identifier_token PRIMARY KEY("identifier","token")
 );
 --> statement-breakpoint
-CREATE UNIQUE INDEX IF NOT EXISTS "group_email_semester_index" ON "applications" ("group","email");--> statement-breakpoint
+CREATE UNIQUE INDEX IF NOT EXISTS "group_email_index" ON "application" ("group_id","email");--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
@@ -78,7 +79,19 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
+ ALTER TABLE "application" ADD CONSTRAINT "application_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
  ALTER TABLE "session" ADD CONSTRAINT "session_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "user_group_membership" ADD CONSTRAINT "user_group_membership_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

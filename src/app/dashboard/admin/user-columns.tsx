@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { UserWithGroups, groupEnum } from "@/lib/db/schema";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -19,7 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Group, groupNames, roleNames } from "@/lib/constants";
 import {
   FormField,
   FormItem,
@@ -33,17 +31,15 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useTransition } from "react";
 import { updateUserAction } from "./actions";
 import { useRouter } from "next/navigation";
-
-const userFormSchema = z.object({
-  groups: z.enum(groupEnum.enumValues).array(),
-  role: z.enum(["admin", "leader"]).nullable(),
-});
+import { UserWithGroups } from "@/lib/db/queries";
+import { Switch } from "@/components/ui/switch";
+import { Group, groupNames } from "@/lib/constants";
+import { userFormSchema } from "./schemas";
 
 const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
   const [isPending, startTransition] = useTransition();
@@ -53,8 +49,8 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
   const form = useForm<z.infer<typeof userFormSchema>>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      groups: user.groups.map((group) => group.group),
-      role: user.role,
+      groups: user.groupsMemberships.map((group) => group.id),
+      isAdmin: user.isAdmin,
     },
   });
 
@@ -110,46 +106,21 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
             <form onSubmit={onSubmit} className="space-y-4">
               <FormField
                 control={form.control}
-                name="role"
+                name="isAdmin"
                 render={({ field }) => (
-                  <FormItem className="space-y-3">
-                    <div className="mb-4">
-                      <FormLabel>Rolle</FormLabel>
+                  <FormItem className="flex flex-row items-center justify-between">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Administrator</FormLabel>
                       <FormDescription>
-                        Velg hvilken rolle brukeren skal ha.
+                        Skal brukeren ha tilgang til admin dashboard?
                       </FormDescription>
                     </div>
-
                     <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        defaultValue={field.value as string}
-                        className="flex flex-col space-y-1"
-                      >
-                        {Object.entries(roleNames).map(([id, label]) => (
-                          <FormItem
-                            key={id}
-                            className="flex items-center space-x-3 space-y-0"
-                          >
-                            <FormControl>
-                              <RadioGroupItem value={id} />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {label}
-                            </FormLabel>
-                          </FormItem>
-                        ))}
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value={""} />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            Ingen rolle
-                          </FormLabel>
-                        </FormItem>
-                      </RadioGroup>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -233,7 +204,7 @@ export const columns: Array<ColumnDef<UserWithGroups>> = [
     cell: ({ row }) => {
       const user = row.original;
 
-      return <span>{user.role ? roleNames[user.role] : "Ingen"}</span>;
+      return <span>{user.isAdmin ? "Administrator" : "Bruker"}</span>;
     },
   },
   {

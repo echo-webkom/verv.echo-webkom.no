@@ -4,23 +4,34 @@ import { db } from "./drizzle";
 export const selectAllUsers = db.query.users
   .findMany({
     with: {
-      groups: true,
+      groupsMemberships: true,
     },
   })
   .prepare("select-all-users");
+
+export type UserWithGroups = Awaited<
+  ReturnType<(typeof selectAllUsers)["execute"]>
+>[number];
 
 export const selectUserById = db.query.users
   .findFirst({
     where: (user) => eq(user.id, sql.placeholder("id")),
     with: {
-      groups: true,
+      groupsMemberships: true,
     },
   })
   .prepare("select-user-by-id");
 
 export const selectApplicationsByGroup = db.query.applications
   .findMany({
-    where: (application) => eq(application.group, sql.placeholder("group")),
+    where: (application) => eq(application.groupId, sql.placeholder("group")),
     orderBy: (application) => desc(application.createdAt),
   })
   .prepare("get-applications-by-group");
+
+export const selectApplicationsByUser = db.query.applications
+  .findMany({
+    where: (application) => eq(application.userId, sql.placeholder("userId")),
+    orderBy: (application) => desc(application.createdAt),
+  })
+  .prepare("get-applications-by-user");

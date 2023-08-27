@@ -28,10 +28,10 @@ export async function GET(
     }
 
     if (
-      !user.groups
-        .map((group) => group.group)
+      !user.groupsMemberships
+        .map((group) => group.id)
         .includes(parsedCtx.params.group) &&
-      user.role !== "admin"
+      !user.isAdmin
     ) {
       return new Response("Unauthorized: You're not in the group.", {
         status: 401,

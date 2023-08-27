@@ -8,6 +8,7 @@ import {
   uniqueIndex,
   uuid,
   varchar,
+  boolean,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { InferSelectModel, relations } from "drizzle-orm";
@@ -34,10 +35,12 @@ export const groupEnum = pgEnum("group_enum", [
   "hyggkom",
   "gnist",
   "esc",
-  "bar",
+  "programmerbar",
 ]);
 
-export const roleEnum = pgEnum("role_enum", ["admin", "leader"]);
+//
+// START NEXTAUTH TABLES
+//
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -45,39 +48,15 @@ export const users = pgTable("user", {
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  role: roleEnum("role"),
+  isAdmin: boolean("is_admin").notNull().default(false),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
-  groups: many(userGroups),
+  groupsMemberships: many(userGroupMemberships),
+  applications: many(applications),
 }));
 
 export type User = InferSelectModel<typeof users>;
-export type UserWithGroups = InferSelectModel<typeof users> & {
-  groups: Array<UserGroup>;
-};
-
-export const userGroups = pgTable(
-  "userGroup",
-  {
-    userId: text("userId")
-      .notNull()
-      .references(() => users.id),
-    group: groupEnum("group").notNull(),
-  },
-  (userGroup) => ({
-    compoundKey: primaryKey(userGroup.userId, userGroup.group),
-  })
-);
-
-export type UserGroup = InferSelectModel<typeof userGroups>;
-
-export const userGroupsRelations = relations(userGroups, ({ one }) => ({
-  user: one(users, {
-    fields: [userGroups.userId],
-    references: [users.id],
-  }),
-}));
 
 export const accounts = pgTable(
   "account",
@@ -121,8 +100,35 @@ export const verificationTokens = pgTable(
   })
 );
 
+//
+// END NEXTAUTH TABLES
+//
+
+export const userGroupMemberships = pgTable(
+  "user_group_membership",
+  {
+    id: groupEnum("id").notNull(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+  },
+  (ugm) => ({
+    compoundKey: primaryKey(ugm.userId, ugm.id),
+  })
+);
+
+export const userGroupMembershipsRelations = relations(
+  userGroupMemberships,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userGroupMemberships.userId],
+      references: [users.id],
+    }),
+  })
+);
+
 export const applications = pgTable(
-  "applications",
+  "application",
   {
     id: uuid("id").defaultRandom().primaryKey(),
     name: varchar("name", { length: 255 }).notNull(),
@@ -130,16 +136,25 @@ export const applications = pgTable(
     yearOfStudy: yearEnum("year").notNull(),
     fieldOfStudy: studyEnum("study").notNull(),
     reason: text("body").notNull(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id),
+    groupId: groupEnum("group_id").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
-    group: groupEnum("group").notNull(),
-    ip: varchar("ip", { length: 255 }).notNull(),
   },
   (application) => ({
-    groupEmailSemesterIndex: uniqueIndex("group_email_semester_index").on(
-      application.group,
+    groupEmailSemesterIndex: uniqueIndex("group_email_index").on(
+      application.groupId,
       application.email
     ),
   })
 );
+
+export const applicationsRelations = relations(applications, ({ one }) => ({
+  user: one(users, {
+    fields: [applications.userId],
+    references: [users.id],
+  }),
+}));
 
 export type Application = InferSelectModel<typeof applications>;

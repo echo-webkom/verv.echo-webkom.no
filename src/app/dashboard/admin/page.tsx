@@ -8,7 +8,7 @@ import { ReloadButton } from "./reload-button";
 export default async function AdminDashboard() {
   const user = await getUser();
 
-  if (!user || user.role !== "admin") {
+  if (!user?.isAdmin) {
     return redirect("/");
   }
 

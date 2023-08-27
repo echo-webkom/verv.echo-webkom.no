@@ -28,38 +28,44 @@ import { LoaderIcon } from "lucide-react";
 import { submitApplication } from "./actions";
 import { useToast } from "@/components/ui/use-toast";
 import { formSchema } from "./schema";
+import { User } from "@/lib/db/schema";
 
 type ApplicationFormProps = {
   group: Group;
+  user: User;
 };
 
-export function ApplicationForm({ group }: ApplicationFormProps) {
+export const ApplicationForm = ({ group, user }: ApplicationFormProps) => {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      name: user.name ?? "",
+      email: user.email,
       reason: "",
     },
   });
 
-  const groupName = groupNames[group];
+  const onSubmit = form.handleSubmit(async (data) => {
+    const resp = await submitApplication(group, data);
 
-  const onSubmit = form.handleSubmit((data) => {
-    startTransition(async () => {
-      const { result } = await submitApplication(group, data);
+    if (resp.result === "success") {
+      form.reset();
 
-      if (result === "success") {
-        form.reset();
+      toast({
+        title: "Søknad sendt!",
+        description: "Vi vil kontakte deg om intervju.",
+      });
+    }
 
-        toast({
-          title: "Søknad sendt!",
-          description: "Vi vil kontakte deg om intervju.",
-        });
-      }
-    });
+    if (resp.result === "error") {
+      toast({
+        title: "Noe gikk galt",
+        description: resp.message,
+        variant: "destructive",
+      });
+    }
   });
 
   return (
@@ -74,7 +80,6 @@ export function ApplicationForm({ group }: ApplicationFormProps) {
               <FormControl>
                 <Input placeholder="Ola Nordmann" {...field} />
               </FormControl>
-              <FormDescription>Ditt fulle navn</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -87,10 +92,11 @@ export function ApplicationForm({ group }: ApplicationFormProps) {
             <FormItem>
               <FormLabel>E-post</FormLabel>
               <FormControl>
-                <Input placeholder="ola.nordman@echo.uib.no" {...field} />
+                <Input placeholder="ola.nordmann@echo.uib.no" {...field} />
               </FormControl>
               <FormDescription>
-                Vi vil bruke denne til å kontakte deg om intervju.
+                Vi vil bruke denne til å kontakte deg om intervju. Du kan endre
+                e-post om du ikke ønsker å bruke din UiB e-post.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -166,13 +172,13 @@ export function ApplicationForm({ group }: ApplicationFormProps) {
               <FormControl>
                 <Textarea
                   rows={6}
-                  placeholder={`Jeg ønsker et verv i ${groupName} fordi...`}
+                  placeholder={`Jeg ønsker et verv i ${groupNames[group]} fordi...`}
                   {...field}
                 />
               </FormControl>
               <FormDescription>
                 Fortell oss litt om deg selv, hvorfor du vil være med i{" "}
-                {groupName} og hva du kan bidra med.
+                {groupNames[group]} og hva du kan bidra med.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -186,4 +192,4 @@ export function ApplicationForm({ group }: ApplicationFormProps) {
       </form>
     </Form>
   );
-}
+};

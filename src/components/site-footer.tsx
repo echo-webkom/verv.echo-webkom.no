@@ -7,14 +7,14 @@ export async function SiteFooter() {
   const user = await getUser();
 
   return (
-    <footer className="bg-[#ffeabb] py-8">
+    <footer className="bg-[#ffeabb] py-8 space-y-6">
       <div className="max-w-3xl w-full mx-auto px-6 py-8 flex justify-between">
         <div>
-          <div className="flex gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
             <div>
-              <h2 className="font-bold uppercase mb-2">Internt</h2>
+              <h2 className="font-bold text-lg uppercase mb-2">Internt</h2>
 
-              <ul className="text-sm">
+              <ul>
                 <li>
                   <Link className="hover:underline" href="/dashboard">
                     Dashboard
@@ -24,9 +24,9 @@ export async function SiteFooter() {
             </div>
 
             <div>
-              <h2 className="font-bold uppercase mb-2">Bruker</h2>
+              <h2 className="font-bold text-lg uppercase mb-2">Bruker</h2>
 
-              <ul className="text-sm">
+              <ul>
                 {user && (
                   <>
                     <li>
@@ -45,6 +45,18 @@ export async function SiteFooter() {
                     <SignInButton />
                   </li>
                 )}
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="font-bold text-lg uppercase mb-2">Annet</h2>
+
+              <ul>
+                <li>
+                  <Link className="hover:underline" href="/faq">
+                    FAQ
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -67,19 +79,36 @@ export async function SiteFooter() {
           </a>
         </div>
       </div>
-      <div>
-        <p className="text-sm font-medium text-center text-gray-800">
-          Logo inspirert{" "}
-          <a
-            href="https://bekk.no/"
-            className="underline hover:no-underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Bekk
-          </a>{" "}
-          sin nye logo 🫶🏻
-        </p>
+
+      <div className="flex flex-col text-center sm:flex-row justify-between px-6 max-w-2xl gap-2 mx-auto">
+        <div>
+          <p className="text-sm font-medium text-gray-800">
+            Logo inspirert{" "}
+            <a
+              href="https://bekk.no/"
+              className="underline hover:no-underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Bekk
+            </a>{" "}
+            sin nye logo 🫶🏻
+          </p>
+        </div>
+
+        <div>
+          <p className="text-sm font-medium text-gray-800">
+            Laget med ❤️ av{" "}
+            <a
+              href="https://echo-webkom.no"
+              className="underline hover:no-underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              echo Webkom
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

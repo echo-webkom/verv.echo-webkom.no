@@ -27,7 +27,8 @@ export async function SiteHeader() {
         )}
 
         <div className="mx-auto max-w-3xl w-full flex p-5 justify-between">
-          <a href="/" className="flex flex-col">
+          <a href="/">
+            <span className="sr-only">Hjem</span>
             <Logo />
           </a>
 

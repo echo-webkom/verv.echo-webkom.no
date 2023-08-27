@@ -118,7 +118,7 @@ export const CrazyStepped = ({
       fill="none"
       className={cn(className)}
     >
-      <g fill="#000" fontFamily="Inter" fontSize={300} letterSpacing="0em">
+      <g fill="#000" fontSize={300} letterSpacing="0em">
         <text
           xmlSpace="preserve"
           style={{

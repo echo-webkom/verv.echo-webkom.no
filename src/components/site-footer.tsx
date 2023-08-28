@@ -80,35 +80,18 @@ export async function SiteFooter() {
         </div>
       </div>
 
-      <div className="flex flex-col text-center sm:flex-row justify-between px-6 max-w-2xl gap-2 mx-auto">
-        <div>
-          <p className="text-sm font-medium text-gray-800">
-            Logo inspirert{" "}
-            <a
-              href="https://bekk.no/"
-              className="underline hover:no-underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Bekk
-            </a>{" "}
-            sin nye logo 🫶🏻
-          </p>
-        </div>
-
-        <div>
-          <p className="text-sm font-medium text-gray-800">
-            Laget med ❤️ av{" "}
-            <a
-              href="https://echo-webkom.no"
-              className="underline hover:no-underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              echo Webkom
-            </a>
-          </p>
-        </div>
+      <div className="text-center max-w-2xl px-6 mx-auto">
+        <p className="text-sm font-medium text-gray-800">
+          Laget med ❤️ av{" "}
+          <a
+            href="https://echo-webkom.no"
+            className="underline hover:no-underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            echo Webkom
+          </a>
+        </p>
       </div>
     </footer>
   );

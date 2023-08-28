@@ -1,7 +1,7 @@
 import { getSession } from "@/lib/session";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
-import { Logo } from "./logo";
 import { APPLICATION_DEADLINE } from "@/lib/constants";
+import Image from "next/image";
 
 export async function SiteHeader() {
   const session = await getSession();
@@ -26,10 +26,17 @@ export async function SiteHeader() {
           </div>
         )}
 
-        <div className="mx-auto max-w-3xl w-full flex p-5 justify-between">
+        <div className="mx-auto max-w-3xl w-full flex p-5 justify-between items-center">
           <a href="/">
             <span className="sr-only">Hjem</span>
-            <Logo />
+            <Image
+              src="/images/echo-logo.png"
+              alt="echo logo"
+              width={75}
+              height={75}
+              className="h-12 w-12"
+              quality={100}
+            />
           </a>
 
           <nav>

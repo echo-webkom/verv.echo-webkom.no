@@ -17,7 +17,7 @@ export async function SiteHeader() {
       )}
 
       {/* Don't remove "h-20". It fixes header flicker for some reason */}
-      <header className="z-30 sticky top-0 bg-white border-b">
+      <header className="z-30 sticky top-0 bg-white">
         {new Date() > APPLICATION_DEADLINE && (
           <div className="bg-[#ff9b9b] py-2">
             <p className="text-center text-sm font-bold">

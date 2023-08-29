@@ -7,7 +7,7 @@ export async function SiteFooter() {
   const user = await getUser();
 
   return (
-    <footer className="bg-[#ffeabb] py-8 space-y-6">
+    <footer className="bg-[#ffeabb] py-8 space-y-6 border-t-2 border-black">
       <div className="max-w-3xl w-full mx-auto px-6 py-8 flex justify-between">
         <div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">

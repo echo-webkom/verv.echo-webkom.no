@@ -4,7 +4,7 @@ export type Year = (typeof yearEnum.enumValues)[number];
 export type Study = (typeof studyEnum.enumValues)[number];
 export type Group = (typeof groupEnum.enumValues)[number];
 
-export const APPLICATION_DEADLINE = new Date("2023-09-04");
+export const APPLICATION_DEADLINE = new Date("2023-09-11");
 
 export const yearNames = {
   1: "1. trinn",

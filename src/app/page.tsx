@@ -16,7 +16,7 @@ const groups = [
     name: "🥳 Tilde",
   },
   {
-    to: "makerspace",
+    to: "/makerspace",
     name: "⚒️ Makerspace",
   },
   {

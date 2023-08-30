@@ -1,17 +1,18 @@
-import { getSession } from "@/lib/session";
+import { getSession, getUser } from "@/lib/session";
 import { ExternalLinkIcon } from "@radix-ui/react-icons";
 import { APPLICATION_DEADLINE } from "@/lib/constants";
 import Image from "next/image";
+import { ProfileIcon } from "./profile-icon";
 
 export async function SiteHeader() {
-  const session = await getSession();
+  const user = await getUser();
 
   return (
     <>
-      {session && (
+      {user && (
         <div className="z-30 bg-[#ffeabb] py-2">
           <p className="text-center text-sm font-bold">
-            Du er logget inn som {session.user.name}
+            Du er logget inn som {user.name}
           </p>
         </div>
       )}
@@ -42,15 +43,13 @@ export async function SiteHeader() {
           <nav>
             <ul className="flex">
               <li>
-                <a
-                  className="underline inline-flex items-center gap-1 hover:no-underline"
-                  href="https://echo.uib.no/"
-                >
-                  <span>echo.uib.no</span>
-                  <span>
-                    <ExternalLinkIcon />
-                  </span>
-                </a>
+                {user ? (
+                  <ProfileIcon user={user} />
+                ) : (
+                  <a href="/logg-inn" className="hover:underline">
+                    Logg inn
+                  </a>
+                )}
               </li>
             </ul>
           </nav>

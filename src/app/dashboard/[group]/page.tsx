@@ -40,7 +40,7 @@ export default async function GroupDashboard({ params }: Props) {
 
         <a
           href={`/api/applications/${params.group}`}
-          className="text-lg py-2 hover:underline"
+          className="text-lg py-2 text-blue-500 hover:underline"
           title="Last ned som CSV"
           download
         >

@@ -6,6 +6,7 @@ import { Group, groupNames } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
 import { eq, sql } from "drizzle-orm";
 import { applications } from "@/lib/db/schema";
+import { DividerVerticalIcon } from "@radix-ui/react-icons";
 
 const applicationCountStmt = db
   .select({
@@ -48,6 +49,10 @@ export default async function Dashboard() {
       (group) => group.id === "webkom" || group.id === "bedkom"
     );
 
+  const percentageWebkom = Math.round(
+    (webkomCount / (webkomCount + bedkomCount)) * 100
+  );
+
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -71,17 +76,36 @@ export default async function Dashboard() {
       )}
 
       {isWebkomOrBedkomOrAdmin && (
-        <div className="flex justify-between items-center py-4">
-          <div className="w-full text-center">
-            <h2 className="font-bold">Webkom</h2>
-            <p className="text-6xl">{webkomCount}</p>
+        <div className="py-4 flex flex-col gap-10">
+          <div className="flex justify-between items-center">
+            <div className="w-full text-center">
+              <h2 className="font-bold">Webkom</h2>
+              <p className="text-6xl">{webkomCount}</p>
+            </div>
+
+            <div className="text-lg">vs.</div>
+
+            <div className="w-full text-center">
+              <h2 className="font-bold">Bedkom</h2>
+              <p className="text-6xl">{bedkomCount}</p>
+            </div>
           </div>
 
-          <div className="text-lg">vs.</div>
-
-          <div className="w-full text-center">
-            <h2 className="font-bold">Bedkom</h2>
-            <p className="text-6xl">{bedkomCount}</p>
+          <div>
+            <div className="w-full h-4 rounded-full flex flex-row items-center overflow-hidden">
+              <div
+                className="bg-blue-400 h-full"
+                style={{
+                  width: `${percentageWebkom}%`,
+                }}
+              />
+              <div
+                className="bg-red-400 h-full"
+                style={{
+                  width: `${100 - percentageWebkom}%`,
+                }}
+              />
+            </div>
           </div>
         </div>
       )}

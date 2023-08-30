@@ -7,11 +7,11 @@ export type Group = (typeof groupEnum.enumValues)[number];
 export const APPLICATION_DEADLINE = new Date("2023-09-11");
 
 export const yearNames = {
-  1: "1. trinn",
-  2: "2. trinn",
-  3: "3. trinn",
-  4: "4. trinn",
-  5: "5. trinn",
+  1: "1. året",
+  2: "2. året",
+  3: "3. året",
+  4: "4. året",
+  5: "5. året",
 } satisfies Record<Year, string>;
 
 export const studyNames = {

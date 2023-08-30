@@ -3,6 +3,16 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Group, groupNames } from "@/lib/constants";
+import { db } from "@/lib/db/drizzle";
+import { sql } from "drizzle-orm";
+import { applications } from "@/lib/db/schema";
+
+const applicationCountStmt = db
+  .select({
+    count: sql<number>`count(*)`,
+  })
+  .from(applications)
+  .prepare("application-count");
 
 export default async function Dashboard() {
   const user = await getUser();
@@ -10,6 +20,8 @@ export default async function Dashboard() {
   if (!user || (user?.groupsMemberships.length === 0 && !user?.isAdmin)) {
     return redirect("/");
   }
+
+  const applicationCount = (await applicationCountStmt.execute())[0].count;
 
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
@@ -24,6 +36,8 @@ export default async function Dashboard() {
             .join(", ")}
         </span>
       </p>
+
+      <p>Antall søkere: {applicationCount}</p>
 
       {user.isAdmin && (
         <Button asChild>

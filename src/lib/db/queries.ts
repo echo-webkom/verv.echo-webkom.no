@@ -6,6 +6,7 @@ export const selectAllUsers = db.query.users
     with: {
       groupsMemberships: true,
     },
+    orderBy: (user) => desc(user.name),
   })
   .prepare("select-all-users");
 

@@ -2,6 +2,7 @@ import { getUser } from "@/lib/session";
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { SignInButton, SignOutButton } from "./site-footer-client";
+import Image from "next/image";
 
 export async function SiteFooter() {
   const user = await getUser();
@@ -76,6 +77,16 @@ export async function SiteFooter() {
             rel="noopener noreferrer"
           >
             <GitHubLogoIcon className="h-7 w-7" />
+          </a>
+          <a href="https://echo.uib.no">
+            <Image
+              src="/images/echo-logo.png"
+              alt="echo logo"
+              className="h-8 my-auto w-auto grayscale brightness-0"
+              height={100}
+              width={100}
+              quality={100}
+            />
           </a>
         </div>
       </div>

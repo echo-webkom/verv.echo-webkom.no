@@ -49,9 +49,8 @@ export default async function Dashboard() {
       (group) => group.id === "webkom" || group.id === "bedkom"
     );
 
-  const percentageWebkom = Math.round(
-    (webkomCount / (webkomCount + bedkomCount)) * 100
-  );
+  const percentageWebkom =
+    (webkomCount / (Number(webkomCount) + Number(bedkomCount))) * 100;
 
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">

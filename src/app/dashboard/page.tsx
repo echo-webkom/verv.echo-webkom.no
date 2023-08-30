@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Group, groupNames } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
-import { sql } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { applications } from "@/lib/db/schema";
 
 const applicationCountStmt = db
@@ -14,6 +14,22 @@ const applicationCountStmt = db
   .from(applications)
   .prepare("application-count");
 
+const webkomCountStmt = db
+  .select({
+    count: sql<number>`count(*)`,
+  })
+  .from(applications)
+  .where(eq(applications.groupId, "webkom"))
+  .prepare("webkom-count");
+
+const bedkomCountStmt = db
+  .select({
+    count: sql<number>`count(*)`,
+  })
+  .from(applications)
+  .where(eq(applications.groupId, "bedkom"))
+  .prepare("webkom-count");
+
 export default async function Dashboard() {
   const user = await getUser();
 
@@ -22,6 +38,15 @@ export default async function Dashboard() {
   }
 
   const applicationCount = (await applicationCountStmt.execute())[0].count;
+
+  const webkomCount = (await webkomCountStmt.execute())[0].count;
+  const bedkomCount = (await bedkomCountStmt.execute())[0].count;
+
+  const isWebkomOrBedkomOrAdmin =
+    user.isAdmin ||
+    user.groupsMemberships.some(
+      (group) => group.id === "webkom" || group.id === "bedkom"
+    );
 
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
@@ -43,6 +68,22 @@ export default async function Dashboard() {
         <Button asChild>
           <Link href="/dashboard/admin">Til admin dashboard</Link>
         </Button>
+      )}
+
+      {isWebkomOrBedkomOrAdmin && (
+        <div className="flex justify-between items-center py-4">
+          <div className="w-full text-center">
+            <h2 className="font-bold">Webkom</h2>
+            <p className="text-6xl">{webkomCount}</p>
+          </div>
+
+          <div className="text-lg">vs.</div>
+
+          <div className="w-full text-center">
+            <h2 className="font-bold">Bedkom</h2>
+            <p className="text-6xl">{bedkomCount}</p>
+          </div>
+        </div>
       )}
 
       <ul className="divide-y">

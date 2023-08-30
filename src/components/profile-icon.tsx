@@ -18,10 +18,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { User } from "@/lib/db/schema";
+import { getUser } from "@/lib/session";
+
+type UserWithGroups = Exclude<
+  Awaited<ReturnType<typeof getUser>>,
+  null | undefined
+>;
 
 type ProfileIconProps = {
-  user: User;
+  user: UserWithGroups;
 };
 
 export const ProfileIcon = ({ user }: ProfileIconProps) => {
@@ -50,7 +55,7 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
           </Link>
         </DropdownMenuItem>
 
-        {user.isAdmin && (
+        {Boolean(user?.groupsMemberships.length) && (
           <>
             <DropdownMenuSeparator />
 

@@ -55,7 +55,7 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
         "ANSVAR:\n" +
         data.responsibility +
         "\n\n" +
-        ":\n" +
+        "FORBEDRINGER:\n" +
         data.improvements,
     };
 

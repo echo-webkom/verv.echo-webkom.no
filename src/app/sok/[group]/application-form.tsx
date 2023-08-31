@@ -169,6 +169,15 @@ export const ApplicationForm = ({ group, user }: ApplicationFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Hvorfor vil du søke?</FormLabel>
+              <FormDescription
+                className={group !== "bedkom" ? "hidden" : "text-slate-600"}
+              >
+                Fortell kort om deg selv, og hvorfor du vil være medlem i{" "}
+                Bedkom. <br />
+                Har du noen tanker om hva du ønsker å ha ansvar for i Bedkom?
+                (PR, sosialt, rekruttering, bedriftsplanlegging)<br />
+                Hva ønsker du å oppnå/forbedre i Bedkom?
+              </FormDescription>
               <FormControl>
                 <Textarea
                   rows={6}
@@ -176,7 +185,7 @@ export const ApplicationForm = ({ group, user }: ApplicationFormProps) => {
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
+              <FormDescription className={group === "bedkom" ? "hidden" : ""}>
                 Fortell oss litt om deg selv, hvorfor du vil være med i{" "}
                 {groupNames[group]} og hva du kan bidra med.
               </FormDescription>

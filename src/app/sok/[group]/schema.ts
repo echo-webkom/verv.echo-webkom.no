@@ -25,3 +25,27 @@ export const formSchema = z.object({
     .min(10, "Søknaden din må innholde minst 10 tegn")
     .max(1000, "Søknaden din kan ikke være lengre enn 1000 tegn."),
 });
+
+
+export const bedkomFormSchema = formSchema
+  .omit({
+    reason: true,
+  })
+  .extend({
+    about: z
+      .string()
+      .min(3, "Du må skrive litt om deg selv.")
+      .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
+    why: z
+      .string()
+      .min(3, "Du må skrive litt om hvorfor du vil være med i Bedkom.")
+      .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
+    responsibility: z
+      .string()
+      .min(3, "Du må skrive litt om dine ønsker om ansvar i Bedkom.")
+      .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
+    improvements: z
+      .string()
+      .min(3, "Du må skrive litt om hva du vil oppnå/forbedre i Bedkom.")
+      .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
+  });

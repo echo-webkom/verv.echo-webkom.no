@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import * as va from "@vercel/analytics";
 import {
   Form,
   FormField,
@@ -43,6 +44,8 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
     const resp = await submitApplication(group, data);
 
     if (resp.result === "success") {
+      va.track(`Successfully submitted application for ${group}`);
+
       form.reset();
 
       toast({
@@ -52,6 +55,10 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
     }
 
     if (resp.result === "error") {
+      va.track(`Could not submit application for ${group}`, {
+        message: resp.message,
+      });
+
       toast({
         title: "Noe gikk galt",
         description: resp.message,

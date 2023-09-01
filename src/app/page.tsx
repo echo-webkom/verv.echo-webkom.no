@@ -46,14 +46,14 @@ export default function Home() {
           className="mx-auto"
           width={200}
           height={200}
-          alt="Echo logo"
+          alt="echo logo"
           quality={100}
         />
 
         <h1 className="text-4xl md:text-5xl font-bold">Søk verv i echo!</h1>
 
         <p className="text-lg">
-          Echo har nå åpnet for søknader til verv i alle gruppene våre.
+          echo har nå åpnet for søknader til verv i alle gruppene våre.
           Søknadsfristen er 10. september. Det er lov å søke på flere grupper!
         </p>
       </div>

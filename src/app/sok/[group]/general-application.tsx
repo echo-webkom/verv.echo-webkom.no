@@ -169,7 +169,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>
                 Fortell litt om deg selv, og hvorfor du vil være medlem i
-                Bedkom.
+                {groupNames[group]}.
               </FormLabel>
               <FormControl>
                 <Textarea

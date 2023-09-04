@@ -61,7 +61,7 @@ const ViewDetailsButton = ({ application }: { application: Application }) => {
           <p>Sendt inn: {application.createdAt.toLocaleString()}</p>
           <div>
             <p>Grunn:</p>
-            <article className="p-2 rounded-lg bg-gray-100 border font-monodiv">
+            <article className="p-2 rounded-lg max-h-52 overflow-y-auto bg-gray-100 border font-monodiv">
               {application.reason.split("\n").map((line, i) => (
                 <p key={i}>{line}</p>
               ))}

@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
-import { LoaderIcon, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, LoaderIcon, MoreHorizontal } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -192,7 +192,17 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
 export const columns: Array<ColumnDef<UserWithGroups>> = [
   {
     accessorKey: "name",
-    header: "Navn",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="outline"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Navn
+          <ArrowUpDown className="ml-1 h-4 w-4"/>
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "email",

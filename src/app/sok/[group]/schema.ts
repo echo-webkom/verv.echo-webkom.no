@@ -23,9 +23,8 @@ export const formSchema = z.object({
   reason: z
     .string()
     .min(10, "Søknaden din må innholde minst 10 tegn")
-    .max(1000, "Søknaden din kan ikke være lengre enn 1000 tegn."),
+    .max(10000, "Søknaden din kan ikke være lengre enn 10000 tegn."),
 });
-
 
 export const bedkomFormSchema = formSchema
   .omit({

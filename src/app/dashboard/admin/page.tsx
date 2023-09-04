@@ -31,17 +31,7 @@ export default async function AdminDashboard() {
 
       <p>Antall brukere: {userCount}</p>
 
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Brukere:</h2>
-
-          <ReloadButton />
-        </div>
-
-        <div>
-          <DataTable columns={columns} data={users} />
-        </div>
-      </div>
+      <DataTable columns={columns} data={users} />
     </main>
   );
 }

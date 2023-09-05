@@ -1,16 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import { ColumnDef } from "@tanstack/react-table";
-import { LoaderIcon, MoreHorizontal } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -19,26 +10,35 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Form,
+  FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormDescription,
-  FormControl,
   FormMessage,
-  Form,
 } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
-import { useTransition } from "react";
-import { updateUserAction } from "./actions";
-import { useRouter } from "next/navigation";
-import { UserWithGroups } from "@/lib/db/queries";
 import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/components/ui/use-toast";
 import { Group, groupNames } from "@/lib/constants";
+import { UserWithGroups } from "@/lib/db/queries";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ColumnDef } from "@tanstack/react-table";
+import { LoaderIcon, MoreHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { updateUserAction } from "./actions";
 import { userFormSchema } from "./schemas";
 
 const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
@@ -193,19 +193,21 @@ export const columns: Array<ColumnDef<UserWithGroups>> = [
   {
     accessorKey: "name",
     header: "Navn",
+    sortingFn: "alphanumeric",
   },
   {
     accessorKey: "email",
     header: "E-post",
+    sortingFn: "alphanumeric"
   },
   {
     accessorKey: "role",
     header: "Rolle",
     cell: ({ row }) => {
       const user = row.original;
-
       return <span>{user.isAdmin ? "Administrator" : "Bruker"}</span>;
     },
+    enableSorting: false,
   },
   {
     id: "actions",

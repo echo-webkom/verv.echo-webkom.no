@@ -3,7 +3,6 @@ import { getUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { DataTable } from "./user-data-table";
 import { columns } from "./user-columns";
-import { ReloadButton } from "./reload-button";
 import { db } from "@/lib/db/drizzle";
 import { sql } from "drizzle-orm";
 import { users } from "@/lib/db/schema";
@@ -31,17 +30,7 @@ export default async function AdminDashboard() {
 
       <p>Antall brukere: {userCount}</p>
 
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Brukere:</h2>
-
-          <ReloadButton />
-        </div>
-
-        <div>
-          <DataTable columns={columns} data={users} />
-        </div>
-      </div>
+      <DataTable columns={columns} data={users} />
     </main>
   );
 }

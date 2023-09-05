@@ -11,6 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -19,8 +20,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { ArrowUpDown } from "lucide-react";
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { ReloadButton } from "./reload-button";
 
 interface DataTableProps<TData, TValue> {
@@ -33,7 +34,7 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [sorting, setSorting] = useState<SortingState>([{desc:false, id:"name"}]);
+  const [sorting, setSorting] = useState<SortingState>([{id:"name", desc:false}]);
 
   const table = useReactTable({
     data,
@@ -73,13 +74,23 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                    <TableHead
+                      key={header.id}
+                      onClick={() => {
+                        if (header.column.getCanSort()) {
+                          header.column.toggleSorting();
+                        }
+                      }}
+                    >
+                      <div className="flex">
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                        {header.column.getIsSorted() && <ArrowUpDown className="h-4"/>}
+                      </div>
                     </TableHead>
                   );
                 })}

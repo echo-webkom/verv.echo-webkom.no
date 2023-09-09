@@ -33,16 +33,14 @@ import { Group, groupNames } from "@/lib/constants";
 import { UserWithGroups } from "@/lib/db/queries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ColumnDef } from "@tanstack/react-table";
-import { LoaderIcon, MoreHorizontal } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateUserAction } from "./actions";
 import { userFormSchema } from "./schemas";
 
 const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
-  const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const { toast } = useToast();
 
@@ -54,27 +52,25 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
     },
   });
 
-  const onSubmit = form.handleSubmit((data) => {
-    startTransition(async () => {
-      const { result } = await updateUserAction(user.id, data);
+  const onSubmit = form.handleSubmit(async (data) => {
+    const { result } = await updateUserAction(user.id, data);
 
-      if (result === "success") {
-        form.reset();
-        toast({
-          title: "Bruker oppdatert!",
-          description: "Brukeren ble oppdatert.",
-        });
-      }
+    if (result === "success") {
+      toast({
+        title: "Bruker oppdatert!",
+        description: "Brukeren ble oppdatert.",
+      });
 
-      if (result === "error") {
-        toast({
-          title: "Noe gikk galt!",
-          description: "Kunne ikke oppdatere brukeren.",
-        });
-      }
-
+      form.reset();
       router.refresh();
-    });
+    }
+
+    if (result === "error") {
+      toast({
+        title: "Noe gikk galt!",
+        description: "Kunne ikke oppdatere brukeren.",
+      });
+    }
   });
 
   return (
@@ -175,10 +171,7 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
                 )}
               />
 
-              <Button type="submit" disabled={isPending}>
-                {isPending && (
-                  <LoaderIcon className="w-4 h-4 mr-2 animate-spin" />
-                )}
+              <Button type="submit">
                 <span>Lagre</span>
               </Button>
             </form>
@@ -198,7 +191,7 @@ export const columns: Array<ColumnDef<UserWithGroups>> = [
   {
     accessorKey: "email",
     header: "E-post",
-    sortingFn: "alphanumeric"
+    sortingFn: "alphanumeric",
   },
   {
     accessorKey: "role",

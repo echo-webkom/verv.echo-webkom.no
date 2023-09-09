@@ -1,3 +1,4 @@
+import { APPLICATION_DEADLINE } from "@/lib/constants";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
@@ -38,8 +39,17 @@ const groups = [
 ];
 
 export default function Home() {
+  const isLastDay = new Date().getDate() === APPLICATION_DEADLINE.getDate();
+
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
+      {isLastDay && (
+        <h2 className="text-4xl mb-6 py-10 text-center max-w-sm mx-auto px-3">
+          Fristen går ut <span className="font-bold">i kveld</span>. Husk å
+          søke!
+        </h2>
+      )}
+
       <div className="text-center flex flex-col gap-4 pt-12 pb-24">
         <Image
           src="/images/echo-logo.png"

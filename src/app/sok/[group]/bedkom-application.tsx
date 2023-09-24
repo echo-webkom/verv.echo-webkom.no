@@ -35,7 +35,7 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
     resolver: zodResolver(bedkomFormSchema),
     defaultValues: {
       name: user.name ?? "",
-      email: user.email,
+      email: "",
       about: "",
       improvements: "",
       why: "",

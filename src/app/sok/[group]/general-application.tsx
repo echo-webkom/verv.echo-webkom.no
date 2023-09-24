@@ -35,7 +35,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: user.name ?? "",
-      email: user.email,
+      email: "",
       reason: "",
     },
   });

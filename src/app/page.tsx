@@ -1,6 +1,4 @@
-import { APPLICATION_DEADLINE } from "@/lib/constants";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
 
 const groups = [
@@ -9,32 +7,8 @@ const groups = [
     name: "💻 Webkom",
   },
   {
-    to: "/bedkom",
-    name: "👔 Bedkom",
-  },
-  {
-    to: "/tilde",
-    name: "🥳 Tilde",
-  },
-  {
-    to: "/makerspace",
-    name: "⚒️ Makerspace",
-  },
-  {
-    to: "/hyggkom",
-    name: "🫶🏻 Hyggkom",
-  },
-  {
     to: "/gnist",
     name: "✨ Gnist",
-  },
-  {
-    to: "/esc",
-    name: "🏟️ ESC",
-  },
-  {
-    to: "/programmerbar",
-    name: "🍻 Programmerbar",
   },
 ];
 
@@ -51,11 +25,13 @@ export default function Home() {
           quality={100}
         />
 
-        <h1 className="text-4xl md:text-5xl font-bold">Søk verv i echo!</h1>
+        <h1 className="text-4xl md:text-5xl font-bold">
+          Søk verv i Webkom eller Gnist!
+        </h1>
 
         <p className="text-lg">
-          echo har nå åpnet for søknader til verv i alle gruppene våre.
-          Søknadsfristen er 10. september. Det er lov å søke på flere grupper!
+          Echo har nå åpnet for søknader til verv i noen av gruppene våre.
+          Søknadsfristen er 14. februar. Det er lov å søke på begge gruppene!
         </p>
       </div>
 
@@ -71,7 +47,7 @@ export default function Home() {
 
         <ChevronDownIcon className="mx-auto animate-bounce h-6 w-6" />
 
-        <ul className="divide-y">
+        <ul className="grid grid-cols-2">
           {groups.map(({ to, name }) => {
             const emoji = name.split(" ")[0];
             const title = name.split(" ")[1];
@@ -89,7 +65,7 @@ export default function Home() {
                   href={to}
                   className="py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center flex"
                 >
-                  <ChevronRightIcon />
+                  <ChevronDownIcon className="mx-auto animate-bounce h-4 w-4" />
                 </a>
               </li>
             );

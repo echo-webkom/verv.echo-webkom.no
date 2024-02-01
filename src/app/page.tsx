@@ -59,10 +59,13 @@ export default function Home() {
                     <span className="flex justify-center group-hover:underline ml-2">
                       {title}
                     </span>
+                    {/* <div>
+                      <img src="public/images/webkom-logo.png"></img>
+                    </div> */}
                     <span
                       className="flex justify-center text-5xl"
                       aria-hidden="true"
-                    >
+                      >
                       {emoji}
                     </span>
                     <a

@@ -55,17 +55,23 @@ export default function Home() {
             return (
               <li key={name} className="py-6 flex flex-row items-center">
                 <a href={to} className="flex-1">
-                  <h2 className="group text-2xl font-bold">
-                    <span aria-hidden="true">{emoji}</span>
-                    <span className="group-hover:underline ml-2">{title}</span>
+                  <h2 className="flex flex-col text-2xl font-bold">
+                    <span className="flex justify-center group-hover:underline ml-2">
+                      {title}
+                    </span>
+                    <span
+                      className="flex justify-center text-5xl"
+                      aria-hidden="true"
+                    >
+                      {emoji}
+                    </span>
+                    <a
+                      href={to}
+                      className="flex py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center "
+                    >
+                      <ChevronDownIcon className="mx-auto animate-bounce h-4 w-4" />
+                    </a>
                   </h2>
-                </a>
-
-                <a
-                  href={to}
-                  className="py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center flex"
-                >
-                  <ChevronDownIcon className="mx-auto animate-bounce h-4 w-4" />
                 </a>
               </li>
             );

@@ -59,14 +59,25 @@ export default function Home() {
                     <span className="flex justify-center group-hover:underline ml-2">
                       {title}
                     </span>
-                    {/* <div>
-                      <img src="public/images/webkom-logo.png"></img>
-                    </div> */}
+                    {title === "Webkom" ? (
+                      <span className="flex justify-center group-hover:underline">
+                        <Image 
+                          src="/images/webkom-logo.png"
+                          width={70}
+                          height={70}
+                          alt="webkom logo"
+                          quality={100}
+                        />
+                      </span>
+                    ) : (
+                      <span className="flex justify-center text-5xl">
+                        {emoji}
+                        </span>
+                        )}
                     <span
                       className="flex justify-center text-5xl py-2"
                       aria-hidden="true"
                       >
-                      {emoji}
                     </span>
                     <span className="flex justify-center py-2">
                       <a href={to}>

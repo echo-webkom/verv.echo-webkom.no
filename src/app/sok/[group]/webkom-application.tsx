@@ -29,7 +29,7 @@ import { z } from "zod";
 import { submitApplication } from "./actions";
 import { bedkomFormSchema } from "./schema";
 
-export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
+export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof bedkomFormSchema>>({
     resolver: zodResolver(bedkomFormSchema),
@@ -37,9 +37,9 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
       name: user.name ?? "",
       email: "",
       about: "",
-      improvements: "",
-      why: "",
-      responsibility: "",
+      master: "",
+      sideProject: "",
+      experience: "",
     },
   });
 
@@ -50,14 +50,14 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
         "KORT OM:\n" +
         data.about +
         "\n\n" +
-        "HVORFOR:\n" +
-        data.why +
+        "MASTER:\n" +
+        data.master +
         "\n\n" +
-        "ANSVAR:\n" +
-        data.responsibility +
+        "SIDE PROSJEKT:\n" +
+        data.sideProject +
         "\n\n" +
-        "FORBEDRINGER:\n" +
-        data.improvements,
+        "ERFARING:\n" +
+        data.master,
     };
 
     const resp = await submitApplication(group, mappedData);
@@ -186,37 +186,8 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
           name="about"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fortell litt om deg selv.</FormLabel>
-              <FormControl>
-                <Textarea rows={3} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="why"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Hvorfor vil du være med i Bedkom?</FormLabel>
-              <FormControl>
-                <Textarea rows={3} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="responsibility"
-          render={({ field }) => (
-            <FormItem>
               <FormLabel>
-                Har du noen tanker om hva du ønsker å ha ansvar for i Bedkom?
-                (PR, sosialt, rekruttering, bedriftsplanlegging)
+                Fortell litt om deg selv, og hvorfor du vil være med i Webkom!
               </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />
@@ -228,10 +199,47 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
 
         <FormField
           control={form.control}
-          name="improvements"
+          name="master"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Hva ønsker du å oppnå/forbedre i Bedkom?</FormLabel>
+              <FormLabel>Har du planer om å ta master på UiB?</FormLabel>
+              <FormControl>
+                <Textarea rows={3} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="experience"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Har du noe erfaring med web-utvikling? Har du kjennskap til
+                TypeScript, HTML, CSS eller NextJS?{" "}
+              </FormLabel>
+              <FormControl>
+                <Textarea rows={3} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="sideProject"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Hvis du har, fortell om et sideprosjekt du har laget. Hvilke
+                programeringspråk brukte du? Hva var de vanskeligste aspektene
+                ved prosjektet? Hvis du har et eller flere prosjekter du vil
+                vise oss på github kan du gjerne linke til dem nederst i denne
+                tekstboksen!{" "}
+              </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />
               </FormControl>

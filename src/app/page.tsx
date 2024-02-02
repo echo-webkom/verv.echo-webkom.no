@@ -61,7 +61,7 @@ export default function Home() {
                     </span>
                     {title === "Webkom" ? (
                       <span className="flex justify-center group-hover:underline">
-                        <Image 
+                        <Image
                           src="/images/webkom-logo.png"
                           width={70}
                           height={70}
@@ -72,13 +72,12 @@ export default function Home() {
                     ) : (
                       <span className="flex justify-center text-5xl">
                         {emoji}
-                        </span>
-                        )}
+                      </span>
+                    )}
                     <span
                       className="flex justify-center text-5xl py-2"
                       aria-hidden="true"
-                      >
-                    </span>
+                    ></span>
                     <span className="flex justify-center py-2">
                       <a href={to}>
                         <ChevronDownIcon className="flex mx-auto animate-bounce h-4 w-4" />

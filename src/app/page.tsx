@@ -47,7 +47,7 @@ export default function Home() {
 
         <ChevronDownIcon className="mx-auto animate-bounce h-6 w-6" />
 
-        <ul className="grid grid-cols-2">
+        <ul className="grid grid-cols-2 place-items-center">
           {groups.map(({ to, name }) => {
             const emoji = name.split(" ")[0];
             const title = name.split(" ")[1];
@@ -63,17 +63,16 @@ export default function Home() {
                       <img src="public/images/webkom-logo.png"></img>
                     </div> */}
                     <span
-                      className="flex justify-center text-5xl"
+                      className="flex justify-center text-5xl py-2"
                       aria-hidden="true"
                       >
                       {emoji}
                     </span>
-                    <a
-                      href={to}
-                      className="flex py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center "
-                    >
-                      <ChevronDownIcon className="mx-auto animate-bounce h-4 w-4" />
-                    </a>
+                    <span className="flex justify-center py-2">
+                      <a href={to}>
+                        <ChevronDownIcon className="flex mx-auto animate-bounce h-4 w-4" />
+                      </a>
+                    </span>
                   </h2>
                 </a>
               </li>

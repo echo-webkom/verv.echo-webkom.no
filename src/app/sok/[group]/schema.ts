@@ -33,18 +33,18 @@ export const bedkomFormSchema = formSchema
   .extend({
     about: z
       .string()
-      .min(3, "Du må skrive litt om deg selv.")
+      .min(3, "Du må skrive mer enn 3 tegn.")
       .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
-    why: z
+    sideProject: z
       .string()
-      .min(3, "Du må skrive litt om hvorfor du vil være med i Bedkom.")
+      .min(3, "Du må skrive mer enn 3 tegn.")
       .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
-    responsibility: z
+    master: z
       .string()
-      .min(3, "Du må skrive litt om dine ønsker om ansvar i Bedkom.")
+      .min(3, "Du må skrive mer enn 3 tegn.")
       .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
-    improvements: z
+    experience: z
       .string()
-      .min(3, "Du må skrive litt om hva du vil oppnå/forbedre i Bedkom.")
+      .min(3, "Du må skrive mer enn 3 tegn.")
       .max(1000, "Du kan ikke skrive mer enn 1000 tegn."),
   });

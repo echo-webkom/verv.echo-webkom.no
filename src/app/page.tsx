@@ -78,7 +78,7 @@ export default function Home() {
                       className="flex justify-center text-5xl py-2"
                       aria-hidden="true"
                     ></span>
-                    <span className="flex justify-center py-2">
+                    <span className="flex justify-center">
                       <a href={to}>
                         <ChevronDownIcon className="flex mx-auto animate-bounce h-4 w-4" />
                       </a>

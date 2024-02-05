@@ -57,7 +57,7 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
         data.sideProject +
         "\n\n" +
         "ERFARING:\n" +
-        data.master,
+        data.experience,
     };
 
     const resp = await submitApplication(group, mappedData);

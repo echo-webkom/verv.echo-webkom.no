@@ -53,11 +53,11 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
         "MASTER:\n" +
         data.master +
         "\n\n" +
-        "SIDE PROSJEKT:\n" +
-        data.sideProject +
-        "\n\n" +
         "ERFARING:\n" +
-        data.experience,
+        data.experience +
+        "\n\n" +
+        "SIDE PROSJEKT:\n" +
+        data.sideProject,
     };
 
     const resp = await submitApplication(group, mappedData);

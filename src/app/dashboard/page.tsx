@@ -23,12 +23,12 @@ const webkomCountStmt = db
   .where(eq(applications.groupId, "webkom"))
   .prepare("webkom-count");
 
-const bedkomCountStmt = db
+const gnistCountStmt = db
   .select({
     count: sql<number>`count(*)`,
   })
   .from(applications)
-  .where(eq(applications.groupId, "bedkom"))
+  .where(eq(applications.groupId, "gnist"))
   .prepare("webkom-count");
 
 export default async function Dashboard() {
@@ -41,16 +41,16 @@ export default async function Dashboard() {
   const applicationCount = (await applicationCountStmt.execute())[0].count;
 
   const webkomCount = (await webkomCountStmt.execute())[0].count;
-  const bedkomCount = (await bedkomCountStmt.execute())[0].count;
+  const gnistCount = (await gnistCountStmt.execute())[0].count;
 
-  const isWebkomOrBedkomOrAdmin =
+  const isWebkomOrGnistOrAdmin =
     user.isAdmin ||
     user.groupsMemberships.some(
-      (group) => group.id === "webkom" || group.id === "bedkom"
+      (group) => group.id === "webkom" || group.id === "gnist"
     );
 
   const percentageWebkom =
-    (webkomCount / (Number(webkomCount) + Number(bedkomCount))) * 100;
+    (webkomCount / (Number(webkomCount) + Number(gnistCount))) * 100;
 
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
@@ -74,7 +74,7 @@ export default async function Dashboard() {
         </Button>
       )}
 
-      {isWebkomOrBedkomOrAdmin && (
+      {isWebkomOrGnistOrAdmin && (
         <div className="py-4 flex flex-col gap-10">
           <div className="flex justify-between items-center">
             <div className="w-full text-center">
@@ -85,8 +85,8 @@ export default async function Dashboard() {
             <div className="text-lg">vs.</div>
 
             <div className="w-full text-center">
-              <h2 className="font-bold">Bedkom</h2>
-              <p className="text-6xl">{bedkomCount}</p>
+              <h2 className="font-bold">Gnist</h2>
+              <p className="text-6xl">{gnistCount}</p>
             </div>
           </div>
 

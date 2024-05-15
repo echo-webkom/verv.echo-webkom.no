@@ -23,7 +23,7 @@ CREATE TABLE `user_to_workspace` (
 );
 --> statement-breakpoint
 CREATE TABLE `user` (
-	`feide_id` text PRIMARY KEY NOT NULL,
+	`feide_id` text NOT NULL,
 	`name` text NOT NULL,
 	`email` text NOT NULL
 );
@@ -33,3 +33,5 @@ CREATE TABLE `workspace` (
 	`name` text NOT NULL,
 	`description` text NOT NULL
 );
+--> statement-breakpoint
+CREATE UNIQUE INDEX `feide_idx` ON `user` (`feide_id`);

@@ -1,13 +1,20 @@
 import { relations } from "drizzle-orm";
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 import { sessions, usersToWorkspaces } from ".";
 
-export const users = sqliteTable("user", {
-  feide_id: text("feide_id").notNull().primaryKey(),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-});
+export const users = sqliteTable(
+  "user",
+  {
+    id: text("feide_id").notNull().primaryKey(),
+    feideId: text("feide_id").notNull(),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+  },
+  (t) => ({
+    feideIdx: uniqueIndex("feide_idx").on(t.feideId),
+  }),
+);
 
 export const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),

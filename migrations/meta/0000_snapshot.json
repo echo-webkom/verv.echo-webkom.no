@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "2bb8c6a5-ef93-4b27-8d00-42fe2db4db77",
+  "id": "2775c812-007c-4de8-a824-2470f4b321e2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "form": {
@@ -169,7 +169,7 @@
         "feide_id": {
           "name": "feide_id",
           "type": "text",
-          "primaryKey": true,
+          "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
@@ -188,7 +188,15 @@
           "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "feide_idx": {
+          "name": "feide_idx",
+          "columns": [
+            "feide_id"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}

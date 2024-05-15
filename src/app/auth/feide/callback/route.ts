@@ -1,6 +1,5 @@
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
-import { generateIdFromEntropySize } from "lucia";
 import { NextRequest } from "next/server";
 import { feide, getFeideUser } from "@/server/auth/feide";
 import { db } from "@/server/db/drizzle";
@@ -12,7 +11,7 @@ export const GET = async (req: NextRequest) => {
   const code = req.nextUrl.searchParams.get("code");
   const state = req.nextUrl.searchParams.get("state");
 
-  const storedState = cookies().get("github_oauth_state")?.value ?? null;
+  const storedState = cookies().get("oauth_state")?.value ?? null;
 
   if (!code || !state || !storedState || state !== storedState) {
     return new Response(null, {

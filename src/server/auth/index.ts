@@ -3,11 +3,27 @@ import { cache } from "react";
 
 import { lucia } from "./lucia";
 
+/**
+ * Get the current user from the session cookie
+ *
+ * @example
+ * ```tsx
+ * import { auth } from "@/server/auth";
+ *
+ * export default function Profile() {
+ *  const user = auth();
+ *
+ *   ...
+ * ```
+ */
 export const auth = cache(async () => {
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
 
   if (!sessionId) {
-    return null;
+    return {
+      session: null,
+      user: null,
+    };
   }
 
   const result = await lucia.validateSession(sessionId);
@@ -34,5 +50,5 @@ export const auth = cache(async () => {
     }
   } catch {}
 
-  return result.user;
+  return result;
 });

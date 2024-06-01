@@ -1,10 +1,11 @@
 import { cookies } from "next/headers";
-import { OAuth2RequestError } from "arctic";
 import { NextRequest } from "next/server";
-import { feide, getFeideUser } from "@/server/auth/feide";
-import { db } from "@/server/db/drizzle";
-import { lucia } from "@/server/auth/lucia";
+import { OAuth2RequestError } from "arctic";
 import { nanoid } from "nanoid";
+
+import { feide, getFeideUser } from "@/server/auth/feide";
+import { lucia } from "@/server/auth/lucia";
+import { db } from "@/server/db/drizzle";
 import { users } from "@/server/db/schemas";
 
 export const GET = async (req: NextRequest) => {
@@ -32,11 +33,7 @@ export const GET = async (req: NextRequest) => {
     if (existingUser) {
       const session = await lucia.createSession(existingUser.id, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
       return new Response(null, {
         status: 302,
         headers: {
@@ -56,11 +53,7 @@ export const GET = async (req: NextRequest) => {
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
-    cookies().set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes,
-    );
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     return new Response(null, {
       status: 302,
       headers: {

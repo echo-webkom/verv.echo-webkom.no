@@ -12,16 +12,13 @@ export const usersToWorkspaces = sqliteTable("user_to_workspace", {
     .references(() => workspaces.id, { onDelete: "cascade" }),
 });
 
-export const usersToWorkspacesRelations = relations(
-  usersToWorkspaces,
-  ({ one }) => ({
-    user: one(users, {
-      fields: [usersToWorkspaces.userId],
-      references: [users.id],
-    }),
-    workspace: one(workspaces, {
-      fields: [usersToWorkspaces.workspaceId],
-      references: [workspaces.id],
-    }),
+export const usersToWorkspacesRelations = relations(usersToWorkspaces, ({ one }) => ({
+  user: one(users, {
+    fields: [usersToWorkspaces.userId],
+    references: [users.id],
   }),
-);
+  workspace: one(workspaces, {
+    fields: [usersToWorkspaces.workspaceId],
+    references: [workspaces.id],
+  }),
+}));

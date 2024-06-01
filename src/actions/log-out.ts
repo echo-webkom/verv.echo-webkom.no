@@ -1,9 +1,10 @@
 "use server";
 
-import { auth } from "@/server/auth";
-import { lucia } from "@/server/auth/lucia";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { auth } from "@/server/auth";
+import { lucia } from "@/server/auth/lucia";
 
 export const logout = async () => {
   const { session } = await auth();
@@ -18,11 +19,7 @@ export const logout = async () => {
 
   const sessionCookie = lucia.createBlankSessionCookie();
 
-  cookies().set(
-    sessionCookie.name,
-    sessionCookie.value,
-    sessionCookie.attributes,
-  );
+  cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
   return redirect("/");
 };

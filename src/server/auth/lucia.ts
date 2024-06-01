@@ -1,8 +1,9 @@
-import { Lucia } from "lucia";
-import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
-import { db } from "../db/drizzle";
-import { User, sessions, users } from "../db/schemas";
 import { attachReactRefresh } from "next/dist/build/webpack-config";
+import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
+import { Lucia } from "lucia";
+
+import { db } from "../db/drizzle";
+import { sessions, User, users } from "../db/schemas";
 
 const adapter = new DrizzleSQLiteAdapter(db, sessions, users);
 

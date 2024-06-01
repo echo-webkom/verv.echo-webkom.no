@@ -56,12 +56,8 @@
           "name": "form_workspace_id_workspace_id_fk",
           "tableFrom": "form",
           "tableTo": "workspace",
-          "columnsFrom": [
-            "workspace_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["workspace_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -100,12 +96,8 @@
           "name": "session_user_id_user_feide_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "feide_id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["feide_id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -137,12 +129,8 @@
           "name": "user_to_workspace_user_id_user_feide_id_fk",
           "tableFrom": "user_to_workspace",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "feide_id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["feide_id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -150,12 +138,8 @@
           "name": "user_to_workspace_workspace_id_workspace_id_fk",
           "tableFrom": "user_to_workspace",
           "tableTo": "workspace",
-          "columnsFrom": [
-            "workspace_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["workspace_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -191,9 +175,7 @@
       "indexes": {
         "feide_idx": {
           "name": "feide_idx",
-          "columns": [
-            "feide_id"
-          ],
+          "columns": ["feide_id"],
           "isUnique": true
         }
       },

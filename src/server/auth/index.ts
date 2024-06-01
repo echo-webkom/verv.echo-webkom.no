@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { cache } from "react";
+import { cookies } from "next/headers";
 
 import { lucia } from "./lucia";
 
@@ -34,19 +34,11 @@ export const auth = cache(async () => {
   try {
     if (result.session && result.session.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     }
     if (!result.session) {
       const sessionCookie = lucia.createBlankSessionCookie();
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes,
-      );
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     }
   } catch {}
 

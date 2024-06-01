@@ -1,5 +1,5 @@
-import { OAuth2Client } from "oslo/oauth2";
 import type { OAuth2Provider } from "arctic";
+import { OAuth2Client } from "oslo/oauth2";
 
 const authorizeEndpoint = "https://auth.dataporten.no/oauth/authorization";
 const tokenEndpoint = "https://auth.dataporten.no/oauth/token";
@@ -77,25 +77,18 @@ type FeideUser = {
   audience: string;
 };
 
-export const feide = new Feide(
-  process.env.FEIDE_CLIENT_ID!,
-  process.env.FEIDE_CLIENT_SECRET!,
-  {
-    redirectURI: process.env.FEIDE_REDIRECT_URI,
-  },
-);
+export const feide = new Feide(process.env.FEIDE_CLIENT_ID!, process.env.FEIDE_CLIENT_SECRET!, {
+  redirectURI: process.env.FEIDE_REDIRECT_URI,
+});
 
 export async function getFeideUser(
   accessToken: string,
 ): Promise<{ id: string; email: string; name: string }> {
-  const feideUser: FeideUser = await fetch(
-    "https://auth.dataporten.no/userinfo",
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+  const feideUser: FeideUser = await fetch("https://auth.dataporten.no/userinfo", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
     },
-  ).then((r) => r.json());
+  }).then((r) => r.json());
 
   return {
     id: feideUser.user.userid,

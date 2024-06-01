@@ -4,10 +4,7 @@ import { logout } from "@/actions/log-out";
 
 export const LogOutButton = () => {
   return (
-    <button
-      className="text-blue-500 hover:underline text-left w-fit"
-      onClick={() => logout()}
-    >
+    <button className="w-fit text-left text-blue-500 hover:underline" onClick={() => logout()}>
       Logg ut
     </button>
   );

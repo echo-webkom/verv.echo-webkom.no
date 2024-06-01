@@ -16,9 +16,14 @@ export const Header = async () => {
         </div>
 
         <div>
-          <ul>
+          <ul className="flex items-center gap-4">
             {user ? (
               <>
+                <li>
+                  <Link className="text-blue-500 hover:underline" href="/profil">
+                    Profil
+                  </Link>
+                </li>
                 <li>
                   <LogOutButton />
                 </li>

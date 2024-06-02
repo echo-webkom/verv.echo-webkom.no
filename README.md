@@ -1,31 +1,33 @@
-# verv.echo-webkom.no
+# verv.echo.uib.no
 
-Webkom sin nettside laget for å verve nye studenter til undergruppene i echo.
+## Prerequisites
 
-## Utvikling
+- [Node.js](https://nodejs.org/en/)
+- [PNPM](https://pnpm.io/)
+- [Turso CLI](https://docs.turso.tech/cli/introduction)
 
-### Klon repoet
+## Installation
 
-```sh
-git clone git@github.com:echo-webkom/verv.echo-webkom.no
+```bash
+pnpm install
 ```
 
-### Installer avhengigheter
+## Development
 
-```sh
-cd verv.echo-webkom.no
+Start the database server:
+
+```bash
+turso dev --db-file dev.db
 ```
 
-```sh
-pnpm i
+Run the migrations:
+
+```bash
+pnpm db:migrate
 ```
 
-### Kjør utviklingsmiljøet
+Start the development server:
 
-```sh
+```bash
 pnpm dev
 ```
-
-## Hjelp?
-
-Send melding til Ole Magnus om du trenger hjelp. 😄

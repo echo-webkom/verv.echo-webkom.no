@@ -17,11 +17,11 @@ export const GroupsPreview = async () => {
           ))}
         </tbody>
       </table>
-     
+
       <ul>
         {result.length > 0 ? (
           result.map((workspace) => (
-            <div>
+            <div key={workspace.id}>
               <li key={workspace.id}>{workspace.name} {workspace.description}</li>
             </div>
           ))

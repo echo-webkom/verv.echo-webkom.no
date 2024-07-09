@@ -19,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="no">
-      <body className={cn("text-foreground antialiased", inter.className)}>
+      <body
+        className={cn(
+          "flex h-full min-h-screen flex-col text-foreground antialiased",
+          inter.className,
+        )}
+      >
         {children}
         <Toaster />
       </body>

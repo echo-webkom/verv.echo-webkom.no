@@ -6,9 +6,9 @@ type AppLayoutProps = {
 
 export default async function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div>
+    <>
       <Header />
       {children}
-    </div>
+    </>
   );
 }

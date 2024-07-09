@@ -3,10 +3,10 @@ import { Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { db } from "@/server/db/drizzle";
-import { requireAuth } from "@/server/lib/require";
+import { ensureAuth } from "@/server/lib/ensure";
 
 export default async function Dashboard() {
-  const { user } = await requireAuth();
+  const { user } = await ensureAuth();
 
   const workspaces = await db.query.usersToWorkspaces
     .findMany({
@@ -18,17 +18,14 @@ export default async function Dashboard() {
     .then((rows) => rows.map((row) => row.workspace));
 
   return (
-    <div className="container mx-auto">
-      <div>
-        <h1 className="mb-4 text-2xl font-bold">Dashboard</h1>
-        <p className="mb-4">Velg en av dine arbeidsområder for å fortsette.</p>
-      </div>
+    <div className="container max-w-screen-sm p-8">
+      <h1 className="mb-8 text-3xl font-semibold">Arbeidsområder</h1>
 
-      <div className="p-8">
+      <div>
         {workspaces.map((workspace) => (
           <Link key={workspace.id} href={`/workspaces/${workspace.id}`}>
-            <div className="mb-4 rounded bg-gray-100 p-4">
-              <h2 className="mb-2 text-lg font-bold">{workspace.name}</h2>
+            <div className="group mb-4 rounded-lg border-2 bg-gray-100 p-4">
+              <h2 className="mb-2 text-lg font-bold group-hover:underline">{workspace.name}</h2>
               <p>{workspace.description}</p>
             </div>
           </Link>

@@ -29,6 +29,7 @@
     "arctic": "1.9.0",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
+    "date-fns": "^3.6.0",
     "drizzle-orm": "0.31.0",
     "framer-motion": "11.2.14",
     "lucia": "3.2.0",

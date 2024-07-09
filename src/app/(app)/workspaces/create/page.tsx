@@ -1,8 +1,8 @@
-import { requireAuth } from "@/server/lib/require";
+import { ensureAuth } from "@/server/lib/ensure";
 import { CreateWorkspaceForm } from "./_components/create-workspace-form";
 
 export default async function CreateWorkspace() {
-  await requireAuth();
+  await ensureAuth();
 
   return (
     <div className="container mx-auto max-w-screen-sm">

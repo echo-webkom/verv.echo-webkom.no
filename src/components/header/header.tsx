@@ -11,8 +11,8 @@ export const Header = async () => {
   const isSignedIn = Boolean(user);
 
   return (
-    <div className="mb-10 border-b-2">
-      <header className="container flex items-center justify-between px-4 py-1">
+    <div className="border-b-2">
+      <header className="flex items-center justify-between px-6 py-2">
         <Logo />
 
         <Navigation>

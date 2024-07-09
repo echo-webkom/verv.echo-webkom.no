@@ -17,8 +17,8 @@ export const createWorkspaceAction = authActionClient
 
     await db.insert(workspaces).values({
       id: workspaceId,
-      name,
-      description,
+      name: name.trim(),
+      description: description.trim(),
     });
 
     await db.insert(usersToWorkspaces).values({

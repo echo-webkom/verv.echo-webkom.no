@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import "@mdxeditor/editor/style.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
@@ -20,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="no">
-      <body className={cn("", inter.className)}>
+      <body className={cn("text-foreground antialiased", inter.className)}>
         {children}
         <Toaster />
       </body>

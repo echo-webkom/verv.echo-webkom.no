@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { Button } from "../ui/button";
-
 type HeaderLinkProps = {
   to: string;
   children: React.ReactNode;
@@ -9,8 +7,11 @@ type HeaderLinkProps = {
 
 export const HeaderLink = ({ to, children }: HeaderLinkProps) => {
   return (
-    <Button variant="link" asChild>
-      <Link href={to}>{children}</Link>
-    </Button>
+    <Link
+      className="text-foreground-muted hover:text-foreground-muted-hover font-medium transition-colors hover:underline"
+      href={to}
+    >
+      {children}
+    </Link>
   );
 };

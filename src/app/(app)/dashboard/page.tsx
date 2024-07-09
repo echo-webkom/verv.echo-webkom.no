@@ -26,10 +26,12 @@ export default async function Dashboard() {
 
       <div className="p-8">
         {workspaces.map((workspace) => (
-          <div key={workspace.id} className="mb-4 rounded bg-gray-100 p-4">
-            <h2 className="mb-2 text-lg font-bold">{workspace.name}</h2>
-            <p>{workspace.description}</p>
-          </div>
+          <Link key={workspace.id} href={`/workspaces/${workspace.id}`}>
+            <div className="mb-4 rounded bg-gray-100 p-4">
+              <h2 className="mb-2 text-lg font-bold">{workspace.name}</h2>
+              <p>{workspace.description}</p>
+            </div>
+          </Link>
         ))}
 
         <div>

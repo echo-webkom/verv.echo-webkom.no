@@ -3,9 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 
-import { MarkdownEditor } from "@/components/markdown-editor";
+import { MarkdownEditor } from "@/components/markdown-editor/markdown-editor";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { createWorkspaceAction } from "../_actions/create-workspace";
 import { CreateWorkspaceFormSchema, CreateWorkspaceFormValues } from "../_types/create-workspace";
 

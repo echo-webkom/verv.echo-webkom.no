@@ -2,7 +2,6 @@
 
 import { signInAction } from "@/actions/log-in";
 import { signOutAction } from "@/actions/log-out";
-import { Button } from "../ui/button";
 
 type AuthButtonProps = {
   action: "sign-in" | "sign-out";
@@ -20,8 +19,11 @@ export const AuthButton = ({ action }: AuthButtonProps) => {
   };
 
   return (
-    <Button variant="link" onClick={handleClick}>
+    <button
+      className="text-foreground-muted hover:text-foreground-muted-hover font-medium transition-colors hover:underline"
+      onClick={handleClick}
+    >
       {action === "sign-in" ? "Logg inn" : "Logg ut"}
-    </Button>
+    </button>
   );
 };

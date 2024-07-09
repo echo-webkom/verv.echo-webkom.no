@@ -18,7 +18,7 @@ export const GroupsPreview = async () => {
         </tbody>
       </table>
      
-      {/* <ul>
+      <ul>
         {result.length > 0 ? (
           result.map((workspace) => (
             <div>
@@ -28,7 +28,7 @@ export const GroupsPreview = async () => {
         ) : (
           <li>No workspaces found</li>
         )}
-      </ul> */}
+      </ul>
     </div>
   );
 };

@@ -16,14 +16,14 @@ export const AboutVerv = () => {
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
-  }
+  };
 
   const getDisplayedText = () => {
     if (isExpanded) {
       return text;
     }
-    return text.split(" ").slice(0, 50).join(" ") + '...';
-  }
+    return text.split(" ").slice(0, 50).join(" ") + "...";
+  };
 
   return (
     <div>

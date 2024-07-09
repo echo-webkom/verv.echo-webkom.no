@@ -14,7 +14,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="mx-auto w-1/2">
-        <GroupsPreview />        
+        <GroupsPreview />
       </div>
       {user ? (
         <></>

@@ -1,4 +1,4 @@
-import { requireAuth } from "@/lib/require.server";
+import { requireAuth } from "@/server/lib/require";
 
 export default async function Profile() {
   const { user } = await requireAuth();

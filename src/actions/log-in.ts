@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@/server/auth";
 
-export const login = async () => {
+export const signInAction = async () => {
   const { session } = await auth();
 
   if (session) {

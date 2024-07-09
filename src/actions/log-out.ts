@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/server/auth";
 import { lucia } from "@/server/auth/lucia";
 
-export const logout = async () => {
+export const signOutAction = async () => {
   const { session } = await auth();
 
   if (!session) {

@@ -14,19 +14,30 @@
     "db:start": "turso dev --db-file dev.db"
   },
   "dependencies": {
+    "@hookform/resolvers": "3.9.0",
     "@libsql/client": "0.6.2",
     "@lucia-auth/adapter-drizzle": "1.0.7",
+    "@radix-ui/react-label": "2.1.0",
+    "@radix-ui/react-slot": "1.1.0",
+    "@tanstack/react-query": "5.50.1",
     "arctic": "1.9.0",
+    "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
     "drizzle-orm": "0.31.0",
-    "framer-motion": "^11.2.10",
+    "framer-motion": "11.2.14",
     "lucia": "3.2.0",
+    "lucide-react": "0.407.0",
     "nanoid": "5.0.7",
     "next": "14.2.3",
+    "next-safe-action": "7.1.3",
     "oslo": "1.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "tailwind-merge": "2.3.0"
+    "react-hook-form": "7.52.1",
+    "swr": "2.2.5",
+    "tailwind-merge": "2.3.0",
+    "tailwindcss-animate": "1.0.7",
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@eslint/js": "9.4.0",

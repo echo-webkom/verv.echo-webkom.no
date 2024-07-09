@@ -17,6 +17,9 @@ export const Header = async () => {
 
         <Navigation>
           <NavigationItem show={isSignedIn}>
+            <HeaderLink to="/dashboard">Dashboard</HeaderLink>
+          </NavigationItem>
+          <NavigationItem show={isSignedIn}>
             <HeaderLink to="/profil">Min profil</HeaderLink>
           </NavigationItem>
           <NavigationItem show={isSignedIn}>

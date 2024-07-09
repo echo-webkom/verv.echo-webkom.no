@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import { auth } from "@/server/auth";
+import { LogInButton } from "./log-in-button";
 import { LogOutButton } from "./log-out-button";
 
 export const Header = async () => {
@@ -11,7 +13,7 @@ export const Header = async () => {
       <header className="container flex items-center justify-between p-4">
         <div>
           <Link href="/">
-            <h1 className="text-2xl font-bold">verv</h1>
+            <Image src="/images/echo_liggende_variant.png" alt="Logo" width={180} height={180} />
           </Link>
         </div>
 
@@ -20,7 +22,7 @@ export const Header = async () => {
             {user ? (
               <>
                 <li>
-                  <Link className="text-blue-500 hover:underline" href="/profil">
+                  <Link className="hover:text-blue-500 hover:underline" href="/profil">
                     Profil
                   </Link>
                 </li>
@@ -31,9 +33,7 @@ export const Header = async () => {
             ) : (
               <>
                 <li>
-                  <a href="/auth/feide" className="text-blue-500 hover:underline">
-                    Logg inn
-                  </a>
+                  <LogInButton />
                 </li>
               </>
             )}

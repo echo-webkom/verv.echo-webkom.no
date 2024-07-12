@@ -12,7 +12,7 @@ export default async function CreateWorkspaceForm(props: Props) {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold">Opprett skjema</h1>
+      <h1 className="mb-6 text-3xl font-semibold">Opprett skjema</h1>
 
       <CreateFormForm workspaceId={props.params.id} />
     </div>

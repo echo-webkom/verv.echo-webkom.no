@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 import { sessions, usersToWorkspaces } from ".";
@@ -21,5 +21,5 @@ export const usersRelations = relations(users, ({ many }) => ({
   workspaces: many(usersToWorkspaces),
 }));
 
-export type User = (typeof users)["$inferSelect"];
-export type UserInsert = (typeof users)["$inferInsert"];
+export type User = InferSelectModel<typeof users>;
+export type UserInsert = InferInsertModel<typeof users>;

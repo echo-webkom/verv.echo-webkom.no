@@ -33,14 +33,19 @@ export default async function Workspace(props: Props) {
   const { workspace } = await getData(props);
 
   return (
-    <div className="flex items-center gap-10">
-      <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-gray-100">
-        <h1 className="text-4xl font-medium">{workspace.name[0]}</h1>
+    <main>
+      <div className="flex flex-col gap-10 md:flex-row">
+        <div className="flex-1">
+          <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-gray-100">
+            <h1 className="text-4xl font-medium">{workspace.name[0]}</h1>
+          </div>
+        </div>
+
+        <div>
+          <h1 className="mb-4 text-4xl font-medium">{workspace.name}</h1>
+          <Markdown>{workspace.description}</Markdown>
+        </div>
       </div>
-      <div>
-        <h1 className="mb-4 text-4xl font-medium">{workspace.name}</h1>
-        <Markdown>{workspace.description}</Markdown>
-      </div>
-    </div>
+    </main>
   );
 }

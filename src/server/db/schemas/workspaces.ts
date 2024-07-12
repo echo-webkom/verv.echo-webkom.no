@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { forms, usersToWorkspaces } from ".";
@@ -14,5 +14,5 @@ export const workspacesRelations = relations(workspaces, ({ many }) => ({
   forms: many(forms),
 }));
 
-export type Workspace = (typeof workspaces)["$inferSelect"];
-export type WorkspaceInsert = (typeof workspaces)["$inferInsert"];
+export type Workspace = InferSelectModel<typeof workspaces>;
+export type WorkspaceInsert = InferInsertModel<typeof workspaces>;

@@ -26,11 +26,11 @@ export const AboutVerv = () => {
   };
 
   return (
-    <div>
-      <p>{getDisplayedText()}</p>
+    <div className="p-4 md:pd-8 max-w-screen-md mx-auto">
+      <p className="text-sm md:text-base">{getDisplayedText()}</p>
       <button
         onClick={toggleExpansion}
-        className="mt-2 text-blue-500 hover:underline focus:outline-none"
+        className="mt-2 text-blue-500 hover:underline focus:outline-none text-sm md:text-base"
       >
         {isExpanded ? "Vis mindre" : "Vis mer"}
       </button>

@@ -1,9 +1,7 @@
-import { X } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import { db } from "@/server/db/drizzle";
 import { ensureMember } from "@/server/lib/ensure";
 import { InviteMemberButton } from "./_components/invite-member-button";
+import { RemoveMemberButton } from "./_components/remove-member-button";
 
 type Props = {
   params: {
@@ -11,11 +9,11 @@ type Props = {
   };
 };
 
-export default async function WorkspaceMembers(props: Props) {
-  await ensureMember(props.params.id);
+export default async function WorkspaceMembers({ params }: Props) {
+  await ensureMember(params.id);
 
   const members = await db.query.usersToWorkspaces.findMany({
-    where: (row, { eq }) => eq(row.workspaceId, props.params.id),
+    where: (row, { eq }) => eq(row.workspaceId, params.id),
     with: {
       user: true,
     },
@@ -38,11 +36,7 @@ export default async function WorkspaceMembers(props: Props) {
                 <p className="text-sm text-gray-500">{member.user.email}</p>
               </div>
             </div>
-            <div>
-              <Button variant="ghost" size="icon" className="transition-colors hover:text-red-500">
-                <X size={16} />
-              </Button>
-            </div>
+            <RemoveMemberButton workspaceId={params.id} userId={member.user.id} />
           </li>
         ))}
       </ul>

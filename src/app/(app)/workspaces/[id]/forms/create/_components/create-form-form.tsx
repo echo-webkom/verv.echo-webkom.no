@@ -111,9 +111,10 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
                 className="absolute right-2 top-2 text-red-300 transition-colors hover:text-red-500"
                 onClick={() => remove(index)}
               >
-                <X size={24} />
+                <X size={16} />
               </button>
-              <div>
+
+              <div className="space-y-6">
                 <FormField
                   control={form.control}
                   name={`fields.${index}.title`}

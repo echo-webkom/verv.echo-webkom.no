@@ -35,10 +35,8 @@ export default async function Workspace(props: Props) {
   return (
     <main>
       <div className="flex flex-col gap-10 md:flex-row">
-        <div className="flex-1">
-          <div className="flex h-24 w-24 items-center justify-center rounded-lg bg-gray-100">
-            <h1 className="text-4xl font-medium">{workspace.name[0]}</h1>
-          </div>
+        <div className="flex h-24 w-24 items-center justify-center rounded-lg border bg-gray-100">
+          <h1 className="text-4xl font-medium">{workspace.name[0]}</h1>
         </div>
 
         <div>

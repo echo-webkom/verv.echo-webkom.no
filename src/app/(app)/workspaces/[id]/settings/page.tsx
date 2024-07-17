@@ -1,6 +1,7 @@
 import { MarkdownEditor } from "@/components/markdown-editor/markdown-editor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ensureMember } from "@/server/lib/ensure";
 
 type Props = {
@@ -26,7 +27,7 @@ export default async function WorkspaceSettings(props: Props) {
 
       <div className="flex flex-col gap-2 rounded-lg border-2 p-6">
         <h2 className="text-xl font-semibold">Endre beskrivelse</h2>
-        <MarkdownEditor />
+        <Textarea placeholder="Ny beskrivelse..." />
         <div>
           <Button>Oppdater</Button>
         </div>

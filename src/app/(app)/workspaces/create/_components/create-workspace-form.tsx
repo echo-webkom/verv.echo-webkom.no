@@ -1,10 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 
-import { MarkdownEditor } from "@/components/markdown-editor/markdown-editor";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { createWorkspaceAction } from "../_actions/create-workspace";
 import { CreateWorkspaceFormSchema, CreateWorkspaceFormValues } from "../_types/create-workspace";
 
@@ -31,7 +32,7 @@ export const CreateWorkspaceForm = () => {
   });
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    executeAsync(values);
+    await executeAsync(values);
 
     form.reset();
   });
@@ -61,7 +62,7 @@ export const CreateWorkspaceForm = () => {
             <FormItem>
               <FormLabel>Beskrivelse</FormLabel>
               <FormControl>
-                <MarkdownEditor value={field.value} onChange={field.onChange} />
+                <Textarea {...field} rows={4} />
               </FormControl>
               <FormDescription>
                 Beskrivelse av arbeidsområdet. Dette kan være en kort beskrivelse av hva
@@ -74,6 +75,7 @@ export const CreateWorkspaceForm = () => {
 
         <div>
           <Button type="submit" disabled={isExecuting}>
+            {isExecuting && <Loader className="mr-2 h-4 w-4 animate-spin" />}
             {isExecuting ? "Oppretter arbeidsområde..." : "Opprett arbeidsområde"}
           </Button>
         </div>

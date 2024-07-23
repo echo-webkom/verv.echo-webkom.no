@@ -3,6 +3,7 @@ import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { workspaces } from ".";
 import { now } from "../utils";
+import { fields } from "./fields";
 
 export const forms = sqliteTable("form", {
   id: text("id").notNull().primaryKey(),
@@ -15,11 +16,12 @@ export const forms = sqliteTable("form", {
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(now),
 });
 
-export const formsRelations = relations(forms, ({ one }) => ({
+export const formsRelations = relations(forms, ({ one, many }) => ({
   workspace: one(workspaces, {
     fields: [forms.workspaceId],
     references: [workspaces.id],
   }),
+  fields: many(fields),
 }));
 
 export type Form = InferSelectModel<typeof forms>;

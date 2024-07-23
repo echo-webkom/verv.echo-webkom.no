@@ -1,3 +1,4 @@
+import { Header } from "@/components/header/header";
 import { ensureMember } from "@/server/lib/ensure";
 import { Sidebar } from "./_components/sidebar";
 
@@ -15,7 +16,12 @@ export default async function WorkspaceLayout({ children, params }: Props) {
   return (
     <div className="flex flex-1">
       <Sidebar workspaceId={id} />
-      <div className="max-w-screen-lg flex-1 p-6">{children}</div>
+      <div className="flex h-screen w-full flex-col">
+        <Header hideLogo />
+        <div className="flex flex-1 overflow-y-scroll">
+          <div className="scroll w-full max-w-screen-lg p-6">{children}</div>
+        </div>
+      </div>
     </div>
   );
 }

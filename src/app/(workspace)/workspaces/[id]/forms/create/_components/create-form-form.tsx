@@ -1,8 +1,11 @@
 "use client";
 
+import { exec } from "child_process";
 import { addMonths } from "date-fns";
-import { X } from "lucide-react";
+import { Loader, X } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -18,6 +21,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { createFormAction } from "../_actions/create-form";
 import { CreateFormSchemaValues } from "../_types/create-form";
 
 type CreateFormFormProps = {
@@ -25,6 +29,7 @@ type CreateFormFormProps = {
 };
 
 export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
+  const { executeAsync, isExecuting } = useAction(createFormAction);
   const form = useForm<CreateFormSchemaValues>({
     defaultValues: {
       title: "",
@@ -41,15 +46,39 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
 
   const handleAddField = () => {
     append({
-      title: "Spørsmål",
+      title: `Spørsmål ${fields.length + 1}`,
       type: "text",
       description: "",
       required: false,
     });
   };
 
-  const handleSubmit = form.handleSubmit((data) => {
-    console.log(data);
+  const handleRemoveField = (index: number) => {
+    remove(index);
+  };
+
+  const handleSubmit = form.handleSubmit(async (data) => {
+    const result = await executeAsync({
+      workspaceId,
+      title: data.title,
+      description: data.description,
+      expiresAt: new Date(data.expiresAt),
+      fields: data.fields.map((field, i) => ({
+        index: i,
+        title: field.title,
+        description: field.description,
+        type: field.type,
+        options: [],
+        required: field.required,
+      })),
+    });
+
+    if (result?.data?.ok) {
+      toast.success("Skjema opprettet");
+      form.reset();
+    } else {
+      toast.error(result?.data?.message);
+    }
   });
 
   return (
@@ -100,16 +129,16 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
           )}
         />
 
-        {fields.map((_field, index) => {
+        {fields.map((field, index) => {
           const type = form.watch(`fields.${index}.type`);
           const showAlternativesField = ["checkbox", "radio", "select"].includes(type);
 
           return (
-            <div className="relative rounded-lg border-2 p-4" key={index}>
+            <div className="relative rounded-lg border-2 p-4" key={field.id}>
               <button
                 type="button"
                 className="absolute right-2 top-2 text-red-300 transition-colors hover:text-red-500"
-                onClick={() => remove(index)}
+                onClick={() => handleRemoveField(index)}
               >
                 <X size={16} />
               </button>
@@ -199,8 +228,12 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
                     <FormItem>
                       <FormControl>
                         <div className="flex items-center gap-4 p-4">
-                          <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                          <FormLabel>Påkrev</FormLabel>
+                          <Checkbox
+                            id="required"
+                            checked={field.value}
+                            onCheckedChange={field.onChange}
+                          />
+                          <FormLabel htmlFor="required">Påkrev</FormLabel>
                         </div>
                       </FormControl>
                       <FormDescription>
@@ -221,8 +254,11 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
           </Button>
         </div>
 
-        <div>
-          <Button type="submit">Opprett skjema</Button>
+        <div className="flex w-full justify-end border-t border-gray-200 py-4">
+          <Button type="submit" disabled={isExecuting}>
+            {isExecuting && <Loader className="mr-2 h-4 w-4 animate-spin" />}
+            {isExecuting ? "Oppretter skjema..." : "Opprett skjema"}
+          </Button>
         </div>
       </form>
     </Form>

@@ -1,31 +1,33 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Cog, Home, List, Users2 } from "lucide-react";
 
+import echoLogo from "@/assets/images/echo-logo.png";
 import { cn } from "@/lib/cn";
 
-const items = [
+const createSidebarItems = (workspaceId: string) => [
   {
     name: "Generelt",
-    to: "/workspaces/{{workspace.id}}",
+    to: `/workspaces/${workspaceId}`,
     icon: <Home className="h-4 w-4" />,
   },
   {
     name: "Skjemaer",
-    to: "/workspaces/{{workspace.id}}/forms",
+    to: `/workspaces/${workspaceId}/forms`,
     icon: <List className="h-4 w-4" />,
   },
   {
     name: "Medlemmer",
-    to: "/workspaces/{{workspace.id}}/members",
+    to: `/workspaces/${workspaceId}/members`,
     icon: <Users2 className="h-4 w-4" />,
   },
   {
     name: "Innstillinger",
-    to: "/workspaces/{{workspace.id}}/settings",
+    to: `/workspaces/${workspaceId}/settings`,
     icon: <Cog className="h-4 w-4" />,
   },
 ];
@@ -37,9 +39,11 @@ type SidebarProps = {
 export const Sidebar = ({ workspaceId }: SidebarProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  const items = createSidebarItems(workspaceId);
+
   return (
     <motion.div
-      className="flex w-full max-w-[270px] flex-col border-r-2"
+      className="z-10 flex w-full max-w-[270px] flex-col border-r-2"
       initial={{ width: 270, paddingTop: 24, paddingBottom: 24, paddingLeft: 24, paddingRight: 24 }}
       animate={{
         width: isCollapsed ? 70 : 270,
@@ -47,7 +51,7 @@ export const Sidebar = ({ workspaceId }: SidebarProps) => {
         paddingRight: isCollapsed ? 12 : 24,
       }}
     >
-      <ul className="space-y-2">
+      <ul className="mt-12 space-y-2">
         {items.map((item) => (
           <li key={item.to}>
             <Link

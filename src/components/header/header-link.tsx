@@ -8,7 +8,7 @@ type HeaderLinkProps = {
 export const HeaderLink = ({ to, children }: HeaderLinkProps) => {
   return (
     <Link
-      className="text-foreground-muted hover:text-foreground-muted-hover font-medium transition-colors hover:underline"
+      className="px-2 py-2 font-medium text-foreground-muted transition-colors hover:text-foreground-muted-hover hover:underline"
       href={to}
     >
       {children}

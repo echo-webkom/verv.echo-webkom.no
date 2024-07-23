@@ -20,7 +20,7 @@ export const AuthButton = ({ action }: AuthButtonProps) => {
 
   return (
     <button
-      className="text-foreground-muted hover:text-foreground-muted-hover font-medium transition-colors hover:underline"
+      className="font-medium text-foreground-muted transition-colors hover:text-foreground-muted-hover hover:underline"
       onClick={handleClick}
     >
       {action === "sign-in" ? "Logg inn" : "Logg ut"}

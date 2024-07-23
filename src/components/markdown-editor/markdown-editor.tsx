@@ -48,7 +48,7 @@ export const MarkdownEditor = ({ value, onChange }: MarkdownEditorProps) => {
       </div>
 
       <EditorContent
-        className="prose-sm prose-p:my-0 list-disc bg-background p-2"
+        className="prose-sm list-disc bg-background p-2 prose-p:my-0"
         editor={editor}
       />
     </div>

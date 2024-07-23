@@ -11,7 +11,7 @@ export default async function CreateWorkspaceForm(props: Props) {
   await ensureMember(props.params.id);
 
   return (
-    <div>
+    <div className="pb-32">
       <h1 className="mb-6 text-3xl font-semibold">Opprett skjema</h1>
 
       <CreateFormForm workspaceId={props.params.id} />

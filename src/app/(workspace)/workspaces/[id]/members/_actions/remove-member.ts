@@ -6,7 +6,7 @@ import { z } from "zod";
 import { db } from "@/server/db/drizzle";
 import { usersToWorkspaces } from "@/server/db/schemas";
 import { authActionClient } from "@/server/lib/actions";
-import { isMemberOfWorksapce } from "@/server/lib/is-member";
+import { isMemberOfWorkspace } from "@/server/lib/is-member";
 
 const RemoveMemberActionSchema = z.object({
   userId: z.string(),
@@ -25,7 +25,7 @@ export const removeMemberAction = authActionClient
       };
     }
 
-    const userIsMember = await isMemberOfWorksapce(ctx.auth.user.id, parsedInput.workspaceId);
+    const userIsMember = await isMemberOfWorkspace(ctx.auth.user.id, parsedInput.workspaceId);
 
     if (!userIsMember) {
       return {
@@ -34,7 +34,7 @@ export const removeMemberAction = authActionClient
       };
     }
 
-    const isMember = await isMemberOfWorksapce(userId, parsedInput.workspaceId);
+    const isMember = await isMemberOfWorkspace(userId, parsedInput.workspaceId);
 
     if (!isMember) {
       return {

@@ -1,39 +1,27 @@
-import { auth } from "@/server/auth";
-import { AuthButton } from "./auth-button";
-import { HeaderLink } from "./header-link";
+import { DesktopNavigation } from "./desktop/desktop-navigation";
 import { Logo } from "./logo";
-import { Navigation } from "./navigation";
-import { NavigationItem } from "./navigation-item";
+import { MobileNavigation } from "./mobile/mobile-navigation";
 
 type HeaderProps = {
   hideLogo?: boolean;
 };
 
 export const Header = async ({ hideLogo }: HeaderProps) => {
-  const { user } = await auth();
-
-  const isSignedIn = Boolean(user);
-
   return (
-    <div className="border-b-2">
-      <header className="flex min-h-16 w-full items-center px-6 py-4">
-        {!hideLogo && <Logo />}
+    <div className="p-4">
+      <div className="rounded-2xl border-2">
+        <header className="flex min-h-16 w-full items-center px-6 py-4">
+          {!hideLogo && <Logo />}
 
-        <Navigation>
-          <NavigationItem show={isSignedIn}>
-            <HeaderLink to="/dashboard">Dashboard</HeaderLink>
-          </NavigationItem>
-          <NavigationItem show={isSignedIn}>
-            <HeaderLink to="/profil">Min profil</HeaderLink>
-          </NavigationItem>
-          <NavigationItem show={isSignedIn}>
-            <AuthButton action="sign-out" />
-          </NavigationItem>
-          <NavigationItem show={!isSignedIn}>
-            <AuthButton action="sign-in" />
-          </NavigationItem>
-        </Navigation>
-      </header>
+          <div className="hidden flex-1 md:flex">
+            <DesktopNavigation />
+          </div>
+
+          <div className="flex flex-1 items-center justify-end gap-4 md:hidden">
+            <MobileNavigation />
+          </div>
+        </header>
+      </div>
     </div>
   );
 };

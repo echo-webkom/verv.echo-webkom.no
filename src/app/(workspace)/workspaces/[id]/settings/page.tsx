@@ -23,7 +23,7 @@ export default async function WorkspaceSettings(props: Props) {
   }
 
   return (
-    <div className="flex w-full max-w-screen-lg flex-col gap-8">
+    <div className="flex flex-col gap-8">
       <h1 className="text-3xl font-semibold">Innstillinger</h1>
 
       <ChangeNameField workspaceId={workspace.id} initialName={workspace.name} />

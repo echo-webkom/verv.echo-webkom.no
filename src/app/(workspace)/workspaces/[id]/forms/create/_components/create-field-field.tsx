@@ -11,8 +11,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/cn";
 import { CreateFormSchemaValues } from "../_types/create-form";
 import { FieldContextProvider } from "./field-context";
+import { QuestionAlternativesField } from "./question-alternatives-field";
 import { QuestionDescriptionField } from "./question-description-field";
 import { QuestionRequiredField } from "./question-required-field";
 import { QuestionTitleField } from "./question-title-field";
@@ -39,7 +41,10 @@ export const CreateFieldField = ({ index, onRemove }: CreateFieldFieldProps) => 
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
           >
-            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+            <ChevronUp
+              size={16}
+              className={cn("transition-transform", { "rotate-180": !isExpanded })}
+            />
           </button>
           <button
             className="text-red-300 transition-colors hover:text-red-500"
@@ -68,25 +73,7 @@ export const CreateFieldField = ({ index, onRemove }: CreateFieldFieldProps) => 
 
             <QuestionTypeField />
 
-            {showAlternativesField && (
-              <FormField
-                control={form.control}
-                name={`fields.${index}.options`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Alternativer</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Alternativer..." {...field} className="h-24" />
-                    </FormControl>
-                    <FormDescription>
-                      Alternativer som skal vises for spørsmålet. Skriv hvert alternativ på en ny
-                      linje.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+            {showAlternativesField && <QuestionAlternativesField />}
 
             <QuestionRequiredField />
           </div>

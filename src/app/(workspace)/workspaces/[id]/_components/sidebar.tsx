@@ -55,9 +55,9 @@ export const Sidebar = ({ workspaceId }: SidebarProps) => {
         {items.map((item) => (
           <li key={item.to}>
             <Link
-              href={item.to.replace("{{workspace.id}}", workspaceId)}
+              href={item.to}
               className={cn(
-                "flex items-center gap-2 rounded-lg px-6 py-2 font-medium text-foreground-muted transition-colors hover:bg-gray-100 hover:text-foreground-muted-hover",
+                "flex items-center gap-2 rounded-lg px-3 py-2 font-medium text-foreground-muted transition-colors hover:bg-gray-100 hover:text-foreground-muted-hover",
                 {
                   "mx-auto h-10 w-10 justify-center p-0": isCollapsed,
                 },

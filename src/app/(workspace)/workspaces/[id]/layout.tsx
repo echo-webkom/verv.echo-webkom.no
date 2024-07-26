@@ -18,8 +18,8 @@ export default async function WorkspaceLayout({ children, params }: Props) {
       <Sidebar workspaceId={id} />
       <div className="flex h-screen w-full flex-col">
         <Header hideLogo />
-        <div className="flex flex-1 overflow-y-scroll">
-          <div className="scroll w-full max-w-screen-lg p-6">{children}</div>
+        <div className="flex flex-1 overflow-y-auto">
+          <div className="scroll m-6 w-full max-w-screen-lg">{children}</div>
         </div>
       </div>
     </div>

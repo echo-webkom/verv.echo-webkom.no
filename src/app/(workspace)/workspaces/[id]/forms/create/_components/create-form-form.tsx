@@ -31,13 +31,16 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields,
+    append: appendField,
+    remove: removeField,
+  } = useFieldArray({
     control: form.control,
     name: "fields",
   });
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log(data);
     const result = await executeAsync({
       workspaceId,
       title: data.title,
@@ -48,7 +51,7 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
         title: field.title,
         description: field.description,
         type: field.type,
-        options: [],
+        options: "options" in field ? field.options : [],
         required: field.required,
       })),
     });
@@ -62,7 +65,7 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
   });
 
   const handleAddField = () => {
-    append({
+    appendField({
       title: `Spørsmål ${fields.length + 1}`,
       type: "text",
       description: "",
@@ -71,7 +74,7 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
   };
 
   const handleRemoveField = (index: number) => {
-    remove(index);
+    removeField(index);
   };
 
   return (

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { is } from "drizzle-orm";
 import { Loader } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 
@@ -28,16 +27,7 @@ export const ChangeNameField = ({ workspaceId, initialName }: ChangeNameFieldPro
   return (
     <div className="flex flex-col gap-2 rounded-lg border-2 p-6">
       <h2 className="text-xl font-semibold">Endre navn</h2>
-      <Input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Nytt navn..."
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSubmit();
-          }
-        }}
-      />
+      <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Nytt navn..." />
       <div>
         <Button disabled={isExecuting} onClick={handleSubmit}>
           {isExecuting && <Loader className="mr-2 h-4 w-4 animate-spin" />}

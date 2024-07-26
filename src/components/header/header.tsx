@@ -8,20 +8,18 @@ type HeaderProps = {
 
 export const Header = async ({ hideLogo }: HeaderProps) => {
   return (
-    <div className="p-4">
-      <div className="rounded-2xl border-2">
-        <header className="flex min-h-16 w-full items-center px-6 py-4">
-          {!hideLogo && <Logo />}
+    <div className="m-4 rounded-2xl border-2 bg-transparent">
+      <header className="flex min-h-16 w-full items-center px-6 py-4">
+        {!hideLogo && <Logo />}
 
-          <div className="hidden flex-1 md:flex">
-            <DesktopNavigation />
-          </div>
+        <div className="hidden flex-1 md:flex">
+          <DesktopNavigation />
+        </div>
 
-          <div className="flex flex-1 items-center justify-end gap-4 md:hidden">
-            <MobileNavigation />
-          </div>
-        </header>
-      </div>
+        <div className="flex flex-1 items-center justify-end gap-4 md:hidden">
+          <MobileNavigation />
+        </div>
+      </header>
     </div>
   );
 };

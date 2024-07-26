@@ -34,11 +34,6 @@ export const ChangeDescriptionField = ({
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Ny beskrivelse..."
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSubmit();
-          }
-        }}
       />
       <div>
         <Button disabled={isExecuting} onClick={handleSubmit}>

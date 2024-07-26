@@ -16,7 +16,6 @@ const CreateFormSchema = z.object({
   expiresAt: z.date(),
   fields: z.array(
     z.object({
-      index: z.number(),
       title: z.string(),
       description: z.string(),
       type: z.enum(fieldTypes),
@@ -52,16 +51,20 @@ export const createFormAction = authActionClient
     if (fields.length > 0) {
       await db.insert(fieldsTable).values(
         // Ugly hack to get the correct type, or else build fails
-        fields.map((field: z.infer<typeof CreateFormSchema>["fields"][number]) => ({
-          id: nanoid(),
-          formId,
-          index: field.index,
-          title: field.title,
-          description: field.description,
-          type: field.type,
-          options: field.options,
-          required: field.required,
-        })),
+        fields.map((field: z.infer<typeof CreateFormSchema>["fields"][number], index) => {
+          const sanitizedOptions = field.options.filter((option) => option !== "");
+
+          return {
+            id: nanoid(),
+            formId,
+            index,
+            title: field.title,
+            description: field.description,
+            type: field.type,
+            options: sanitizedOptions,
+            required: field.required,
+          };
+        }),
       );
     }
 

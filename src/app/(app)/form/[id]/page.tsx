@@ -59,6 +59,8 @@ export default async function Form({ params }: Props) {
 }
 
 const FieldRenderer = ({ field }: { field: Field }) => {
+  const options = field.options ?? [];
+
   return (
     <div className="flex flex-col gap-2">
       <h2 className="text-xl font-semibold">{field.title}</h2>
@@ -78,7 +80,7 @@ const FieldRenderer = ({ field }: { field: Field }) => {
 
       {field.type === "checkbox" && (
         <div>
-          {field.options?.map((option) => (
+          {options.map((option) => (
             <div key={option}>
               <Input type="checkbox" value={option} />
               <label htmlFor={option}>{option}</label>
@@ -88,10 +90,10 @@ const FieldRenderer = ({ field }: { field: Field }) => {
       )}
 
       {field.type === "radio" && (
-        <div>
-          {field.options?.map((option) => (
-            <div key={option}>
-              <Input type="radio" value={option} />
+        <div className="flex flex-col gap-2">
+          {options.map((option) => (
+            <div className="flex items-center gap-3" key={option}>
+              <input type="radio" value={option} id={option} name={field.id} />
               <label htmlFor={option}>{option}</label>
             </div>
           ))}
@@ -100,7 +102,11 @@ const FieldRenderer = ({ field }: { field: Field }) => {
 
       {field.type === "select" && (
         <div>
-          <select>{field.options?.map((option) => <option key={option}>{option}</option>)}</select>
+          <select>
+            {options.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
         </div>
       )}
     </div>

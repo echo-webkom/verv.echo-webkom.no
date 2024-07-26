@@ -1,5 +1,5 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm";
-import { blob, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { forms } from "./forms";
 
@@ -16,7 +16,7 @@ export const fields = sqliteTable("field", {
   title: text("title").notNull(),
   description: text("description"),
   type: text("type", { enum: fieldTypes }).notNull(),
-  options: blob("options").$type<Array<string>>(),
+  options: text("options", { mode: "json" }).$type<Array<string>>(),
   required: integer("required", { mode: "boolean" }).notNull(),
 });
 

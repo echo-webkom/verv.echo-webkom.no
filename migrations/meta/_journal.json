@@ -1,26 +1,12 @@
 {
-  "version": "6",
+  "version": "7",
   "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
       "version": "6",
-      "when": 1715794069499,
-      "tag": "0000_organic_bloodstorm",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1721759035397,
-      "tag": "0001_charming_echo",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1721759337906,
-      "tag": "0002_futuristic_sentinel",
+      "when": 1722032619389,
+      "tag": "0000_supreme_ozymandias",
       "breakpoints": true
     }
   ]

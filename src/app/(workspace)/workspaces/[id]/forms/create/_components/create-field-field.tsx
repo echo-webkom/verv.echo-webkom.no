@@ -1,4 +1,5 @@
-import { X } from "lucide-react";
+import { useState } from "react";
+import { ChevronDown, ChevronUp, X } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 
 import {
@@ -24,6 +25,7 @@ type CreateFieldFieldProps = {
 
 export const CreateFieldField = ({ index, onRemove }: CreateFieldFieldProps) => {
   const form = useFormContext<CreateFormSchemaValues>();
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const type = form.watch(`fields.${index}.type`);
   const showAlternativesField = ["checkbox", "radio", "select"].includes(type);
@@ -31,43 +33,64 @@ export const CreateFieldField = ({ index, onRemove }: CreateFieldFieldProps) => 
   return (
     <FieldContextProvider value={{ index }}>
       <div className="relative rounded-lg border-2 p-4">
-        <button
-          type="button"
-          className="absolute right-2 top-2 text-red-300 transition-colors hover:text-red-500"
-          onClick={() => onRemove?.(index)}
-        >
-          <X size={16} />
-        </button>
-
-        <div className="space-y-6">
-          <QuestionTitleField />
-
-          <QuestionDescriptionField />
-
-          <QuestionTypeField />
-
-          {showAlternativesField && (
-            <FormField
-              control={form.control}
-              name={`fields.${index}.options`}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Alternativer</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="Alternativer..." {...field} className="h-24" />
-                  </FormControl>
-                  <FormDescription>
-                    Alternativer som skal vises for spørsmålet. Skriv hvert alternativ på en ny
-                    linje.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
-
-          <QuestionRequiredField />
+        <div className="absolute right-2 top-2 flex items-center gap-2">
+          <button
+            className="text-blue-300 transition-colors hover:text-blue-500"
+            type="button"
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+          </button>
+          <button
+            className="text-red-300 transition-colors hover:text-red-500"
+            type="button"
+            onClick={() => onRemove?.(index)}
+          >
+            <X size={16} />
+          </button>
         </div>
+
+        {!isExpanded && (
+          <button
+            type="button"
+            className="text-sm text-muted-foreground hover:underline"
+            onClick={() => setIsExpanded(true)}
+          >
+            {form.watch(`fields.${index}.title`)}
+          </button>
+        )}
+
+        {isExpanded && (
+          <div className="space-y-6">
+            <QuestionTitleField />
+
+            <QuestionDescriptionField />
+
+            <QuestionTypeField />
+
+            {showAlternativesField && (
+              <FormField
+                control={form.control}
+                name={`fields.${index}.options`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Alternativer</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="Alternativer..." {...field} className="h-24" />
+                    </FormControl>
+                    <FormDescription>
+                      Alternativer som skal vises for spørsmålet. Skriv hvert alternativ på en ny
+                      linje.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            <QuestionRequiredField />
+          </div>
+        )}
       </div>
     </FieldContextProvider>
   );

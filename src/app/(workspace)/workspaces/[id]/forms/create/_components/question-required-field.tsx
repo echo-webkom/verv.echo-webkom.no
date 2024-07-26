@@ -23,9 +23,11 @@ export const QuestionRequiredField = () => {
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <div className="flex items-center gap-4 p-4">
+            <div className="flex items-center gap-4 rounded-lg border-2 p-4">
               <Checkbox id="required" checked={field.value} onCheckedChange={field.onChange} />
-              <FormLabel htmlFor="required">Påkrev</FormLabel>
+              <FormLabel htmlFor="required" className="w-full">
+                Påkrev
+              </FormLabel>
             </div>
           </FormControl>
           <FormDescription>Om spørsmålet er påkrevd for å sende inn skjemaet.</FormDescription>

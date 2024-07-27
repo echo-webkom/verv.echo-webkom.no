@@ -2,6 +2,7 @@ import { cache } from "react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { db } from "@/server/db/drizzle";
@@ -45,14 +46,24 @@ export default async function Form({ params }: Props) {
   const { form } = await getData({ params });
 
   return (
-    <div className="container flex flex-col gap-6">
+    <div className="container flex max-w-[1000px] flex-col gap-6 py-12">
       <h1 className="text-3xl font-semibold">{form.title}</h1>
-      <p>{form.description}</p>
+      <div className="text-lg text-muted-foreground">
+        {form.description?.split("\n").map((line, i) => (
+          <p className="py-2" key={i}>
+            {line}
+          </p>
+        ))}
+      </div>
 
-      <div className="bg-gray-100 p-8">
+      <div className="flex flex-col gap-14 rounded-lg border-2 border-gray-200 bg-gray-100 p-8">
         {form.fields.map((field) => (
           <FieldRenderer key={field.id} field={field} />
         ))}
+
+        <div className="flex w-full justify-end border-t border-gray-200 py-4">
+          <Button type="submit">Send inn</Button>
+        </div>
       </div>
     </div>
   );
@@ -63,8 +74,7 @@ const FieldRenderer = ({ field }: { field: Field }) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-xl font-semibold">{field.title}</h2>
-      <p>{field.description}</p>
+      <h2 className="text-lg font-medium">{field.title}</h2>
 
       {field.type === "text" && (
         <div>
@@ -109,6 +119,7 @@ const FieldRenderer = ({ field }: { field: Field }) => {
           </select>
         </div>
       )}
+      <p className="text-sm text-muted-foreground">{field.description}</p>
     </div>
   );
 };

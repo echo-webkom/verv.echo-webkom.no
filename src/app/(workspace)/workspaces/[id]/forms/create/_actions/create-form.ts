@@ -51,7 +51,7 @@ export const createFormAction = authActionClient
     if (fields.length > 0) {
       await db.insert(fieldsTable).values(
         // Ugly hack to get the correct type, or else build fails
-        fields.map((field: z.infer<typeof CreateFormSchema>["fields"][number], index) => {
+        fields.map((field: z.infer<typeof CreateFormSchema>["fields"][number], index: number) => {
           const sanitizedOptions = field.options.filter((option) => option !== "");
 
           return {

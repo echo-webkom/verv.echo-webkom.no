@@ -25,7 +25,6 @@ export const GET = async (req: NextRequest) => {
 
     const feideUser = await getFeideUser(tokens.accessToken);
 
-    // Replace this with your own DB client.
     const existingUser = await db.query.users.findFirst({
       where: (user, { eq }) => eq(user.feideId, feideUser.id),
     });
@@ -45,9 +44,9 @@ export const GET = async (req: NextRequest) => {
     const userId = nanoid();
 
     await db.insert(users).values({
-      email: feideUser.email,
-      feideId: feideUser.id,
       id: userId,
+      feideId: feideUser.id,
+      email: feideUser.email,
       name: feideUser.name,
     });
 

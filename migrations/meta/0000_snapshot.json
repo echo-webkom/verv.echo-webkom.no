@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9aab0d1e-3cfd-45a9-b316-6ffab9ba6328",
+  "id": "09e02af3-a224-4ea1-8d73-439966b90be9",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "field": {
@@ -212,15 +212,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "session_user_id_user_feide_id_fk": {
-          "name": "session_user_id_user_feide_id_fk",
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "feide_id"
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -249,15 +249,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "user_to_workspace_user_id_user_feide_id_fk": {
-          "name": "user_to_workspace_user_id_user_feide_id_fk",
+        "user_to_workspace_user_id_user_id_fk": {
+          "name": "user_to_workspace_user_id_user_id_fk",
           "tableFrom": "user_to_workspace",
           "tableTo": "user",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "feide_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -282,6 +282,13 @@
     "user": {
       "name": "user",
       "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
         "feide_id": {
           "name": "feide_id",
           "type": "text",

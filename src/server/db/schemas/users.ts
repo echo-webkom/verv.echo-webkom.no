@@ -6,7 +6,7 @@ import { sessions, usersToWorkspaces } from ".";
 export const users = sqliteTable(
   "user",
   {
-    id: text("feide_id").notNull().primaryKey(),
+    id: text("id").notNull().primaryKey(),
     feideId: text("feide_id").notNull(),
     name: text("name").notNull(),
     email: text("email").notNull(),

@@ -79,7 +79,7 @@ export const CreateFormForm = ({ workspaceId }: CreateFormFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-10">
         <NameField />
 
         <DescriptionField />

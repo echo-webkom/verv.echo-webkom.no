@@ -24,7 +24,7 @@ export const ExpiresAtField = () => {
           <FormControl>
             <Input type="datetime-local" {...field} />
           </FormControl>
-          <FormDescription />
+          <FormDescription>Når skjemaet ikke lengere skal være tilgjengelig.</FormDescription>
           <FormMessage />
         </FormItem>
       )}

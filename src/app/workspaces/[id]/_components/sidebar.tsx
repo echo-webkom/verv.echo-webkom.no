@@ -43,7 +43,7 @@ export const Sidebar = ({ workspaceId }: SidebarProps) => {
 
   return (
     <motion.div
-      className="z-10 m-4 flex w-full max-w-[270px] flex-col rounded-2xl border-2"
+      className="z-10 flex w-full max-w-[270px] flex-shrink-0 flex-col border-r-2"
       initial={{ width: 270, paddingTop: 24, paddingBottom: 24, paddingLeft: 24, paddingRight: 24 }}
       animate={{
         width: isCollapsed ? 70 : 270,

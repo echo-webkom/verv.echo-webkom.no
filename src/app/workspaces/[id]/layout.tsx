@@ -14,12 +14,12 @@ export default async function WorkspaceLayout({ children, params }: Props) {
   const { id } = params;
 
   return (
-    <div className="flex flex-1">
-      <Sidebar workspaceId={id} />
-      <div className="flex h-screen w-full flex-col">
-        <Header hideLogo />
+    <div className="flex h-screen flex-col">
+      <Header />
+      <div className="flex w-full flex-1 overflow-hidden">
+        <Sidebar workspaceId={id} />
         <div className="flex flex-1 overflow-y-auto">
-          <div className="scroll m-6 w-full max-w-screen-lg">{children}</div>
+          <div className="m-8 w-full max-w-screen-lg">{children}</div>
         </div>
       </div>
     </div>

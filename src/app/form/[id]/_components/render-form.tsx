@@ -60,16 +60,20 @@ export const RenderForm = ({ form: formInfo, fields }: FormProps) => {
 
             <div className="flex items-center justify-end gap-4">
               {!isFirstStep && (
-                <Button type="button" onClick={() => setCurrentStep(currentStep - 1)}>
+                <Button size="sm" type="button" onClick={() => setCurrentStep(currentStep - 1)}>
                   Forrige
                 </Button>
               )}
               {!isLastStep && (
-                <Button type="button" onClick={() => setCurrentStep(currentStep + 1)}>
+                <Button size="sm" type="button" onClick={() => setCurrentStep(currentStep + 1)}>
                   Neste
                 </Button>
               )}
-              {isLastStep && <Button type="submit">Send inn</Button>}
+              {isLastStep && (
+                <Button size="sm" type="submit">
+                  Send inn
+                </Button>
+              )}
             </div>
           </form>
         </Form>
@@ -100,10 +104,16 @@ const FieldRenderer = ({ field }: { field: Field }) => {
       )}
 
       {field.type === "checkbox" && (
-        <div>
+        <div className="flex flex-col gap-2">
           {options.map((option) => (
-            <div key={option}>
-              <Input {...form.register(`${field.id}.${option}`)} type="checkbox" value={option} />
+            <div key={option} className="flex items-center gap-3">
+              <input
+                {...form.register(`${field.id}.${option}`)}
+                type="checkbox"
+                value={option}
+                id={option}
+                name={field.id}
+              />
               <label htmlFor={option}>{option}</label>
             </div>
           ))}
@@ -113,8 +123,14 @@ const FieldRenderer = ({ field }: { field: Field }) => {
       {field.type === "radio" && (
         <div className="flex flex-col gap-2">
           {options.map((option) => (
-            <div className="flex items-center gap-3" key={option}>
-              <input type="radio" value={option} id={option} name={field.id} />
+            <div key={option} className="flex items-center gap-3">
+              <input
+                {...form.register(`${field.id}.${option}`)}
+                type="radio"
+                value={option}
+                id={option}
+                name={field.id}
+              />
               <label htmlFor={option}>{option}</label>
             </div>
           ))}

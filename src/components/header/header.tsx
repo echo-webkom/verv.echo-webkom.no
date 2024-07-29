@@ -5,7 +5,7 @@ import { MobileNavigation } from "./mobile/mobile-navigation";
 export const Header = async () => {
   return (
     <div className="border-b-2 bg-transparent">
-      <header className="flex min-h-16 w-full items-center px-6 py-4">
+      <header className="flex min-h-16 w-full items-center px-6 py-2">
         <Logo />
 
         <div className="hidden flex-1 md:flex">

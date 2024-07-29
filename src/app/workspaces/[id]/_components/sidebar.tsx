@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Cog, Home, List, Users2 } from "lucide-react";
 
 import echoLogo from "@/assets/images/echo-logo.png";
@@ -57,17 +57,21 @@ export const Sidebar = ({ workspaceId }: SidebarProps) => {
             <Link
               href={item.to}
               className={cn(
-                "flex items-center gap-2 rounded-lg px-3 py-2 font-medium text-foreground-muted transition-colors hover:bg-gray-100 hover:text-foreground-muted-hover",
+                "flex w-full items-center rounded-lg p-2 font-medium text-foreground-muted transition-colors hover:bg-gray-100 hover:text-foreground-muted-hover",
                 {
-                  "mx-auto h-10 w-10 justify-center p-0": isCollapsed,
+                  "h-10 w-10 justify-center": isCollapsed,
                 },
               )}
             >
               <span>{item.icon}</span>
               <motion.span
-                initial={{ opacity: 1 }}
-                animate={{ opacity: isCollapsed ? 0 : 1 }}
-                transition={{ duration: 0.2 }}
+                initial={{ opacity: 1, x: 0 }}
+                animate={{
+                  opacity: isCollapsed ? 0 : 1,
+                  x: isCollapsed ? -10 : 0,
+                  marginLeft: isCollapsed ? 0 : 12,
+                }}
+                transition={{ duration: 0.4 }}
                 hidden={isCollapsed}
               >
                 {item.name}

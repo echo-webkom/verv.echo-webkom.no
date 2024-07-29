@@ -25,6 +25,9 @@ const config = {
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        echo: {
+          yellow: "hsl(var(--echo-yellow))",
+        },
         foreground: {
           DEFAULT: "hsl(var(--foreground))",
           muted: "hsl(var(--foreground-muted))",

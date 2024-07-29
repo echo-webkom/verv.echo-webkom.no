@@ -6,6 +6,7 @@ import { useForm, useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/cn";
 import { Field, Form as IForm } from "@/server/db/schemas";
@@ -16,17 +17,24 @@ type FormProps = {
   fields: Array<Field>;
 };
 
+type FormValues = {
+  [key: string]: string | string[];
+};
+
 export const RenderForm = ({ form: formInfo, fields }: FormProps) => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === fields.length;
 
-  const form = useForm();
+  const form = useForm<FormValues>();
 
   const handleSubmit = form.handleSubmit(async (data) => {
-    console.log(data);
+    alert(JSON.stringify(data));
+    console.log(JSON.stringify(data));
   });
+
+  const answers = form.watch();
 
   return (
     <div className="flex flex-col">
@@ -43,18 +51,53 @@ export const RenderForm = ({ form: formInfo, fields }: FormProps) => {
                   key={field.id}
                   className={cn("flex flex-col gap-4 pb-6", { hidden: !isCurrentStep })}
                 >
-                  <FieldRenderer field={field} />
+                  <FieldRenderer index={index} field={field} />
                 </div>
               );
             })}
 
             {isLastStep && (
               <div className="pb-12">
-                <h2 className="mb-2 text-lg font-medium">Oppsummering</h2>
-                <p className="text-sm text-muted-foreground">
-                  Her er det oppsummeringen av innholdet i skjemaet. Du kan se hva som blir sendt
-                  til arbeidsområdet.
-                </p>
+                <div className="mb-6">
+                  <h2 className="mb-2 text-lg font-medium">Oppsummering</h2>
+                  <p className="text-sm text-muted-foreground">
+                    Her er det oppsummeringen av innholdet i skjemaet. Du kan se hva som blir sendt
+                    til arbeidsområdet.
+                  </p>
+                </div>
+                <div>
+                  <ul>
+                    {fields.map((field, i) => {
+                      const answer = answers[field.id];
+                      const answerStr = Array.isArray(answer)
+                        ? // @ts-expect-error wtf
+                          answers[field.id].join(", ")
+                        : answers[field.id];
+
+                      return (
+                        <li
+                          key={field.id}
+                          className="flex items-center gap-2 border-b border-dashed py-1"
+                        >
+                          <div className="grid w-full grid-cols-2 gap-2">
+                            <div className="line-clamp-1">
+                              <span className="mr-3 text-muted-foreground">{i + 1}.</span>
+                              <span className="text-ellipsis">
+                                {field.title}
+                                {field.required && <span className="ml-1 text-red-500">*</span>}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="line-clamp-1 text-muted-foreground">
+                                {answerStr}
+                              </span>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             )}
 
@@ -82,37 +125,50 @@ export const RenderForm = ({ form: formInfo, fields }: FormProps) => {
   );
 };
 
-const FieldRenderer = ({ field }: { field: Field }) => {
-  const form = useFormContext();
+type FieldRendererProps = {
+  field: Field;
+  index: number;
+};
+
+const FieldRenderer = ({ index, field }: FieldRendererProps) => {
+  const form = useFormContext<FormValues>();
 
   const options = field.options ?? [];
 
   return (
-    <div className="flex flex-col gap-2">
-      <h2 className="text-lg font-medium">{field.title}</h2>
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-2">
+        <span className="text-muted-foreground">{index + 1}.</span>
+        <Label htmlFor={field.id} className="text-lg font-medium">
+          {field.title}
+        </Label>
+      </div>
 
       {field.type === "text" && (
         <div>
-          <Input {...form.register(field.id)} placeholder="Skriv her..." />
+          <Input id={field.id} {...form.register(field.id)} placeholder="Skriv her..." />
         </div>
       )}
 
       {field.type === "textarea" && (
         <div>
-          <Textarea {...form.register(field.id)} placeholder="Skriv her..." />
+          <Textarea
+            id={field.id}
+            {...form.register(field.id, { value: "" })}
+            placeholder="Skriv her..."
+          />
         </div>
       )}
 
       {field.type === "checkbox" && (
         <div className="flex flex-col gap-2">
-          {options.map((option) => (
+          {options.map((option, i) => (
             <div key={option} className="flex items-center gap-3">
               <input
-                {...form.register(`${field.id}.${option}`)}
+                {...form.register(field.id, { value: [] })}
                 type="checkbox"
                 value={option}
                 id={option}
-                name={field.id}
               />
               <label htmlFor={option}>{option}</label>
             </div>
@@ -122,14 +178,13 @@ const FieldRenderer = ({ field }: { field: Field }) => {
 
       {field.type === "radio" && (
         <div className="flex flex-col gap-2">
-          {options.map((option) => (
+          {options.map((option, i) => (
             <div key={option} className="flex items-center gap-3">
               <input
-                {...form.register(`${field.id}.${option}`)}
+                {...form.register(field.id, { value: null })}
                 type="radio"
                 value={option}
                 id={option}
-                name={field.id}
               />
               <label htmlFor={option}>{option}</label>
             </div>

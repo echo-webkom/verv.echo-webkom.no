@@ -28,10 +28,6 @@ export default async function ProfilePage() {
           <p className="text-lg">
             <span className="font-medium">Navn:</span> {user.name}
           </p>
-
-          <p className="text-lg">
-            <span className="font-medium">E-post:</span> {user.email}
-          </p>
         </div>
       </div>
 

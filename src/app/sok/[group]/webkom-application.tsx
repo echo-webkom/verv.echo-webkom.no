@@ -1,7 +1,6 @@
 "use client";
 
 import { ApplicationFormProps } from "./application-form";
-import * as va from "@vercel/analytics";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -63,8 +62,6 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
     const resp = await submitApplication(group, mappedData);
 
     if (resp.result === "success") {
-      va.track(`Successfully submitted application for ${group}`);
-
       form.reset();
 
       toast({
@@ -74,10 +71,6 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
     }
 
     if (resp.result === "error") {
-      va.track(`Could not submit application for ${group}`, {
-        message: resp.message,
-      });
-
       toast({
         title: "Noe gikk galt",
         description: resp.message,

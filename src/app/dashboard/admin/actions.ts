@@ -2,11 +2,12 @@
 
 import { db } from "@/lib/db/drizzle";
 import { userGroupMemberships, users } from "@/lib/db/schema";
-import { getUser } from "@/lib/session";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { userFormSchema } from "./schemas";
+import { auth } from "@/lib/auth/lucia";
+import { getUserGroups } from "@/lib/db/queries";
 
 type Response =
   | {
@@ -22,23 +23,25 @@ export const updateUserAction = async (
   data: z.infer<typeof userFormSchema>
 ): Promise<Response> => {
   try {
-    const actionUser = await getUser();
+    const { user: actionUser } = await auth();
 
-    if (!actionUser?.isAdmin) {
+    if (!actionUser) {
       return {
         result: "error",
         message: "Unauthorized",
       };
     }
 
-    const { groups, isAdmin } = userFormSchema.parse(data);
+    const userGroups = await getUserGroups(actionUser.id);
 
-    await db
-      .update(users)
-      .set({
-        isAdmin,
-      })
-      .where(eq(users.id, userId));
+    if (!userGroups.some((group) => group.id === "webkom")) {
+      return {
+        result: "error",
+        message: "Unauthorized",
+      };
+    }
+
+    const { groups } = userFormSchema.parse(data);
 
     await db
       .delete(userGroupMemberships)

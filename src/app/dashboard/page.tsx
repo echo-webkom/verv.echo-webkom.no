@@ -1,4 +1,3 @@
-import { getUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -6,51 +5,53 @@ import { Group, groupNames } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
 import { eq, sql } from "drizzle-orm";
 import { applications } from "@/lib/db/schema";
-import { DividerVerticalIcon } from "@radix-ui/react-icons";
+import { auth } from "@/lib/auth/lucia";
+import { getUserGroups } from "@/lib/db/queries";
 
 const applicationCountStmt = db
   .select({
     count: sql<number>`count(*)`,
   })
-  .from(applications)
-  .prepare("application-count");
+  .from(applications);
 
 const webkomCountStmt = db
   .select({
     count: sql<number>`count(*)`,
   })
   .from(applications)
-  .where(eq(applications.groupId, "webkom"))
-  .prepare("webkom-count");
+  .where(eq(applications.groupId, "webkom"));
 
-const gnistCountStmt = db
+const bedkomCountStmt = db
   .select({
     count: sql<number>`count(*)`,
   })
   .from(applications)
-  .where(eq(applications.groupId, "gnist"))
-  .prepare("webkom-count");
+  .where(eq(applications.groupId, "bedkom"));
 
 export default async function Dashboard() {
-  const user = await getUser();
+  const { user } = await auth();
 
-  if (!user || (user?.groupsMemberships.length === 0 && !user?.isAdmin)) {
-    return redirect("/");
+  if (!user) {
+    return redirect("/logg-inn");
+  }
+
+  const groups = await getUserGroups(user.id);
+
+  if (!groups.length) {
+    return redirect("/logg-inn");
   }
 
   const applicationCount = (await applicationCountStmt.execute())[0].count;
 
   const webkomCount = (await webkomCountStmt.execute())[0].count;
-  const gnistCount = (await gnistCountStmt.execute())[0].count;
+  const bedkomCount = (await bedkomCountStmt.execute())[0].count;
 
-  const isWebkomOrGnistOrAdmin =
-    user.isAdmin ||
-    user.groupsMemberships.some(
-      (group) => group.id === "webkom" || group.id === "gnist"
-    );
+  const isWebkomOrGnistOrAdmin = groups.some(
+    (group) => group.id === "webkom" || group.id === "gnist"
+  );
 
   const percentageWebkom =
-    (webkomCount / (Number(webkomCount) + Number(gnistCount))) * 100;
+    (webkomCount / (Number(webkomCount) + Number(bedkomCount))) * 100;
 
   return (
     <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
@@ -60,15 +61,13 @@ export default async function Dashboard() {
       <p>
         Grupper du er medlem av er:{" "}
         <span className="font-medium">
-          {user.groupsMemberships
-            .map((group) => groupNames[group.id])
-            .join(", ")}
+          {groups.map((group) => groupNames[group.id]).join(", ")}
         </span>
       </p>
 
       <p>Antall søkere: {applicationCount}</p>
 
-      {user.isAdmin && (
+      {groups.some((group) => group.id === "webkom") && (
         <Button asChild>
           <Link href="/dashboard/admin">Til admin dashboard</Link>
         </Button>
@@ -86,7 +85,7 @@ export default async function Dashboard() {
 
             <div className="w-full text-center">
               <h2 className="font-bold">Gnist</h2>
-              <p className="text-6xl">{gnistCount}</p>
+              <p className="text-6xl">{bedkomCount}</p>
             </div>
           </div>
 
@@ -111,11 +110,9 @@ export default async function Dashboard() {
 
       <ul className="divide-y">
         {Object.entries(groupNames).map(([id, name]) => {
-          const isMember =
-            user.isAdmin ||
-            user.groupsMemberships
-              .map((group) => group.id)
-              .includes(id as Group);
+          const isMember = groups
+            .map((group) => group.id)
+            .includes(id as Group);
 
           return (
             <li className="flex flex-col py-3" key={id}>

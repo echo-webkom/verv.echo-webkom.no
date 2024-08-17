@@ -10,12 +10,12 @@ export const formSchema = z.object({
     .string()
     .min(1, "E-post er påkrevd.")
     .email("Må være en gyldig e-postadresse."),
-  yearOfStudy: z.enum(yearEnum.enumValues, {
+  yearOfStudy: z.enum(yearEnum, {
     errorMap: () => ({
       message: "Du må velge et gyldig årstrinn.",
     }),
   }),
-  fieldOfStudy: z.enum(studyEnum.enumValues, {
+  fieldOfStudy: z.enum(studyEnum, {
     errorMap: () => ({
       message: "Du må velge en gyldig studieretning.",
     }),

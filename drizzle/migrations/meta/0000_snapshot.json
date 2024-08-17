@@ -1,88 +1,49 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "id": "c060065d-6365-4ab4-85e7-1808834ab7ed",
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "de3cd304-dcd4-490e-aa18-a2eaef5203dd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
       "name": "account",
-      "schema": "",
       "columns": {
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "provider": {
           "name": "provider",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "providerAccountId": {
-          "name": "providerAccountId",
+        "provider_account_id": {
+          "name": "provider_account_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "refresh_token": {
-          "name": "refresh_token",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
+          "notNull": true,
+          "autoincrement": false
         },
         "access_token": {
           "name": "access_token",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
-        },
-        "expires_at": {
-          "name": "expires_at",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "token_type": {
-          "name": "token_type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "scope": {
-          "name": "scope",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "id_token": {
-          "name": "id_token",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "session_state": {
-          "name": "session_state",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "account_userId_user_id_fk": {
-          "name": "account_userId_user_id_fk",
+        "account_user_id_user_id_fk": {
+          "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
           "columnsFrom": [
-            "userId"
+            "user_id"
           ],
           "columnsTo": [
             "id"
@@ -92,75 +53,81 @@
         }
       },
       "compositePrimaryKeys": {
-        "account_provider_providerAccountId": {
-          "name": "account_provider_providerAccountId",
+        "account_provider_provider_account_id_pk": {
           "columns": [
             "provider",
-            "providerAccountId"
-          ]
+            "provider_account_id"
+          ],
+          "name": "account_provider_provider_account_id_pk"
         }
       },
       "uniqueConstraints": {}
     },
     "application": {
       "name": "application",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
           "notNull": true,
-          "default": "gen_random_uuid()"
+          "autoincrement": false
         },
         "name": {
           "name": "name",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "email": {
           "name": "email",
-          "type": "varchar(255)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "year": {
           "name": "year",
-          "type": "year_enum",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "study": {
           "name": "study",
-          "type": "study_enum",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "body": {
           "name": "body",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "user_id": {
           "name": "user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "group_id": {
           "name": "group_id",
-          "type": "group_enum",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "default": "now()"
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -193,40 +160,42 @@
     },
     "session": {
       "name": "session",
-      "schema": "",
       "columns": {
-        "sessionToken": {
-          "name": "sessionToken",
+        "id": {
+          "name": "id",
           "type": "text",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "userId": {
-          "name": "userId",
+        "user_id": {
+          "name": "user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "expires": {
-          "name": "expires",
-          "type": "timestamp",
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "session_userId_user_id_fk": {
-          "name": "session_userId_user_id_fk",
+        "session_user_id_user_id_fk": {
+          "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
           "columnsFrom": [
-            "userId"
+            "user_id"
           ],
           "columnsTo": [
             "id"
           ],
-          "onDelete": "cascade",
+          "onDelete": "no action",
           "onUpdate": "no action"
         }
       },
@@ -235,19 +204,20 @@
     },
     "user_group_membership": {
       "name": "user_group_membership",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "group_enum",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "user_id": {
           "name": "user_id",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -267,143 +237,62 @@
         }
       },
       "compositePrimaryKeys": {
-        "user_group_membership_user_id_id": {
-          "name": "user_group_membership_user_id_id",
+        "user_group_membership_user_id_id_pk": {
           "columns": [
             "user_id",
             "id"
-          ]
+          ],
+          "name": "user_group_membership_user_id_id_pk"
         }
       },
       "uniqueConstraints": {}
     },
     "user": {
       "name": "user",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
           "type": "text",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "email": {
           "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "emailVerified": {
-          "name": "emailVerified",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "image": {
-          "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "is_admin": {
-          "name": "is_admin",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
+          "notNull": false,
+          "autoincrement": false
         }
       },
-      "indexes": {},
+      "indexes": {
+        "user_email_unique": {
+          "name": "user_email_unique",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
-    },
-    "verificationToken": {
-      "name": "verificationToken",
-      "schema": "",
-      "columns": {
-        "identifier": {
-          "name": "identifier",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "token": {
-          "name": "token",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "expires": {
-          "name": "expires",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "verificationToken_identifier_token": {
-          "name": "verificationToken_identifier_token",
-          "columns": [
-            "identifier",
-            "token"
-          ]
-        }
-      },
-      "uniqueConstraints": {}
     }
   },
-  "enums": {
-    "group_enum": {
-      "name": "group_enum",
-      "values": {
-        "webkom": "webkom",
-        "tilde": "tilde",
-        "bedkom": "bedkom",
-        "makerspace": "makerspace",
-        "hyggkom": "hyggkom",
-        "gnist": "gnist",
-        "esc": "esc",
-        "programmerbar": "programmerbar"
-      }
-    },
-    "study_enum": {
-      "name": "study_enum",
-      "values": {
-        "DTEK": "DTEK",
-        "DSIK": "DSIK",
-        "DVIT": "DVIT",
-        "BINF": "BINF",
-        "IMO": "IMO",
-        "INF": "INF",
-        "PROG": "PROG",
-        "DSC": "DSC",
-        "OTHER": "OTHER"
-      }
-    },
-    "year_enum": {
-      "name": "year_enum",
-      "values": {
-        "1": "1",
-        "2": "2",
-        "3": "3",
-        "4": "4",
-        "5": "5"
-      }
-    }
-  },
-  "schemas": {},
+  "enums": {},
   "_meta": {
     "schemas": {},
     "tables": {},
     "columns": {}
+  },
+  "internal": {
+    "indexes": {}
   }
 }

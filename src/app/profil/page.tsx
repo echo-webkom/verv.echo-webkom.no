@@ -4,22 +4,23 @@ import {
   AccordionTrigger,
   AccordionItem,
 } from "@/components/ui/accordion";
+import { auth } from "@/lib/auth/lucia";
 import { groupNames } from "@/lib/constants";
-import { selectApplicationsByUser } from "@/lib/db/queries";
-import { getUser } from "@/lib/session";
+import { getUserGroups, selectApplicationsByUser } from "@/lib/db/queries";
 import { AlertCircleIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  const user = await getUser();
+  const { user } = await auth();
 
   if (!user) {
     return redirect("/logg-inn");
   }
 
-  const applications = await selectApplicationsByUser.execute({
-    userId: user.id,
-  });
+  const [applications, groups] = await Promise.all([
+    selectApplicationsByUser(user.id),
+    getUserGroups(user.id),
+  ]);
 
   return (
     <main className="space-y-8 p-16 max-w-2xl w-full mx-auto px-6">
@@ -41,10 +42,10 @@ export default async function ProfilePage() {
         <h2 className="text-2xl font-bold">Dine verv</h2>
 
         <ul className="divide-y">
-          {user.groupsMemberships.length === 0 ? (
+          {groups.length === 0 ? (
             <p>Du er ikke medlem av noen verv enda.</p>
           ) : (
-            user.groupsMemberships.map((group) => (
+            groups.map((group) => (
               <li className="flex flex-col py-3" key={group.id}>
                 <a className="group" href={`/dashboard/${group.id}`}>
                   <span className="group-hover:underline">

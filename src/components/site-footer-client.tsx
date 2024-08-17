@@ -1,18 +1,18 @@
 "use client";
 
-import { signIn, signOut } from "next-auth/react";
+import { signOutAction } from "@/actions/sign-out";
 
 export function SignInButton() {
   return (
-    <button className="hover:underline" onClick={() => signIn("feide")}>
+    <a href="/auth/feide" className="hover:underline">
       Logg inn
-    </button>
+    </a>
   );
 }
 
 export function SignOutButton() {
   return (
-    <button className="hover:underline" onClick={() => signOut()}>
+    <button className="hover:underline" onClick={() => signOutAction()}>
       Logg ut
     </button>
   );

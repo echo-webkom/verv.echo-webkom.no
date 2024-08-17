@@ -1,9 +1,9 @@
 import { notFound, redirect } from "next/navigation";
-import { selectApplicationsByGroup } from "@/lib/db/queries";
-import { getUser } from "@/lib/session";
+import { getUserGroups, selectApplicationsByGroup } from "@/lib/db/queries";
 import { Group, groupNames } from "@/lib/constants";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
+import { auth } from "@/lib/auth/lucia";
 
 type Props = {
   params: {
@@ -12,12 +12,15 @@ type Props = {
 };
 
 export default async function GroupDashboard({ params }: Props) {
-  const user = await getUser();
+  const { user } = await auth();
 
-  if (
-    !user?.isAdmin &&
-    !user?.groupsMemberships.map((group) => group.id).includes(params.group)
-  ) {
+  if (!user) {
+    return redirect("/logg-inn");
+  }
+
+  const groups = await getUserGroups(user.id);
+
+  if (!groups.map((group) => group.id).includes(params.group)) {
     return redirect("/dashboard");
   }
 
@@ -25,9 +28,7 @@ export default async function GroupDashboard({ params }: Props) {
     return notFound();
   }
 
-  const applications = await selectApplicationsByGroup.execute({
-    group: params.group,
-  });
+  const applications = await selectApplicationsByGroup(params.group);
 
   return (
     <main className="space-y-8 max-w-5xl w-full mx-auto px-6">

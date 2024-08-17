@@ -2,15 +2,15 @@ import "@/styles/globals.css";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/toaster";
-import { baseURL } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { BASE_URL } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  metadataBase: new URL(baseURL),
+  metadataBase: new URL(BASE_URL),
   title: {
     default: "echo – Verv",
     template: "%s | echo – Verv",

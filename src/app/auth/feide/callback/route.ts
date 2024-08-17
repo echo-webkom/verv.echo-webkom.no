@@ -1,0 +1,94 @@
+import { cookies } from "next/headers";
+import { OAuth2RequestError } from "arctic";
+import { feide, getFeideUser } from "@/lib/auth/feide";
+import { db } from "@/lib/db/drizzle";
+import { lucia } from "@/lib/auth/lucia";
+import { nanoid } from "nanoid";
+import { accounts, users } from "@/lib/db/schema";
+
+export const GET = async (request: Request) => {
+  const url = new URL(request.url);
+  const code = url.searchParams.get("code");
+  const state = url.searchParams.get("state");
+  const storedState = cookies().get("feide_oauth_state")?.value ?? null;
+
+  if (!code || !state || !storedState || state !== storedState) {
+    return new Response(null, {
+      status: 400,
+    });
+  }
+
+  try {
+    const tokens = await feide.validateAuthorizationCode(code);
+    const feideUser = await getFeideUser(tokens.accessToken);
+
+    const existingUser = await db.query.accounts.findFirst({
+      where: (account, { eq, and }) =>
+        and(
+          eq(account.provider, "feide"),
+          eq(account.providerAccountId, feideUser.id)
+        ),
+    });
+
+    if (existingUser) {
+      const session = await lucia.createSession(existingUser.userId, {});
+      const sessionCookie = lucia.createSessionCookie(session.id);
+      cookies().set(
+        sessionCookie.name,
+        sessionCookie.value,
+        sessionCookie.attributes
+      );
+
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: "/",
+        },
+      });
+    }
+
+    const userId = nanoid();
+
+    const user = await db.transaction(async (tx) => {
+      await tx.insert(users).values({
+        id: userId,
+        name: feideUser.name,
+        email: feideUser.email,
+      });
+
+      tx.insert(accounts).values({
+        userId: userId,
+        provider: "feide",
+        providerAccountId: feideUser.id,
+        accessToken: tokens.accessToken,
+      });
+    });
+
+    const session = await lucia.createSession(userId, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes
+    );
+
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: "/",
+      },
+    });
+  } catch (e) {
+    console.error(e);
+
+    if (e instanceof OAuth2RequestError) {
+      return new Response(null, {
+        status: 400,
+      });
+    }
+
+    return new Response(null, {
+      status: 500,
+    });
+  }
+};

@@ -1,34 +1,29 @@
-import { selectAllUsers } from "@/lib/db/queries";
-import { getUser } from "@/lib/session";
+import { getUserGroups, selectAllUsers } from "@/lib/db/queries";
 import { redirect } from "next/navigation";
 import { DataTable } from "./user-data-table";
 import { columns } from "./user-columns";
-import { db } from "@/lib/db/drizzle";
-import { sql } from "drizzle-orm";
-import { users } from "@/lib/db/schema";
-
-const userCountStmt = db
-  .select({
-    count: sql<number>`count(*)`,
-  })
-  .from(users)
-  .prepare("user-count");
+import { auth } from "@/lib/auth/lucia";
 
 export default async function AdminDashboard() {
-  const user = await getUser();
+  const { user } = await auth();
 
-  if (!user?.isAdmin) {
+  if (!user) {
     return redirect("/");
   }
 
-  const users = await selectAllUsers.execute();
-  const userCount = (await userCountStmt.execute())[0].count;
+  const groups = await getUserGroups(user.id);
+
+  if (!groups.some((group) => group.id === "webkom")) {
+    return redirect("/");
+  }
+
+  const users = await selectAllUsers();
 
   return (
     <main className="space-y-8 max-w-4xl w-full mx-auto px-6">
       <h1 className="text-3xl font-bold">Dashboard for admin</h1>
 
-      <p>Antall brukere: {userCount}</p>
+      <p>Antall brukere: {users.length}</p>
 
       <DataTable columns={columns} data={users} />
     </main>

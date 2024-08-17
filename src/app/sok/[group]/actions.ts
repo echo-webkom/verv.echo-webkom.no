@@ -4,10 +4,10 @@ import { z } from "zod";
 import { formSchema } from "./schema";
 import { db } from "@/lib/db/drizzle";
 import { applications } from "@/lib/db/schema";
-import { DatabaseError } from "pg";
 import { revalidatePath } from "next/cache";
 import { APPLICATION_DEADLINE, Group } from "@/lib/constants";
-import { getSession } from "@/lib/session";
+import { LibsqlError } from "@libsql/client";
+import { auth } from "@/lib/auth/lucia";
 
 type Result =
   | {
@@ -38,9 +38,9 @@ export const submitApplication = async (
     };
   }
 
-  const session = await getSession();
+  const { user } = await auth();
 
-  if (!session) {
+  if (!user) {
     return {
       result: "error",
       message: "Du må logge inn for å søke",
@@ -51,12 +51,12 @@ export const submitApplication = async (
     await db.insert(applications).values({
       ...parsedForm.data,
       groupId: group,
-      userId: session.user.id,
+      userId: user.id,
     });
   } catch (error) {
-    if (error instanceof DatabaseError) {
+    if (error instanceof LibsqlError) {
       // Duplicate key error
-      if (error.code === "23505") {
+      if (error.code === "2627") {
         return {
           result: "error",
           message: "Du kan ikke søke flere ganger",

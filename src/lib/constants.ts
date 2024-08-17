@@ -1,5 +1,10 @@
 import { groupEnum, studyEnum, yearEnum } from "./db/schema";
 
+export const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://verv.echo-webkom.no"
+    : `http://localhost:${process.env.PORT ?? 3000}`;
+
 export type Year = (typeof yearEnum)[number];
 export type Study = (typeof studyEnum)[number];
 export type Group = (typeof groupEnum)[number];

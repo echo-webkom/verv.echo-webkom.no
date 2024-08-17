@@ -8,7 +8,6 @@ import {
   LockClosedIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
-import { signOut } from "next-auth/react";
 
 import {
   DropdownMenu,
@@ -18,15 +17,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { getUser } from "@/lib/session";
-
-type UserWithGroups = Exclude<
-  Awaited<ReturnType<typeof getUser>>,
-  null | undefined
->;
+import { signOutAction } from "@/actions/sign-out";
+import { User } from "lucia";
 
 type ProfileIconProps = {
-  user: UserWithGroups;
+  user: User;
 };
 
 export const ProfileIcon = ({ user }: ProfileIconProps) => {
@@ -55,7 +50,7 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
           </Link>
         </DropdownMenuItem>
 
-        {Boolean(user?.groupsMemberships.length) && (
+        {/* {Boolean(user?.groupsMemberships.length) && (
           <>
             <DropdownMenuSeparator />
 
@@ -66,18 +61,14 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
               </Link>
             </DropdownMenuItem>
           </>
-        )}
+        )} */}
 
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
           <button
             className="w-full"
-            onClick={() =>
-              void signOut({
-                callbackUrl: pathname,
-              })
-            }
+            onClick={async () => await signOutAction(pathname)}
           >
             <ExitIcon className="mr-2 h-4 w-4" />
             <span>Logg ut</span>

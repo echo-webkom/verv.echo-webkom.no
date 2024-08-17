@@ -1,11 +1,11 @@
-import { getUser } from "@/lib/session";
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { SignInButton, SignOutButton } from "./site-footer-client";
 import Image from "next/image";
+import { auth } from "@/lib/auth/lucia";
 
 export async function SiteFooter() {
-  const user = await getUser();
+  const { user } = await auth();
 
   return (
     <footer className="bg-[#ffeabb] py-8 space-y-6 border-t-2 border-black">

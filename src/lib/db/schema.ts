@@ -7,7 +7,6 @@ import {
 } from "drizzle-orm/sqlite-core";
 import { InferSelectModel, relations } from "drizzle-orm";
 import { nanoid } from "nanoid";
-import type { AdapterAccount } from "next-auth/adapters";
 
 export const yearEnum = ["1", "2", "3", "4", "5"] as const;
 
@@ -40,9 +39,6 @@ export const users = sqliteTable("user", {
     .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
   email: text("email").unique(),
-  emailVerified: integer("email_verified", { mode: "timestamp_ms" }),
-  image: text("image"),
-  isAdmin: integer("is_admin", { mode: "boolean" }).notNull().default(false),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -58,16 +54,9 @@ export const accounts = sqliteTable(
     userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    type: text("type").$type<AdapterAccount["type"]>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("provider_account_id").notNull(),
-    refresh_token: text("refresh_token"),
-    access_token: text("access_token"),
-    expires_at: integer("expires_at"),
-    token_type: text("token_type"),
-    scope: text("scope"),
-    id_token: text("id_token"),
-    session_state: text("session_state"),
+    accessToken: text("access_token"),
   },
   (account) => ({
     pk: primaryKey({
@@ -77,24 +66,12 @@ export const accounts = sqliteTable(
 );
 
 export const sessions = sqliteTable("session", {
-  sessionToken: text("session_token").primaryKey(),
+  id: text("id").notNull().primaryKey(),
   userId: text("user_id")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
+    .references(() => users.id),
+  expiresAt: integer("expires_at").notNull(),
 });
-
-export const verificationTokens = sqliteTable(
-  "verification_token",
-  {
-    identifier: text("identifier").notNull(),
-    token: text("token").notNull(),
-    expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
-  },
-  (vt) => ({
-    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
-  })
-);
 
 export const userGroupMemberships = sqliteTable(
   "user_group_membership",

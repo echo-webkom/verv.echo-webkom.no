@@ -1,11 +1,11 @@
-import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { LoginButton } from "./login-button";
+import { auth } from "@/lib/auth/lucia";
 
 export default async function LoginPage() {
-  const session = await getSession();
+  const { user } = await auth();
 
-  if (session) {
+  if (user) {
     return redirect("/");
   }
 

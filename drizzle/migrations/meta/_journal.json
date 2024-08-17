@@ -1,12 +1,12 @@
 {
-  "version": "5",
-  "dialect": "pg",
+  "version": "7",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "5",
-      "when": 1693168612726,
-      "tag": "0000_clean_iron_man",
+      "version": "6",
+      "when": 1723898295257,
+      "tag": "0000_lean_gauntlet",
       "breakpoints": true
     }
   ]

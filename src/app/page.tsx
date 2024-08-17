@@ -14,13 +14,11 @@ export default function Home() {
           quality={100}
         />
 
-        <h1 className="text-4xl md:text-5xl font-bold">
-          Søk verv i Webkom eller Gnist!
-        </h1>
+        <h1 className="text-4xl md:text-5xl font-bold">Søk verv i Webkom!</h1>
 
         <p className="text-lg">
-          Echo har nå åpnet for søknader til verv i noen av gruppene våre.
-          Søknadsfristen er 14. februar. Det er lov å søke på begge gruppene!
+          echo har nå åpnet for søknader til verv. Søknadsfristen er 1.
+          september. Det er lov å søke på flere grupper!
         </p>
       </div>
 

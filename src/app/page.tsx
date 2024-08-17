@@ -54,7 +54,7 @@ export default function Home() {
         <ul className="divide-y">
           <GroupLink emoji="💻" name="Webkom" to="/webkom" />
           <GroupLink emoji="👔" name="Bedkom" to="/bedkom" />
-          <GroupLink emoji="🤝🏻" name="Consulting" to="/consutling" />
+          <GroupLink emoji="🤝🏻" name="Consulting" to="/consulting" />
           <GroupLink emoji="🏟️" name="ESC" to="/esc" />
           <GroupLink emoji="✨" name="Gnist" to="/gnist" />
           <GroupLink emoji="🫶🏻" name="Hyggkom" to="/hyggkom" />

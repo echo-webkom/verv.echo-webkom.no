@@ -5,14 +5,14 @@ import Image from "next/image";
 
 const groups = [
   "Webkom",
-  "Tilde",
   "Bedkom",
-  "Makerspace",
-  "Hyggkom",
-  "Gnist",
-  "ESC",
-  "Programmerbar",
   "Consulting",
+  "ESC",
+  "Gnist",
+  "Hyggkom",
+  "Makerspace",
+  "Programmerbar",
+  "Tilde",
 ].map((group) => group + "!");
 
 export default function Home() {

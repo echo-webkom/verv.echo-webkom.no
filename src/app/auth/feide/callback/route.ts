@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
-import { feide, getFeideUser } from "@/lib/auth/feide";
-import { db } from "@/lib/db/drizzle";
-import { lucia } from "@/lib/auth/lucia";
 import { nanoid } from "nanoid";
+
+import { feide, getFeideUser } from "@/lib/auth/feide";
+import { lucia } from "@/lib/auth/lucia";
+import { db } from "@/lib/db/drizzle";
 import { accounts, memberships, users } from "@/lib/db/schemas";
 import { getEchoGroups } from "@/lib/get-echo-groups";
 
@@ -25,20 +26,13 @@ export const GET = async (request: Request) => {
 
     const existingUser = await db.query.accounts.findFirst({
       where: (account, { eq, and }) =>
-        and(
-          eq(account.provider, "feide"),
-          eq(account.providerAccountId, feideUser.id)
-        ),
+        and(eq(account.provider, "feide"), eq(account.providerAccountId, feideUser.id)),
     });
 
     if (existingUser) {
       const session = await lucia.createSession(existingUser.userId, {});
       const sessionCookie = lucia.createSessionCookie(session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      );
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
       return new Response(null, {
         status: 302,
@@ -72,17 +66,13 @@ export const GET = async (request: Request) => {
         groups.map((groupId) => ({
           groupId,
           userId,
-        }))
+        })),
       );
     }
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
-    cookies().set(
-      sessionCookie.name,
-      sessionCookie.value,
-      sessionCookie.attributes
-    );
+    cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
     return new Response(null, {
       status: 302,

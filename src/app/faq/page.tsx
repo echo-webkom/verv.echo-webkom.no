@@ -1,5 +1,6 @@
-import FAQ from "@/mdx/faq.mdx";
 import { Metadata } from "next";
+
+import FAQ from "@/mdx/faq.mdx";
 
 export const metadata = {
   title: "FAQ",
@@ -8,7 +9,7 @@ export const metadata = {
 
 export default function FAQPage() {
   return (
-    <div className="flex flex-col max-w-2xl w-full mx-auto px-6">
+    <div className="mx-auto flex w-full max-w-2xl flex-col px-6">
       <FAQ />
     </div>
   );

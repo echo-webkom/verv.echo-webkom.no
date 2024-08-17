@@ -1,5 +1,5 @@
-import { OAuth2Client } from "oslo/oauth2";
 import { OAuth2Provider } from "arctic";
+import { OAuth2Client } from "oslo/oauth2";
 
 const authorizeEndpoint = "https://auth.dataporten.no/oauth/authorization";
 const tokenEndpoint = "https://auth.dataporten.no/oauth/token";
@@ -21,7 +21,7 @@ export class Feide implements OAuth2Provider {
     clientSecret: string,
     options?: {
       redirectURI?: string;
-    }
+    },
   ) {
     this.client = new OAuth2Client(clientId, authorizeEndpoint, tokenEndpoint, {
       redirectURI: options?.redirectURI,
@@ -33,7 +33,7 @@ export class Feide implements OAuth2Provider {
     state: string,
     options?: {
       scopes?: string[];
-    }
+    },
   ): Promise<URL> {
     const url = await this.client.createAuthorizationURL({
       scopes: options?.scopes ?? [],

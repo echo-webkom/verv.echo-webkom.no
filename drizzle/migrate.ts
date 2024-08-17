@@ -1,5 +1,7 @@
 import "dotenv/config";
+
 import { migrate } from "drizzle-orm/libsql/migrator";
+
 import { db } from "../src/lib/db/drizzle";
 
 console.log("🚀 Starting migrations...");

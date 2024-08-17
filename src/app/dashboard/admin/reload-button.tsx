@@ -1,10 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { ReloadIcon } from "@radix-ui/react-icons";
+
 import { Button } from "@/components/ui/button";
 import { useDelayedAnimation } from "@/hooks/use-delayed-animation";
 import { cn } from "@/lib/utils";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { useRouter } from "next/navigation";
 
 export const ReloadButton = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ export const ReloadButton = () => {
     <Button onClick={handleReload} disabled={animate}>
       <span className="sr-only">Reload</span>
       <ReloadIcon
-        className={cn("w-4 h-4", {
+        className={cn("h-4 w-4", {
           "animate-spin duration-700": animate,
         })}
       />

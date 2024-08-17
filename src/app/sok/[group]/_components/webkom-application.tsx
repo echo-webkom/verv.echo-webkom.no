@@ -1,32 +1,33 @@
 "use client";
 
-import { ApplicationFormProps } from "./application-form";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  FormDescription,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { yearNames, studyNames } from "@/lib/constants";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { studyNames, yearNames } from "@/lib/constants";
 import { submitApplication } from "../actions";
 import { bedkomFormSchema } from "../schema";
+import { ApplicationFormProps } from "./application-form";
 
 export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
   const { toast } = useToast();
@@ -106,8 +107,8 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
                 <Input placeholder="ola.nordmann@echo.uib.no" {...field} />
               </FormControl>
               <FormDescription>
-                Vi vil bruke denne til å kontakte deg om intervju. Du kan endre
-                e-post om du ikke ønsker å bruke din UiB e-post.
+                Vi vil bruke denne til å kontakte deg om intervju. Du kan endre e-post om du ikke
+                ønsker å bruke din UiB e-post.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -121,10 +122,7 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>Årstrinn</FormLabel>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Velg ditt årstrinn" />
@@ -151,10 +149,7 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>Studieretning</FormLabel>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Velg din studieretning" />
@@ -179,9 +174,7 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
           name="about"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>
-                Fortell litt om deg selv, og hvorfor du vil være med i Webkom!
-              </FormLabel>
+              <FormLabel>Fortell litt om deg selv, og hvorfor du vil være med i Webkom!</FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />
               </FormControl>
@@ -210,8 +203,8 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Har du noe erfaring med web-utvikling? Har du kjennskap til
-                TypeScript, HTML, CSS eller NextJS?{" "}
+                Har du noe erfaring med web-utvikling? Har du kjennskap til TypeScript, HTML, CSS
+                eller NextJS?{" "}
               </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />
@@ -227,11 +220,10 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Hvis du har, fortell om et sideprosjekt du har laget. Hvilke
-                programeringspråk brukte du? Hva var de vanskeligste aspektene
-                ved prosjektet? Hvis du har et eller flere prosjekter du vil
-                vise oss på github kan du gjerne linke til dem nederst i denne
-                tekstboksen!{" "}
+                Hvis du har, fortell om et sideprosjekt du har laget. Hvilke programeringspråk
+                brukte du? Hva var de vanskeligste aspektene ved prosjektet? Hvis du har et eller
+                flere prosjekter du vil vise oss på github kan du gjerne linke til dem nederst i
+                denne tekstboksen!{" "}
               </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />

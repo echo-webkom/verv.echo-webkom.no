@@ -1,0 +1,5 @@
+.next/
+dev.db*
+node_modules/
+public/
+pnpmn-lock.yaml

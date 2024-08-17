@@ -1,5 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -29,15 +36,9 @@ import {
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Group, groupNames } from "@/lib/constants";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { selectAllUsers } from "@/lib/db/queries";
 import { updateUserAction } from "./actions";
 import { userFormSchema } from "./schemas";
-import { selectAllUsers } from "@/lib/db/queries";
 
 const ViewDetailsButton = ({
   user,
@@ -78,15 +79,11 @@ const ViewDetailsButton = ({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          Se detaljer
-        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Se detaljer</DropdownMenuItem>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">
-            Detaljer for {user.name}
-          </DialogTitle>
+          <DialogTitle className="text-xl font-bold">Detaljer for {user.name}</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-2">
@@ -132,16 +129,12 @@ const ViewDetailsButton = ({
                                     return checked
                                       ? field.onChange([...field.value, id])
                                       : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value !== id
-                                          )
+                                          field.value?.filter((value) => value !== id),
                                         );
                                   }}
                                 />
                               </FormControl>
-                              <FormLabel className="text-sm font-normal">
-                                {label}
-                              </FormLabel>
+                              <FormLabel className="text-sm font-normal">{label}</FormLabel>
                             </FormItem>
                           );
                         }}
@@ -163,9 +156,7 @@ const ViewDetailsButton = ({
   );
 };
 
-export const columns: Array<
-  ColumnDef<Awaited<ReturnType<typeof selectAllUsers>>[number]>
-> = [
+export const columns: Array<ColumnDef<Awaited<ReturnType<typeof selectAllUsers>>[number]>> = [
   {
     accessorKey: "name",
     header: "Navn",

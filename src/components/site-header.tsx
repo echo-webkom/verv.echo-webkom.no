@@ -1,7 +1,8 @@
-import { APPLICATION_DEADLINE } from "@/lib/constants";
 import Image from "next/image";
-import { ProfileIcon } from "./profile-icon";
+
 import { auth } from "@/lib/auth/lucia";
+import { APPLICATION_DEADLINE } from "@/lib/constants";
+import { ProfileIcon } from "./profile-icon";
 
 export async function SiteHeader() {
   const user = await auth();
@@ -10,13 +11,11 @@ export async function SiteHeader() {
     <>
       {user && (
         <div className="z-30 bg-[#ffeabb] py-2">
-          <p className="text-center text-sm font-bold">
-            Du er logget inn som {user.name}
-          </p>
+          <p className="text-center text-sm font-bold">Du er logget inn som {user.name}</p>
         </div>
       )}
 
-      <header className="z-30 sticky top-0 border-b backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b backdrop-blur-xl">
         {new Date() > APPLICATION_DEADLINE && (
           <div className="bg-[#ff9b9b] py-2">
             <p className="text-center text-sm font-bold">
@@ -25,7 +24,7 @@ export async function SiteHeader() {
           </div>
         )}
 
-        <div className="mx-auto max-w-3xl w-full flex px-6 py-3 justify-between items-center">
+        <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-3">
           <a href="/">
             <span className="sr-only">Hjem</span>
             <Image

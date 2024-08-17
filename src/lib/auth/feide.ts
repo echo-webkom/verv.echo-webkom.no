@@ -12,25 +12,18 @@ type FeideUser = {
   audience: string;
 };
 
-export const feide = new Feide(
-  process.env.FEIDE_CLIENT_ID!,
-  process.env.FEIDE_CLIENT_SECRET!,
-  {
-    redirectURI: `${BASE_URL}/auth/feide/callback`,
-  }
-);
+export const feide = new Feide(process.env.FEIDE_CLIENT_ID!, process.env.FEIDE_CLIENT_SECRET!, {
+  redirectURI: `${BASE_URL}/auth/feide/callback`,
+});
 
 export async function getFeideUser(
-  accessToken: string
+  accessToken: string,
 ): Promise<{ id: string; email: string; name: string }> {
-  const feideUser: FeideUser = await fetch(
-    "https://auth.dataporten.no/userinfo",
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
-  ).then((r) => r.json());
+  const feideUser: FeideUser = await fetch("https://auth.dataporten.no/userinfo", {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  }).then((r) => r.json());
 
   return {
     id: feideUser.user.userid,

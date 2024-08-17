@@ -1,26 +1,17 @@
-import { cn } from "@/lib/utils";
-import Link, { LinkProps } from "next/link";
 import React from "react";
+import Link, { LinkProps } from "next/link";
+
+import { cn } from "@/lib/utils";
 
 type FancyLinkProps = LinkProps & {
   className?: string;
   children: React.ReactNode;
 };
 
-export const FancyLink = ({
-  className,
-  children,
-  ...props
-}: FancyLinkProps) => {
+export const FancyLink = ({ className, children, ...props }: FancyLinkProps) => {
   return (
-    <Link
-      className={cn(
-        "group w-full block bg-white border-black border-2",
-        className
-      )}
-      {...props}
-    >
-      <div className="bg-[#ffeabb] group-hover:bg-[#ffeec9] relative -right-2 font-semibold -top-2 group-hover:-top-1 group-hover:-right-1 duration-200 transition-all px-4 text-center py-1 border-black border-2">
+    <Link className={cn("group block w-full border-2 border-black bg-white", className)} {...props}>
+      <div className="relative -right-2 -top-2 border-2 border-black bg-[#ffeabb] px-4 py-1 text-center font-semibold transition-all duration-200 group-hover:-right-1 group-hover:-top-1 group-hover:bg-[#ffeec9]">
         {children}
       </div>
     </Link>

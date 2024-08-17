@@ -1,11 +1,13 @@
 import "@/styles/globals.css";
+
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/toaster";
-import { cn } from "@/lib/utils";
-import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { BASE_URL } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,19 +37,10 @@ export const viewport = {
   initialScale: 1,
 } satisfies Viewport;
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "min-h-screen antialiased flex flex-col text-gray-900",
-          inter.className
-        )}
-      >
+      <body className={cn("flex min-h-screen flex-col text-gray-900 antialiased", inter.className)}>
         <SiteHeader />
         <div className="flex-1 py-14">{children}</div>
         <SiteFooter />

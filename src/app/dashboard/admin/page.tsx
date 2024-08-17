@@ -1,9 +1,10 @@
-import { selectAllUsers } from "@/lib/db/queries";
 import { redirect } from "next/navigation";
-import { DataTable } from "./user-data-table";
-import { columns } from "./user-columns";
+
 import { auth } from "@/lib/auth/lucia";
+import { selectAllUsers } from "@/lib/db/queries";
 import { isMemberOf } from "@/lib/is-member-of";
+import { columns } from "./user-columns";
+import { DataTable } from "./user-data-table";
 
 export default async function AdminDashboard() {
   const user = await auth();
@@ -15,7 +16,7 @@ export default async function AdminDashboard() {
   const users = await selectAllUsers();
 
   return (
-    <main className="space-y-8 max-w-4xl w-full mx-auto px-6">
+    <main className="mx-auto w-full max-w-4xl space-y-8 px-6">
       <h1 className="text-3xl font-bold">Dashboard for admin</h1>
 
       <p>Antall brukere: {users.length}</p>

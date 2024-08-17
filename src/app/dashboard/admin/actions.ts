@@ -1,13 +1,14 @@
 "use server";
 
-import { db } from "@/lib/db/drizzle";
-import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { userFormSchema } from "./schemas";
+
 import { auth } from "@/lib/auth/lucia";
+import { db } from "@/lib/db/drizzle";
 import { memberships } from "@/lib/db/schemas";
 import { isWebkom } from "@/lib/is-member-of";
+import { userFormSchema } from "./schemas";
 
 type Response =
   | {
@@ -20,7 +21,7 @@ type Response =
 
 export const updateUserAction = async (
   userId: string,
-  data: z.infer<typeof userFormSchema>
+  data: z.infer<typeof userFormSchema>,
 ): Promise<Response> => {
   try {
     const actionUser = await auth();
@@ -47,7 +48,7 @@ export const updateUserAction = async (
       groups.map((groupId) => ({
         groupId,
         userId,
-      }))
+      })),
     );
 
     revalidatePath("/dashboard/admin");

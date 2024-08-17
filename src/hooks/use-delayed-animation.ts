@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const useDelayedAnimation = (delay: number = 200) => {
   const [animate, setAnimate] = useState(false);

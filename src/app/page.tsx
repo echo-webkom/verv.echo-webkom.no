@@ -1,11 +1,12 @@
 "use client";
 
+import Image from "next/image";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
+
 import { FancyLink } from "@/components/fancy-link";
 import { FlipWords } from "@/components/flip-words";
 import { GroupLink } from "@/components/group-link";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { motion } from "framer-motion";
-import Image from "next/image";
 
 const groups = [
   "Webkom",
@@ -21,18 +22,18 @@ const groups = [
 
 export default function Home() {
   return (
-    <main className="max-w-2xl w-full mx-auto px-6">
-      <section className="text-center flex flex-col gap-4 mt-12 mb-32">
+    <main className="mx-auto w-full max-w-2xl px-6">
+      <section className="mb-32 mt-12 flex flex-col gap-4 text-center">
         <Image
           src="/images/echo-logo.png"
-          className="mx-auto z-10"
+          className="z-10 mx-auto"
           width={180}
           height={180}
           alt="echo logo"
           quality={100}
         />
 
-        <h1 className="text-5xl md:text-6xl font-bold text-neutral-800 space-y-3 mb-8">
+        <h1 className="mb-8 space-y-3 text-5xl font-bold text-neutral-800 md:text-6xl">
           <span className="text-4xl">Søk verv i</span> <br />
           <FlipWords words={groups} />
         </h1>
@@ -44,10 +45,10 @@ export default function Home() {
             delay: 0.2,
             duration: 0.3,
           }}
-          className="text-xl text-neutral-700 font-medium"
+          className="text-xl font-medium text-neutral-700"
         >
-          echo har nå åpnet for søknader til verv. Søknadsfristen er 1.
-          september. Det er lov å søke på flere grupper!
+          echo har nå åpnet for søknader til verv. Søknadsfristen er 1. september. Det er lov å søke
+          på flere grupper!
         </motion.p>
       </section>
 
@@ -60,7 +61,7 @@ export default function Home() {
               delay: 0.1,
               duration: 0.2,
             }}
-            className="text-3xl font-bold text-center mb-2"
+            className="mb-2 text-center text-3xl font-bold"
           >
             Våre undergrupper
           </motion.h2>
@@ -84,7 +85,7 @@ export default function Home() {
             delay: 0.1,
             duration: 0.2,
           }}
-          className="mx-auto animate-bounce h-6 w-6"
+          className="mx-auto h-6 w-6 animate-bounce"
         >
           <ChevronDownIcon />
         </motion.div>

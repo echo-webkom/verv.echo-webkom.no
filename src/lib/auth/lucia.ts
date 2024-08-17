@@ -1,10 +1,11 @@
-import { Lucia, Session, User } from "lucia";
-import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
-import { db } from "../db/drizzle";
-import { sessions, users, type User as DatabaseUser } from "../db/schemas";
 import { cache } from "react";
 import { cookies } from "next/headers";
+import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
+import { Lucia, Session, User } from "lucia";
+
 import { Group } from "../constants";
+import { db } from "../db/drizzle";
+import { sessions, users, type User as DatabaseUser } from "../db/schemas";
 
 const adapter = new DrizzleSQLiteAdapter(db, sessions, users);
 
@@ -47,19 +48,11 @@ export const auth = cache(async (): Promise<AuthUser | null> => {
   try {
     if (result.session && result.session.fresh) {
       const sessionCookie = lucia.createSessionCookie(result.session.id);
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      );
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     }
     if (!result.session) {
       const sessionCookie = lucia.createBlankSessionCookie();
-      cookies().set(
-        sessionCookie.name,
-        sessionCookie.value,
-        sessionCookie.attributes
-      );
+      cookies().set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
     }
   } catch {}
 

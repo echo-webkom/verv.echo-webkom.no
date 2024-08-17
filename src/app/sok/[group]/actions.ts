@@ -1,13 +1,14 @@
 "use server";
 
-import { z } from "zod";
-import { formSchema } from "./schema";
-import { db } from "@/lib/db/drizzle";
 import { revalidatePath } from "next/cache";
-import { APPLICATION_DEADLINE, Group } from "@/lib/constants";
 import { LibsqlError } from "@libsql/client";
+import { z } from "zod";
+
 import { auth } from "@/lib/auth/lucia";
+import { APPLICATION_DEADLINE, Group } from "@/lib/constants";
+import { db } from "@/lib/db/drizzle";
 import { applications } from "@/lib/db/schemas";
+import { formSchema } from "./schema";
 
 type Result =
   | {
@@ -20,7 +21,7 @@ type Result =
 
 export const submitApplication = async (
   group: Group,
-  data: z.infer<typeof formSchema>
+  data: z.infer<typeof formSchema>,
 ): Promise<Result> => {
   const parsedForm = formSchema.safeParse(data);
 

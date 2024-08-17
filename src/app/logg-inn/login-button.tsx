@@ -4,9 +4,9 @@ export const LoginButton = () => {
   return (
     <a
       href="/auth/feide"
-      className="group w-full block max-w-sm mx-auto bg-white border-black border-2"
+      className="group mx-auto block w-full max-w-sm border-2 border-black bg-white"
     >
-      <div className="bg-[#ffeabb] group-hover:bg-[#ffeec9] relative -right-2 font-semibold -top-2 group-hover:-top-1 group-hover:-right-1 duration-200 transition-all px-4 text-center py-1 border-black border-2">
+      <div className="relative -right-2 -top-2 border-2 border-black bg-[#ffeabb] px-4 py-1 text-center font-semibold transition-all duration-200 group-hover:-right-1 group-hover:-top-1 group-hover:bg-[#ffeec9]">
         Logg inn
       </div>
     </a>

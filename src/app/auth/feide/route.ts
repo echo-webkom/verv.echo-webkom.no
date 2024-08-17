@@ -1,6 +1,7 @@
-import { feide } from "@/lib/auth/feide";
-import { generateState } from "arctic";
 import { cookies } from "next/headers";
+import { generateState } from "arctic";
+
+import { feide } from "@/lib/auth/feide";
 
 export const GET = async () => {
   const state = generateState();

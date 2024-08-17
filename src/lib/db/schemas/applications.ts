@@ -1,12 +1,8 @@
-import { relations, InferSelectModel } from "drizzle-orm";
-import {
-  sqliteTable,
-  text,
-  integer,
-  uniqueIndex,
-} from "drizzle-orm/sqlite-core";
+import { InferSelectModel, relations } from "drizzle-orm";
+import { integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
-import { yearEnum, studyEnum, groupEnum } from "./enums";
+
+import { groupEnum, studyEnum, yearEnum } from "./enums";
 import { users } from "./users";
 
 export const applications = sqliteTable(
@@ -29,9 +25,9 @@ export const applications = sqliteTable(
   (application) => ({
     groupEmailSemesterIndex: uniqueIndex("group_email_index").on(
       application.groupId,
-      application.email
+      application.email,
     ),
-  })
+  }),
 );
 
 export const applicationsRelations = relations(applications, ({ one }) => ({

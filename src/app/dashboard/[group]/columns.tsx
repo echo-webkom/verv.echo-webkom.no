@@ -1,5 +1,9 @@
 "use client";
 
+import { Dialog, DialogDescription, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
+import { ColumnDef } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { DialogContent, DialogHeader } from "@/components/ui/dialog";
 import {
@@ -12,14 +16,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
 import { Application } from "@/lib/db/schemas";
-import {
-  Dialog,
-  DialogDescription,
-  DialogTitle,
-  DialogTrigger,
-} from "@radix-ui/react-dialog";
-import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
 
 const CopyIdButton = ({ application }: { application: Application }) => {
   const { toast } = useToast();
@@ -32,24 +28,18 @@ const CopyIdButton = ({ application }: { application: Application }) => {
     });
   };
 
-  return (
-    <DropdownMenuItem onClick={handleClick}>Kopier søknads-ID</DropdownMenuItem>
-  );
+  return <DropdownMenuItem onClick={handleClick}>Kopier søknads-ID</DropdownMenuItem>;
 };
 
 const ViewDetailsButton = ({ application }: { application: Application }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-          Se detaljer
-        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Se detaljer</DropdownMenuItem>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">
-            Detaljer for {application.name}
-          </DialogTitle>
+          <DialogTitle className="text-xl font-bold">Detaljer for {application.name}</DialogTitle>
         </DialogHeader>
 
         <div className="flex flex-col gap-2">
@@ -60,7 +50,7 @@ const ViewDetailsButton = ({ application }: { application: Application }) => {
           <p>Sendt inn: {application.createdAt.toLocaleString()}</p>
           <div>
             <p>Grunn:</p>
-            <article className="p-2 rounded-lg max-h-52 overflow-y-auto bg-gray-100 border font-monodiv">
+            <article className="font-monodiv max-h-52 overflow-y-auto rounded-lg border bg-gray-100 p-2">
               {application.reason.split("\n").map((line, i) => (
                 <p key={i}>{line}</p>
               ))}

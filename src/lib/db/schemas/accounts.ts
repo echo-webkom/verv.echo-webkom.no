@@ -1,6 +1,7 @@
-import { sqliteTable, text, primaryKey } from "drizzle-orm/sqlite-core";
-import { users } from "./users";
 import { InferSelectModel, relations } from "drizzle-orm";
+import { primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+
+import { users } from "./users";
 
 export const accounts = sqliteTable(
   "account",
@@ -16,7 +17,7 @@ export const accounts = sqliteTable(
     pk: primaryKey({
       columns: [account.provider, account.providerAccountId],
     }),
-  })
+  }),
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({

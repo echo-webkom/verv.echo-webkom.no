@@ -1,32 +1,33 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-  FormDescription,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { yearNames, studyNames, groupNames } from "@/lib/constants";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { ApplicationFormProps } from "./application-form";
-import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import { groupNames, studyNames, yearNames } from "@/lib/constants";
 import { submitApplication } from "../actions";
 import { formSchema } from "../schema";
+import { ApplicationFormProps } from "./application-form";
 
 export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
   const { toast } = useToast();
@@ -87,8 +88,8 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
                 <Input placeholder="ola.nordmann@echo.uib.no" {...field} />
               </FormControl>
               <FormDescription>
-                Vi vil bruke denne til å kontakte deg om intervju. Du kan endre
-                e-post om du ikke ønsker å bruke din UiB e-post.
+                Vi vil bruke denne til å kontakte deg om intervju. Du kan endre e-post om du ikke
+                ønsker å bruke din UiB e-post.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -102,10 +103,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>Årstrinn</FormLabel>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Velg ditt årstrinn" />
@@ -132,10 +130,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>Studieretning</FormLabel>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Velg din studieretning" />
@@ -161,8 +156,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fortell litt om deg selv, og hvorfor du vil være medlem i
-                {groupNames[group]}.
+                Fortell litt om deg selv, og hvorfor du vil være medlem i{groupNames[group]}.
               </FormLabel>
               <FormControl>
                 <Textarea

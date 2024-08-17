@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  AvatarIcon,
-  ExitIcon,
-  LockClosedIcon,
-  PersonIcon,
-} from "@radix-ui/react-icons";
+import { AvatarIcon, ExitIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 
+import { signOutAction } from "@/actions/sign-out";
+import { type AuthUser } from "@/lib/auth/lucia";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,8 +14,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import { signOutAction } from "@/actions/sign-out";
-import { type AuthUser } from "@/lib/auth/lucia";
 
 type ProfileIconProps = {
   user: AuthUser;
@@ -66,10 +61,7 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem asChild>
-          <button
-            className="w-full"
-            onClick={async () => await signOutAction(pathname)}
-          >
+          <button className="w-full" onClick={async () => await signOutAction(pathname)}>
             <ExitIcon className="mr-2 h-4 w-4" />
             <span>Logg ut</span>
           </button>

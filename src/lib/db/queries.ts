@@ -1,6 +1,7 @@
 import { asc, desc, eq } from "drizzle-orm";
-import { db } from "./drizzle";
+
 import { Group } from "../constants";
+import { db } from "./drizzle";
 
 export const selectAllUsers = () =>
   db.query.users.findMany({

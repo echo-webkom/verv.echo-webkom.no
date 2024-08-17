@@ -1,7 +1,8 @@
-import { db } from "@/lib/db/drizzle";
 import { eq, sql } from "drizzle-orm";
-import { applications } from "@/lib/db/schemas";
+
 import { auth } from "@/lib/auth/lucia";
+import { db } from "@/lib/db/drizzle";
+import { applications } from "@/lib/db/schemas";
 import { isMemberOf } from "@/lib/is-member-of";
 
 const webkomCountStmt = db
@@ -36,12 +37,11 @@ export const WebkomVsBedkom = async () => {
     bedkomCountStmt.execute(),
   ]).then((res) => res.map((r) => r[0].count));
 
-  const percentageWebkom =
-    (webkomCount / (Number(webkomCount) + Number(bedkomCount))) * 100;
+  const percentageWebkom = (webkomCount / (Number(webkomCount) + Number(bedkomCount))) * 100;
 
   return (
-    <div className="py-4 flex flex-col gap-10">
-      <div className="flex justify-between items-center">
+    <div className="flex flex-col gap-10 py-4">
+      <div className="flex items-center justify-between">
         <div className="w-full text-center">
           <h2 className="font-bold">Webkom</h2>
           <p className="text-6xl">{webkomCount}</p>
@@ -56,15 +56,15 @@ export const WebkomVsBedkom = async () => {
       </div>
 
       <div>
-        <div className="w-full h-4 rounded-full flex flex-row items-center overflow-hidden">
+        <div className="flex h-4 w-full flex-row items-center overflow-hidden rounded-full">
           <div
-            className="bg-blue-400 h-full"
+            className="h-full bg-blue-400"
             style={{
               width: `${percentageWebkom}%`,
             }}
           />
           <div
-            className="bg-red-400 h-full"
+            className="h-full bg-red-400"
             style={{
               width: `${100 - percentageWebkom}%`,
             }}

@@ -1,6 +1,7 @@
-import { relations, InferSelectModel } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import { sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
+
 import { applications } from "./applications";
 import { memberships } from "./memberships";
 

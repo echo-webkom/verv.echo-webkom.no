@@ -1,15 +1,13 @@
-import { yearEnum, studyEnum } from "@/lib/db/schemas";
 import { z } from "zod";
+
+import { studyEnum, yearEnum } from "@/lib/db/schemas";
 
 export const formSchema = z.object({
   name: z
     .string()
     .min(2, "Navnet ditt må være minst 2 tegn.")
     .max(255, "Navnet ditt kan ikke være lengre enn 255 tegn."),
-  email: z
-    .string()
-    .min(1, "E-post er påkrevd.")
-    .email("Må være en gyldig e-postadresse."),
+  email: z.string().min(1, "E-post er påkrevd.").email("Må være en gyldig e-postadresse."),
   yearOfStudy: z.enum(yearEnum, {
     errorMap: () => ({
       message: "Du må velge et gyldig årstrinn.",

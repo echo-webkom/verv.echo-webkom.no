@@ -1,19 +1,20 @@
-import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
-import { SignInButton, SignOutButton } from "./site-footer-client";
 import Image from "next/image";
+import Link from "next/link";
+import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
+
 import { auth } from "@/lib/auth/lucia";
+import { SignInButton, SignOutButton } from "./site-footer-client";
 
 export async function SiteFooter() {
   const user = await auth();
 
   return (
-    <footer className="bg-[#ffeabb] py-8 space-y-6 border-t-2 border-black">
-      <div className="max-w-3xl w-full mx-auto px-6 py-8 flex justify-between">
+    <footer className="space-y-6 border-t-2 border-black bg-[#ffeabb] py-8">
+      <div className="mx-auto flex w-full max-w-3xl justify-between px-6 py-8">
         <div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
             <div>
-              <h2 className="font-bold text-lg uppercase mb-2">Internt</h2>
+              <h2 className="mb-2 text-lg font-bold uppercase">Internt</h2>
 
               <ul>
                 <li>
@@ -25,7 +26,7 @@ export async function SiteFooter() {
             </div>
 
             <div>
-              <h2 className="font-bold text-lg uppercase mb-2">Bruker</h2>
+              <h2 className="mb-2 text-lg font-bold uppercase">Bruker</h2>
 
               <ul>
                 {user && (
@@ -50,7 +51,7 @@ export async function SiteFooter() {
             </div>
 
             <div>
-              <h2 className="font-bold text-lg uppercase mb-2">Annet</h2>
+              <h2 className="mb-2 text-lg font-bold uppercase">Annet</h2>
 
               <ul>
                 <li>
@@ -64,25 +65,17 @@ export async function SiteFooter() {
         </div>
 
         <div className="flex h-fit items-center gap-4">
-          <a
-            href="https://instagram.com/echo_uib"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://instagram.com/echo_uib" target="_blank" rel="noopener noreferrer">
             <InstagramLogoIcon className="h-7 w-7" />
           </a>
-          <a
-            href="https://github.com/echo-webkom"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://github.com/echo-webkom" target="_blank" rel="noopener noreferrer">
             <GitHubLogoIcon className="h-7 w-7" />
           </a>
           <a href="https://echo.uib.no">
             <Image
               src="/images/echo-logo.png"
               alt="echo logo"
-              className="h-8 my-auto w-auto grayscale brightness-0"
+              className="my-auto h-8 w-auto brightness-0 grayscale"
               height={100}
               width={100}
               quality={100}
@@ -91,7 +84,7 @@ export async function SiteFooter() {
         </div>
       </div>
 
-      <div className="text-center max-w-2xl px-6 mx-auto">
+      <div className="mx-auto max-w-2xl px-6 text-center">
         <p className="text-sm font-medium text-gray-800">
           Laget med ❤️ av{" "}
           <a

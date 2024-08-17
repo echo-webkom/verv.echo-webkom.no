@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
-import { LoginButton } from "./login-button";
+
 import { auth } from "@/lib/auth/lucia";
+import { LoginButton } from "./login-button";
 
 export default async function LoginPage() {
   const user = await auth();
@@ -10,7 +11,7 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className="space-y-8 p-16 max-w-2xl w-full text-center mx-auto px-6">
+    <main className="mx-auto w-full max-w-2xl space-y-8 p-16 px-6 text-center">
       <h1 className="text-3xl font-bold">Velkommen</h1>
 
       <LoginButton />

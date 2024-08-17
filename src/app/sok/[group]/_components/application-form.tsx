@@ -1,9 +1,9 @@
 "use client";
 
-import { Group } from "@/lib/constants";
-import { WebkomApplication } from "./webkom-application";
-import { GeneralApplication } from "./general-application";
 import { AuthUser } from "@/lib/auth/lucia";
+import { Group } from "@/lib/constants";
+import { GeneralApplication } from "./general-application";
+import { WebkomApplication } from "./webkom-application";
 
 export type ApplicationFormProps = {
   group: Group;

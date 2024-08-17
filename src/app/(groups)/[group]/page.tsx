@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
 import { cache } from "react";
+import { notFound } from "next/navigation";
 
 const groups = [
   {
@@ -63,11 +63,7 @@ export const generateStaticParams = async () => {
   return groups.map((group) => ({ group: group.id }));
 };
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { group: string };
-}) => {
+export const generateMetadata = async ({ params }: { params: { group: string } }) => {
   const group = getData(params.group);
 
   if (!group) {
@@ -80,11 +76,7 @@ export const generateMetadata = async ({
   };
 };
 
-export default async function GroupPage({
-  params,
-}: {
-  params: { group: string };
-}) {
+export default async function GroupPage({ params }: { params: { group: string } }) {
   const group = getData(params.group);
 
   const Content = await group.content.then((content) => content.default);

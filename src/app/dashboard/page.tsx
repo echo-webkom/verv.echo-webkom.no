@@ -1,11 +1,12 @@
-import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { sql } from "drizzle-orm";
+
+import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth/lucia";
 import { Group, groupNames } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
-import { sql } from "drizzle-orm";
 import { applications } from "@/lib/db/schemas";
-import { auth } from "@/lib/auth/lucia";
 import { isWebkom } from "@/lib/is-member-of";
 import { WebkomVsBedkom } from "./_components/webkom-vs-bedkom";
 
@@ -22,12 +23,10 @@ export default async function Dashboard() {
     return redirect("/logg-inn");
   }
 
-  const applicationCount = await applicationCountStmt
-    .execute()
-    .then((res) => res[0].count);
+  const applicationCount = await applicationCountStmt.execute().then((res) => res[0].count);
 
   return (
-    <main className="space-y-4 max-w-2xl w-full mx-auto px-6">
+    <main className="mx-auto w-full max-w-2xl space-y-4 px-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
 
       <p>Antall søkere: {applicationCount}</p>

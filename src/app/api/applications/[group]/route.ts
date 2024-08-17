@@ -1,11 +1,12 @@
-import { selectApplicationsByGroup } from "@/lib/db/queries";
+import { NextRequest } from "next/server";
 import { Parser } from "@json2csv/plainjs";
 import { z } from "zod";
-import { studyNames, yearNames } from "@/lib/constants";
-import { NextRequest } from "next/server";
+
 import { auth } from "@/lib/auth/lucia";
-import { isMemberOf, isWebkom } from "@/lib/is-member-of";
+import { studyNames, yearNames } from "@/lib/constants";
+import { selectApplicationsByGroup } from "@/lib/db/queries";
 import { groupEnum } from "@/lib/db/schemas";
+import { isMemberOf, isWebkom } from "@/lib/is-member-of";
 
 const parser = new Parser({
   withBOM: true,
@@ -17,10 +18,7 @@ const routeContextSchema = z.object({
   }),
 });
 
-export async function GET(
-  _request: NextRequest,
-  ctx: z.infer<typeof routeContextSchema>
-) {
+export async function GET(_request: NextRequest, ctx: z.infer<typeof routeContextSchema>) {
   try {
     const parsedCtx = routeContextSchema.parse(ctx);
 
@@ -38,9 +36,7 @@ export async function GET(
       });
     }
 
-    const applications = await selectApplicationsByGroup(
-      parsedCtx.params.group
-    );
+    const applications = await selectApplicationsByGroup(parsedCtx.params.group);
 
     const mappedApplications = applications.map(
       ({ email, fieldOfStudy, name, reason, yearOfStudy }) => ({
@@ -49,7 +45,7 @@ export async function GET(
         studieretning: studyNames[fieldOfStudy],
         årstrinn: yearNames[yearOfStudy],
         grunn: reason,
-      })
+      }),
     );
 
     const csv = parser.parse(mappedApplications);

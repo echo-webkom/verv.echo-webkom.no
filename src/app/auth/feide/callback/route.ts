@@ -4,7 +4,8 @@ import { feide, getFeideUser } from "@/lib/auth/feide";
 import { db } from "@/lib/db/drizzle";
 import { lucia } from "@/lib/auth/lucia";
 import { nanoid } from "nanoid";
-import { accounts, users } from "@/lib/db/schemas";
+import { accounts, memberships, users } from "@/lib/db/schemas";
+import { getEchoGroups } from "@/lib/get-echo-groups";
 
 export const GET = async (request: Request) => {
   const url = new URL(request.url);
@@ -63,6 +64,17 @@ export const GET = async (request: Request) => {
         accessToken: tokens.accessToken,
       });
     });
+
+    const groups = await getEchoGroups(feideUser.id);
+
+    if (groups.length > 0) {
+      await db.insert(memberships).values(
+        groups.map((groupId) => ({
+          groupId,
+          userId,
+        }))
+      );
+    }
 
     const session = await lucia.createSession(userId, {});
     const sessionCookie = lucia.createSessionCookie(session.id);

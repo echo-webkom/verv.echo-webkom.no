@@ -1,5 +1,19 @@
-import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { FlipWords } from "@/components/flip-words";
+import { GroupLink } from "@/components/group-link";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
+
+const groups = [
+  "Webkom",
+  "Tilde",
+  "Bedkom",
+  "Makerspace",
+  "Hyggkom",
+  "Gnist",
+  "ESC",
+  "Programmerbar",
+  "Consulting",
+].map((group) => group + "!");
 
 export default function Home() {
   return (
@@ -14,9 +28,12 @@ export default function Home() {
           quality={100}
         />
 
-        <h1 className="text-4xl md:text-5xl font-bold">Søk verv i Webkom!</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-neutral-800 space-y-3 mb-4">
+          Søk verv i <br />
+          <FlipWords words={groups} />
+        </h1>
 
-        <p className="text-lg">
+        <p className="text-xl text-neutral-900">
           echo har nå åpnet for søknader til verv. Søknadsfristen er 1.
           september. Det er lov å søke på flere grupper!
         </p>
@@ -49,29 +66,3 @@ export default function Home() {
     </main>
   );
 }
-
-type GroupLinkProps = {
-  emoji: string;
-  name: string;
-  to: string;
-};
-
-const GroupLink = ({ emoji, name, to }: GroupLinkProps) => {
-  return (
-    <li key={to} className="py-6 flex flex-row items-center">
-      <a href={to} className="flex-1">
-        <h2 className="group text-2xl font-bold">
-          <span aria-hidden="true">{emoji}</span>
-          <span className="group-hover:underline ml-2">{name}</span>
-        </h2>
-      </a>
-
-      <a
-        href={to}
-        className="py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center flex"
-      >
-        <ChevronRightIcon />
-      </a>
-    </li>
-  );
-};

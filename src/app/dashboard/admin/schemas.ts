@@ -1,4 +1,4 @@
-import { groupEnum } from "@/lib/db/schema";
+import { groupEnum } from "@/lib/db/schemas";
 import { z } from "zod";
 
 export const userFormSchema = z.object({

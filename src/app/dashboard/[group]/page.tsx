@@ -1,9 +1,10 @@
 import { notFound, redirect } from "next/navigation";
-import { getUserGroups, selectApplicationsByGroup } from "@/lib/db/queries";
+import { selectApplicationsByGroup } from "@/lib/db/queries";
 import { Group, groupNames } from "@/lib/constants";
 import { DataTable } from "./data-table";
 import { columns } from "./columns";
 import { auth } from "@/lib/auth/lucia";
+import { isMemberOf, isWebkom } from "@/lib/is-member-of";
 
 type Props = {
   params: {
@@ -12,16 +13,10 @@ type Props = {
 };
 
 export default async function GroupDashboard({ params }: Props) {
-  const { user } = await auth();
+  const user = await auth();
 
-  if (!user) {
+  if (!user || !isMemberOf(user, [params.group, "webkom"])) {
     return redirect("/logg-inn");
-  }
-
-  const groups = await getUserGroups(user.id);
-
-  if (!groups.map((group) => group.id).includes(params.group)) {
-    return redirect("/dashboard");
   }
 
   if (!Object.keys(groupNames).includes(params.group)) {

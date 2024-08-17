@@ -1,4 +1,4 @@
-import { yearEnum, studyEnum } from "@/lib/db/schema";
+import { yearEnum, studyEnum } from "@/lib/db/schemas";
 import { z } from "zod";
 
 export const formSchema = z.object({

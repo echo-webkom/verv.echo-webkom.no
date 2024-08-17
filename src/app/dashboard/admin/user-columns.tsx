@@ -50,7 +50,7 @@ const ViewDetailsButton = ({
   const form = useForm<z.infer<typeof userFormSchema>>({
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      groups: user.groupsMemberships.map((group) => group.id),
+      groups: user.memberships.map((membership) => membership.groupId),
     },
   });
 

@@ -6,21 +6,18 @@ import {
 } from "@/components/ui/accordion";
 import { auth } from "@/lib/auth/lucia";
 import { groupNames } from "@/lib/constants";
-import { getUserGroups, selectApplicationsByUser } from "@/lib/db/queries";
+import { selectApplicationsByUser } from "@/lib/db/queries";
 import { AlertCircleIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 
 export default async function ProfilePage() {
-  const { user } = await auth();
+  const user = await auth();
 
   if (!user) {
     return redirect("/logg-inn");
   }
 
-  const [applications, groups] = await Promise.all([
-    selectApplicationsByUser(user.id),
-    getUserGroups(user.id),
-  ]);
+  const applications = await selectApplicationsByUser(user.id);
 
   return (
     <main className="space-y-8 p-16 max-w-2xl w-full mx-auto px-6">
@@ -42,14 +39,14 @@ export default async function ProfilePage() {
         <h2 className="text-2xl font-bold">Dine verv</h2>
 
         <ul className="divide-y">
-          {groups.length === 0 ? (
+          {user.groups.length === 0 ? (
             <p>Du er ikke medlem av noen verv enda.</p>
           ) : (
-            groups.map((group) => (
-              <li className="flex flex-col py-3" key={group.id}>
-                <a className="group" href={`/dashboard/${group.id}`}>
+            user.groups.map((group) => (
+              <li className="flex flex-col py-3" key={group}>
+                <a className="group" href={`/dashboard/${group}`}>
                   <span className="group-hover:underline">
-                    {groupNames[group.id]}
+                    {groupNames[group]}
                   </span>
                 </a>
               </li>

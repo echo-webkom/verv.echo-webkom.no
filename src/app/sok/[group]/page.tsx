@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { ApplicationForm } from "./application-form";
+import { ApplicationForm } from "./_components/application-form";
 import { FancyLink } from "@/components/fancy-link";
 import { Group, groupNames } from "@/lib/constants";
 import { auth } from "@/lib/auth/lucia";
@@ -33,7 +33,7 @@ export const generateMetadata = async ({ params }: Props) => {
 };
 
 export default async function ApplicationPage({ params }: Props) {
-  const { user } = await auth();
+  const user = await auth();
 
   if (!user) {
     return (

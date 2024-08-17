@@ -1,19 +1,14 @@
-import { getUserGroups, selectAllUsers } from "@/lib/db/queries";
+import { selectAllUsers } from "@/lib/db/queries";
 import { redirect } from "next/navigation";
 import { DataTable } from "./user-data-table";
 import { columns } from "./user-columns";
 import { auth } from "@/lib/auth/lucia";
+import { isMemberOf } from "@/lib/is-member-of";
 
 export default async function AdminDashboard() {
-  const { user } = await auth();
+  const user = await auth();
 
-  if (!user) {
-    return redirect("/");
-  }
-
-  const groups = await getUserGroups(user.id);
-
-  if (!groups.some((group) => group.id === "webkom")) {
+  if (!user || !isMemberOf(user, ["webkom"])) {
     return redirect("/");
   }
 

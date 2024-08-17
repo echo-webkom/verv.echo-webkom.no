@@ -25,8 +25,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { submitApplication } from "./actions";
-import { formSchema } from "./schema";
+import { submitApplication } from "../actions";
+import { formSchema } from "../schema";
 
 export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
   const { toast } = useToast();

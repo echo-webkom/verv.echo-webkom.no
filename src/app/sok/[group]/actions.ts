@@ -3,11 +3,11 @@
 import { z } from "zod";
 import { formSchema } from "./schema";
 import { db } from "@/lib/db/drizzle";
-import { applications } from "@/lib/db/schema";
 import { revalidatePath } from "next/cache";
 import { APPLICATION_DEADLINE, Group } from "@/lib/constants";
 import { LibsqlError } from "@libsql/client";
 import { auth } from "@/lib/auth/lucia";
+import { applications } from "@/lib/db/schemas";
 
 type Result =
   | {
@@ -38,7 +38,7 @@ export const submitApplication = async (
     };
   }
 
-  const { user } = await auth();
+  const user = await auth();
 
   if (!user) {
     return {

@@ -1,13 +1,13 @@
 "use server";
 
 import { db } from "@/lib/db/drizzle";
-import { userGroupMemberships, users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { userFormSchema } from "./schemas";
 import { auth } from "@/lib/auth/lucia";
-import { getUserGroups } from "@/lib/db/queries";
+import { memberships } from "@/lib/db/schemas";
+import { isWebkom } from "@/lib/is-member-of";
 
 type Response =
   | {
@@ -23,7 +23,7 @@ export const updateUserAction = async (
   data: z.infer<typeof userFormSchema>
 ): Promise<Response> => {
   try {
-    const { user: actionUser } = await auth();
+    const actionUser = await auth();
 
     if (!actionUser) {
       return {
@@ -32,9 +32,7 @@ export const updateUserAction = async (
       };
     }
 
-    const userGroups = await getUserGroups(actionUser.id);
-
-    if (!userGroups.some((group) => group.id === "webkom")) {
+    if (!isWebkom(actionUser)) {
       return {
         result: "error",
         message: "Unauthorized",
@@ -43,13 +41,11 @@ export const updateUserAction = async (
 
     const { groups } = userFormSchema.parse(data);
 
-    await db
-      .delete(userGroupMemberships)
-      .where(eq(userGroupMemberships.userId, userId));
+    await db.delete(memberships).where(eq(memberships.userId, userId));
 
-    await db.insert(userGroupMemberships).values(
-      groups.map((id) => ({
-        id,
+    await db.insert(memberships).values(
+      groups.map((groupId) => ({
+        groupId,
         userId,
       }))
     );

@@ -5,15 +5,15 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const signOutAction = async (redirectTo?: string) => {
-  const { session } = await auth();
+  const user = await auth();
 
-  if (!session) {
+  if (!user) {
     return {
       error: "Unauthorized",
     };
   }
 
-  await lucia.invalidateSession(session.id);
+  await lucia.invalidateSession(user.session.id);
 
   const sessionCookie = lucia.createBlankSessionCookie();
   cookies().set(

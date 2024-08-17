@@ -1,13 +1,13 @@
 "use client";
 
 import { Group } from "@/lib/constants";
-import { User } from "@/lib/db/schema";
 import { WebkomApplication } from "./webkom-application";
 import { GeneralApplication } from "./general-application";
+import { AuthUser } from "@/lib/auth/lucia";
 
 export type ApplicationFormProps = {
   group: Group;
-  user: User;
+  user: AuthUser;
 };
 
 export const ApplicationForm = (props: ApplicationFormProps) => {

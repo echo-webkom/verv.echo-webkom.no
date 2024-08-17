@@ -1,11 +1,15 @@
 import { selectApplicationsByGroup } from "@/lib/db/queries";
 import { Parser } from "@json2csv/plainjs";
-import { groupEnum } from "@/lib/db/schema";
 import { z } from "zod";
 import { studyNames, yearNames } from "@/lib/constants";
 import { NextRequest } from "next/server";
 import { auth } from "@/lib/auth/lucia";
-import { db } from "@/lib/db/drizzle";
+import { isMemberOf, isWebkom } from "@/lib/is-member-of";
+import { groupEnum } from "@/lib/db/schemas";
+
+const parser = new Parser({
+  withBOM: true,
+});
 
 const routeContextSchema = z.object({
   params: z.object({
@@ -20,7 +24,7 @@ export async function GET(
   try {
     const parsedCtx = routeContextSchema.parse(ctx);
 
-    const { user } = await auth();
+    const user = await auth();
 
     if (!user) {
       return new Response("Unauthorized: You're not logged in.", {
@@ -28,16 +32,7 @@ export async function GET(
       });
     }
 
-    const groups = await db.query.userGroupMemberships
-      .findMany({
-        where: (ugm, { eq }) => eq(ugm.userId, user.id),
-      })
-      .then((res) => res.map((ugm) => ugm.id));
-
-    if (
-      !groups.map((group) => group).includes(parsedCtx.params.group) &&
-      !groups.includes("webkom")
-    ) {
+    if (!isMemberOf(user, [parsedCtx.params.group]) && !isWebkom(user)) {
       return new Response("Unauthorized: You're not in the group.", {
         status: 401,
       });
@@ -56,10 +51,6 @@ export async function GET(
         grunn: reason,
       })
     );
-
-    const parser = new Parser({
-      withBOM: true,
-    });
 
     const csv = parser.parse(mappedApplications);
 

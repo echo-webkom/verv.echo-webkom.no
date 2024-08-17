@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "de3cd304-dcd4-490e-aa18-a2eaef5203dd",
+  "id": "245e3dd3-b294-4fc4-a574-2c72c7d1408e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -158,6 +158,51 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "membership": {
+      "name": "membership",
+      "columns": {
+        "group_id": {
+          "name": "group_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "membership_user_id_user_id_fk": {
+          "name": "membership_user_id_user_id_fk",
+          "tableFrom": "membership",
+          "tableTo": "user",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "membership_user_id_group_id_pk": {
+          "columns": [
+            "user_id",
+            "group_id"
+          ],
+          "name": "membership_user_id_group_id_pk"
+        }
+      },
+      "uniqueConstraints": {}
+    },
     "session": {
       "name": "session",
       "columns": {
@@ -200,51 +245,6 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "user_group_membership": {
-      "name": "user_group_membership",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "user_group_membership_user_id_user_id_fk": {
-          "name": "user_group_membership_user_id_user_id_fk",
-          "tableFrom": "user_group_membership",
-          "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {
-        "user_group_membership_user_id_id_pk": {
-          "columns": [
-            "user_id",
-            "id"
-          ],
-          "name": "user_group_membership_user_id_id_pk"
-        }
-      },
       "uniqueConstraints": {}
     },
     "user": {

@@ -4,7 +4,7 @@ import { ProfileIcon } from "./profile-icon";
 import { auth } from "@/lib/auth/lucia";
 
 export async function SiteHeader() {
-  const { user } = await auth();
+  const user = await auth();
 
   return (
     <>

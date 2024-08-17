@@ -18,10 +18,10 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { signOutAction } from "@/actions/sign-out";
-import { User } from "lucia";
+import { type AuthUser } from "@/lib/auth/lucia";
 
 type ProfileIconProps = {
-  user: User;
+  user: AuthUser;
 };
 
 export const ProfileIcon = ({ user }: ProfileIconProps) => {
@@ -50,7 +50,7 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
           </Link>
         </DropdownMenuItem>
 
-        {/* {Boolean(user?.groupsMemberships.length) && (
+        {Boolean(user?.groups.length) && (
           <>
             <DropdownMenuSeparator />
 
@@ -61,7 +61,7 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
               </Link>
             </DropdownMenuItem>
           </>
-        )} */}
+        )}
 
         <DropdownMenuSeparator />
 

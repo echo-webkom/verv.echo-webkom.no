@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import { Application } from "@/lib/db/schema";
+import { Application } from "@/lib/db/schemas";
 import {
   Dialog,
   DialogDescription,
@@ -20,7 +20,6 @@ import {
 } from "@radix-ui/react-dialog";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
-import { useState } from "react";
 
 const CopyIdButton = ({ application }: { application: Application }) => {
   const { toast } = useToast();

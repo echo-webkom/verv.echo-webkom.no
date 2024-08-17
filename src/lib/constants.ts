@@ -1,4 +1,4 @@
-import { groupEnum, studyEnum, yearEnum } from "./db/schema";
+import { groupEnum, studyEnum, yearEnum } from "./db/schemas";
 
 export const BASE_URL =
   process.env.NODE_ENV === "production"
@@ -17,7 +17,7 @@ export const yearNames = {
   3: "3. året",
   4: "4. året",
   5: "5. året",
-} satisfies Record<Year, string>;
+} as const satisfies Record<Year, string>;
 
 export const studyNames = {
   DTEK: "Datateknologi",
@@ -29,7 +29,7 @@ export const studyNames = {
   PROG: "Felles master i programvareutvikling",
   DSC: "Master i Data Science",
   OTHER: "Annet (ikke på listen)",
-} satisfies Record<Study, string>;
+} as const satisfies Record<Study, string>;
 
 export const groupNames = {
   webkom: "Webkom",
@@ -40,4 +40,5 @@ export const groupNames = {
   gnist: "Gnist",
   esc: "echo Sports Club",
   programmerbar: "Programmerbar",
-} satisfies Record<Group, string>;
+  consulting: "echo Consulting",
+} as const satisfies Record<Group, string>;

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { auth } from "@/lib/auth/lucia";
 
 export async function SiteFooter() {
-  const { user } = await auth();
+  const user = await auth();
 
   return (
     <footer className="bg-[#ffeabb] py-8 space-y-6 border-t-2 border-black">

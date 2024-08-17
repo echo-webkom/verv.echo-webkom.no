@@ -4,7 +4,7 @@ import { feide, getFeideUser } from "@/lib/auth/feide";
 import { db } from "@/lib/db/drizzle";
 import { lucia } from "@/lib/auth/lucia";
 import { nanoid } from "nanoid";
-import { accounts, users } from "@/lib/db/schema";
+import { accounts, users } from "@/lib/db/schemas";
 
 export const GET = async (request: Request) => {
   const url = new URL(request.url);
@@ -56,7 +56,7 @@ export const GET = async (request: Request) => {
         email: feideUser.email,
       });
 
-      tx.insert(accounts).values({
+      await tx.insert(accounts).values({
         userId: userId,
         provider: "feide",
         providerAccountId: feideUser.id,

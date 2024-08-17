@@ -3,7 +3,7 @@ import { LoginButton } from "./login-button";
 import { auth } from "@/lib/auth/lucia";
 
 export default async function LoginPage() {
-  const { user } = await auth();
+  const user = await auth();
 
   if (user) {
     return redirect("/");

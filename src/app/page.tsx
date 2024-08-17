@@ -1,7 +1,10 @@
+"use client";
+
 import { FancyLink } from "@/components/fancy-link";
 import { FlipWords } from "@/components/flip-words";
 import { GroupLink } from "@/components/group-link";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
 import Image from "next/image";
 
 const groups = [
@@ -34,23 +37,57 @@ export default function Home() {
           <FlipWords words={groups} />
         </h1>
 
-        <p className="text-xl text-neutral-700 font-medium">
+        <motion.p
+          initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 0.2,
+            duration: 0.3,
+          }}
+          className="text-xl text-neutral-700 font-medium"
+        >
           echo har nå åpnet for søknader til verv. Søknadsfristen er 1.
           september. Det er lov å søke på flere grupper!
-        </p>
+        </motion.p>
       </section>
 
       <section className="mb-14">
         <div className="mb-4">
-          <h2 className="text-3xl font-bold text-center mb-2">
+          <motion.h2
+            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              delay: 0.1,
+              duration: 0.2,
+            }}
+            className="text-3xl font-bold text-center mb-2"
+          >
             Våre undergrupper
-          </h2>
-          <p className="text-center text-gray-700">
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{
+              delay: 0.1,
+              duration: 0.2,
+            }}
+            className="text-center text-gray-700"
+          >
             Trykk på en av undergruppene for å lære mer.
-          </p>
+          </motion.p>
         </div>
 
-        <ChevronDownIcon className="mx-auto animate-bounce h-6 w-6" />
+        <motion.div
+          initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{
+            delay: 0.1,
+            duration: 0.2,
+          }}
+          className="mx-auto animate-bounce h-6 w-6"
+        >
+          <ChevronDownIcon />
+        </motion.div>
 
         <ul className="divide-y">
           <GroupLink emoji="💻" name="Webkom" to="/webkom" />

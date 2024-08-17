@@ -1,8 +1,12 @@
 import "dotenv/config";
-import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { migrate } from "drizzle-orm/libsql/migrator";
 import { db } from "../src/lib/db/drizzle";
 
 console.log("🚀 Starting migrations...");
+
+if (process.env.VERCEL_ENV === "preview") {
+  process.exit(0);
+}
 
 migrate(db, { migrationsFolder: "./drizzle/migrations" })
   .then(() => {

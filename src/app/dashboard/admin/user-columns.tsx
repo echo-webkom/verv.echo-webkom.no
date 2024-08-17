@@ -27,10 +27,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { Group, groupNames } from "@/lib/constants";
-import { UserWithGroups } from "@/lib/db/queries";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -39,8 +37,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { updateUserAction } from "./actions";
 import { userFormSchema } from "./schemas";
+import { selectAllUsers } from "@/lib/db/queries";
 
-const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
+const ViewDetailsButton = ({
+  user,
+}: {
+  user: Awaited<ReturnType<typeof selectAllUsers>>[number];
+}) => {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -48,7 +51,6 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
     resolver: zodResolver(userFormSchema),
     defaultValues: {
       groups: user.groupsMemberships.map((group) => group.id),
-      isAdmin: user.isAdmin,
     },
   });
 
@@ -100,27 +102,6 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
 
           <Form {...form}>
             <form onSubmit={onSubmit} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="isAdmin"
-                render={({ field }) => (
-                  <FormItem className="flex flex-row items-center justify-between">
-                    <div className="space-y-0.5">
-                      <FormLabel className="text-base">Administrator</FormLabel>
-                      <FormDescription>
-                        Skal brukeren ha tilgang til admin dashboard?
-                      </FormDescription>
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-
               <FormField
                 control={form.control}
                 name="groups"
@@ -182,7 +163,9 @@ const ViewDetailsButton = ({ user }: { user: UserWithGroups }) => {
   );
 };
 
-export const columns: Array<ColumnDef<UserWithGroups>> = [
+export const columns: Array<
+  ColumnDef<Awaited<ReturnType<typeof selectAllUsers>>[number]>
+> = [
   {
     accessorKey: "name",
     header: "Navn",
@@ -192,15 +175,6 @@ export const columns: Array<ColumnDef<UserWithGroups>> = [
     accessorKey: "email",
     header: "E-post",
     sortingFn: "alphanumeric",
-  },
-  {
-    accessorKey: "role",
-    header: "Rolle",
-    cell: ({ row }) => {
-      const user = row.original;
-      return <span>{user.isAdmin ? "Administrator" : "Bruker"}</span>;
-    },
-    enableSorting: false,
   },
   {
     id: "actions",

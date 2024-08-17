@@ -1,11 +1,10 @@
+import "@/styles/globals.css";
 import { SiteFooter } from "@/components/site-footer";
-import { Analytics } from "@vercel/analytics/react";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/toaster";
 import { baseURL } from "@/lib/config";
 import { cn } from "@/lib/utils";
-import "@/styles/globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -25,12 +24,16 @@ export const metadata = {
     shortcut: "/favicon16x16.png",
   },
   manifest: "/site.webmanifest",
-  viewport: "width=device-width, initial-scale=1.0",
-  themeColor: "#ffeabb",
   appleWebApp: {
     title: "echo – Verv",
   },
 } satisfies Metadata;
+
+export const viewport = {
+  themeColor: "#ffeabb",
+  width: "device-width",
+  initialScale: 1,
+} satisfies Viewport;
 
 export default function RootLayout({
   children,
@@ -49,7 +52,6 @@ export default function RootLayout({
         <div className="flex-1 py-14">{children}</div>
         <SiteFooter />
         <Toaster />
-        <Analytics />
       </body>
     </html>
   );

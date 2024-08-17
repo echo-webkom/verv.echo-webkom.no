@@ -1,21 +1,17 @@
 import {
-  timestamp,
-  pgTable,
   text,
   primaryKey,
   integer,
-  pgEnum,
   uniqueIndex,
-  uuid,
-  varchar,
-  boolean,
-} from "drizzle-orm/pg-core";
-import type { AdapterAccount } from "@auth/core/adapters";
+  sqliteTable,
+} from "drizzle-orm/sqlite-core";
 import { InferSelectModel, relations } from "drizzle-orm";
+import { nanoid } from "nanoid";
+import type { AdapterAccount } from "next-auth/adapters";
 
-export const yearEnum = pgEnum("year_enum", ["1", "2", "3", "4", "5"]);
+export const yearEnum = ["1", "2", "3", "4", "5"] as const;
 
-export const studyEnum = pgEnum("study_enum", [
+export const studyEnum = [
   "DTEK",
   "DSIK",
   "DVIT",
@@ -25,9 +21,9 @@ export const studyEnum = pgEnum("study_enum", [
   "PROG",
   "DSC",
   "OTHER",
-]);
+] as const;
 
-export const groupEnum = pgEnum("group_enum", [
+export const groupEnum = [
   "webkom",
   "tilde",
   "bedkom",
@@ -36,19 +32,17 @@ export const groupEnum = pgEnum("group_enum", [
   "gnist",
   "esc",
   "programmerbar",
-]);
+] as const;
 
-//
-// START NEXTAUTH TABLES
-//
-
-export const users = pgTable("user", {
-  id: text("id").notNull().primaryKey(),
+export const users = sqliteTable("user", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
-  email: text("email").notNull(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  email: text("email").unique(),
+  emailVerified: integer("email_verified", { mode: "timestamp_ms" }),
   image: text("image"),
-  isAdmin: boolean("is_admin").notNull().default(false),
+  isAdmin: integer("is_admin", { mode: "boolean" }).notNull().default(false),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -58,15 +52,15 @@ export const usersRelations = relations(users, ({ many }) => ({
 
 export type User = InferSelectModel<typeof users>;
 
-export const accounts = pgTable(
+export const accounts = sqliteTable(
   "account",
   {
-    userId: text("userId")
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
     provider: text("provider").notNull(),
-    providerAccountId: text("providerAccountId").notNull(),
+    providerAccountId: text("provider_account_id").notNull(),
     refresh_token: text("refresh_token"),
     access_token: text("access_token"),
     expires_at: integer("expires_at"),
@@ -76,44 +70,42 @@ export const accounts = pgTable(
     session_state: text("session_state"),
   },
   (account) => ({
-    compoundKey: primaryKey(account.provider, account.providerAccountId),
+    pk: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
   })
 );
 
-export const sessions = pgTable("session", {
-  sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: text("userId")
+export const sessions = sqliteTable("session", {
+  sessionToken: text("session_token").primaryKey(),
+  userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  expires: timestamp("expires", { mode: "date" }).notNull(),
+  expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
 });
 
-export const verificationTokens = pgTable(
-  "verificationToken",
+export const verificationTokens = sqliteTable(
+  "verification_token",
   {
     identifier: text("identifier").notNull(),
     token: text("token").notNull(),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
+    expires: integer("expires", { mode: "timestamp_ms" }).notNull(),
   },
   (vt) => ({
-    compoundKey: primaryKey(vt.identifier, vt.token),
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
 
-//
-// END NEXTAUTH TABLES
-//
-
-export const userGroupMemberships = pgTable(
+export const userGroupMemberships = sqliteTable(
   "user_group_membership",
   {
-    id: groupEnum("id").notNull(),
+    id: text("id", { enum: groupEnum }).notNull(),
     userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
   },
   (ugm) => ({
-    compoundKey: primaryKey(ugm.userId, ugm.id),
+    compoundKey: primaryKey({ columns: [ugm.userId, ugm.id] }),
   })
 );
 
@@ -127,20 +119,22 @@ export const userGroupMembershipsRelations = relations(
   })
 );
 
-export const applications = pgTable(
+export const applications = sqliteTable(
   "application",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    name: varchar("name", { length: 255 }).notNull(),
-    email: varchar("email", { length: 255 }).notNull(),
-    yearOfStudy: yearEnum("year").notNull(),
-    fieldOfStudy: studyEnum("study").notNull(),
+    id: text("id").notNull().primaryKey().$defaultFn(nanoid),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    yearOfStudy: text("year", { enum: yearEnum }).notNull(),
+    fieldOfStudy: text("study", { enum: studyEnum }).notNull(),
     reason: text("body").notNull(),
     userId: text("user_id")
       .notNull()
       .references(() => users.id),
-    groupId: groupEnum("group_id").notNull(),
-    createdAt: timestamp("created_at").notNull().defaultNow(),
+    groupId: text("group_id", { enum: groupEnum }).notNull(),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .notNull()
+      .$defaultFn(() => new Date()),
   },
   (application) => ({
     groupEmailSemesterIndex: uniqueIndex("group_email_index").on(

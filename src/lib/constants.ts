@@ -1,10 +1,10 @@
 import { groupEnum, studyEnum, yearEnum } from "./db/schema";
 
-export type Year = (typeof yearEnum.enumValues)[number];
-export type Study = (typeof studyEnum.enumValues)[number];
-export type Group = (typeof groupEnum.enumValues)[number];
+export type Year = (typeof yearEnum)[number];
+export type Study = (typeof studyEnum)[number];
+export type Group = (typeof groupEnum)[number];
 
-export const APPLICATION_DEADLINE = new Date("Feb 14 2024 23:59:59 UTC+02:00");
+export const APPLICATION_DEADLINE = new Date("Sep 1 2024 23:59:59 UTC+02:00");
 
 export const yearNames = {
   1: "1. året",

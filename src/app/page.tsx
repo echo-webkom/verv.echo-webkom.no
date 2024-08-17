@@ -1,16 +1,5 @@
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-
-const groups = [
-  {
-    to: "/webkom",
-    name: "💻 Webkom",
-  },
-  {
-    to: "/gnist",
-    name: "✨ Gnist",
-  },
-];
 
 export default function Home() {
   return (
@@ -47,49 +36,44 @@ export default function Home() {
 
         <ChevronDownIcon className="mx-auto animate-bounce h-6 w-6" />
 
-        <ul className="grid grid-cols-2 place-items-center">
-          {groups.map(({ to, name }) => {
-            const emoji = name.split(" ")[0];
-            const title = name.split(" ")[1];
-
-            return (
-              <li key={name} className="py-6 flex flex-row items-center">
-                <a href={to} className="flex-1">
-                  <h2 className="flex flex-col text-2xl font-bold">
-                    <span className="flex justify-center group-hover:underline ml-2">
-                      {title}
-                    </span>
-                    {title === "Webkom" ? (
-                      <span className="flex justify-center group-hover:underline">
-                        <Image
-                          src="/images/webkom-logo.png"
-                          width={70}
-                          height={70}
-                          alt="webkom logo"
-                          quality={100}
-                        />
-                      </span>
-                    ) : (
-                      <span className="flex justify-center text-5xl">
-                        {emoji}
-                      </span>
-                    )}
-                    <span
-                      className="flex justify-center text-5xl py-2"
-                      aria-hidden="true"
-                    ></span>
-                    <span className="flex justify-center">
-                      <a href={to}>
-                        <ChevronDownIcon className="flex mx-auto animate-bounce h-4 w-4" />
-                      </a>
-                    </span>
-                  </h2>
-                </a>
-              </li>
-            );
-          })}
+        <ul className="divide-y">
+          <GroupLink emoji="💻" name="Webkom" to="/webkom" />
+          <GroupLink emoji="👔" name="Bedkom" to="/bedkom" />
+          <GroupLink emoji="🤝🏻" name="Consulting" to="/consutling" />
+          <GroupLink emoji="🏟️" name="ESC" to="/esc" />
+          <GroupLink emoji="✨" name="Gnist" to="/gnist" />
+          <GroupLink emoji="🫶🏻" name="Hyggkom" to="/hyggkom" />
+          <GroupLink emoji="🛠️" name="Makerspace" to="/makerspace" />
+          <GroupLink emoji="🍻" name="Programmerbar" to="/programmerbar" />
+          <GroupLink emoji="🥳" name="Tilde" to="/tilde" />
         </ul>
       </div>
     </main>
   );
 }
+
+type GroupLinkProps = {
+  emoji: string;
+  name: string;
+  to: string;
+};
+
+const GroupLink = ({ emoji, name, to }: GroupLinkProps) => {
+  return (
+    <li key={to} className="py-6 flex flex-row items-center">
+      <a href={to} className="flex-1">
+        <h2 className="group text-2xl font-bold">
+          <span aria-hidden="true">{emoji}</span>
+          <span className="group-hover:underline ml-2">{name}</span>
+        </h2>
+      </a>
+
+      <a
+        href={to}
+        className="py-2 hover:underline hover:bg-gray-100 rounded-lg h-14 w-14 items-center justify-center flex"
+      >
+        <ChevronRightIcon />
+      </a>
+    </li>
+  );
+};

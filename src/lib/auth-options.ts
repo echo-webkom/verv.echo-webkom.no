@@ -1,6 +1,8 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import type { AuthOptions, DefaultSession, User } from "next-auth";
+import type { DefaultSession, User } from "next-auth";
+import NextAuth from "next-auth";
 import { db } from "./db/drizzle";
+import { accounts, sessions, users, verificationTokens } from "./db/schema";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -12,8 +14,13 @@ declare module "next-auth" {
   }
 }
 
-export const authOptions: AuthOptions = {
-  adapter: DrizzleAdapter(db),
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: DrizzleAdapter(db, {
+    usersTable: users,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+  }),
 
   callbacks: {
     session: ({ session, user }) => ({
@@ -38,7 +45,6 @@ export const authOptions: AuthOptions = {
       },
       clientId: process.env.FEIDE_CLIENT_ID,
       clientSecret: process.env.FEIDE_CLIENT_SECRET,
-      idToken: true,
 
       profile: (
         profile: {
@@ -53,4 +59,4 @@ export const authOptions: AuthOptions = {
       }),
     },
   ],
-};
+});

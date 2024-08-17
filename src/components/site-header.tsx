@@ -1,5 +1,4 @@
-import { getSession, getUser } from "@/lib/session";
-import { ExternalLinkIcon } from "@radix-ui/react-icons";
+import { getUser } from "@/lib/session";
 import { APPLICATION_DEADLINE } from "@/lib/constants";
 import Image from "next/image";
 import { ProfileIcon } from "./profile-icon";

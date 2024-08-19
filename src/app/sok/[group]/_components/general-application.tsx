@@ -156,7 +156,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>
-                Fortell litt om deg selv, og hvorfor du vil være medlem i{groupNames[group]}.
+                Fortell litt om deg selv, og hvorfor du vil være medlem i {groupNames[group]}.
               </FormLabel>
               <FormControl>
                 <Textarea

@@ -24,7 +24,7 @@ export const formSchema = z.object({
     .max(10000, "Søknaden din kan ikke være lengre enn 10000 tegn."),
 });
 
-export const bedkomFormSchema = formSchema
+export const webkomFormSchema = formSchema
   .omit({
     reason: true,
   })

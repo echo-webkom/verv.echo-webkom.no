@@ -26,13 +26,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { studyNames, yearNames } from "@/lib/constants";
 import { submitApplication } from "../actions";
-import { bedkomFormSchema } from "../schema";
+import { webkomFormSchema } from "../schema";
 import { ApplicationFormProps } from "./application-form";
 
 export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
   const { toast } = useToast();
-  const form = useForm<z.infer<typeof bedkomFormSchema>>({
-    resolver: zodResolver(bedkomFormSchema),
+  const form = useForm<z.infer<typeof webkomFormSchema>>({
+    resolver: zodResolver(webkomFormSchema),
     defaultValues: {
       name: user.name ?? "",
       email: "",

@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { studyNames, yearNames } from "@/lib/constants";
+import { groupNames, studyNames, yearNames } from "@/lib/constants";
 import { submitApplication } from "../actions";
 import { webkomFormSchema } from "../schema";
 import { ApplicationFormProps } from "./application-form";
@@ -174,7 +174,9 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
           name="about"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fortell litt om deg selv, og hvorfor du vil være med i Webkom!</FormLabel>
+              <FormLabel>
+                Fortell litt om deg selv, og hvorfor du vil være med i {groupNames[group]}!
+              </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />
               </FormControl>
@@ -204,7 +206,7 @@ export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>
                 Har du noe erfaring med web-utvikling? Har du kjennskap til TypeScript, HTML, CSS
-                eller NextJS?{" "}
+                eller {group === "consulting" ? "Remix" : "NextJS"}?
               </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />

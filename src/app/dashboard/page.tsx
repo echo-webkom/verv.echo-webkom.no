@@ -9,6 +9,7 @@ import { db } from "@/lib/db/drizzle";
 import { applications } from "@/lib/db/schemas";
 import { isWebkom } from "@/lib/is-member-of";
 import { WebkomVsBedkom } from "./_components/webkom-vs-bedkom";
+import { WebkomVsConsulting } from "./_components/webkom-vs-consulting";
 
 const applicationCountStmt = db
   .select({
@@ -29,9 +30,10 @@ export default async function Dashboard() {
     <main className="mx-auto w-full max-w-2xl space-y-4 px-6">
       <h1 className="text-3xl font-bold">Dashboard</h1>
 
-      <p>Antall søkere: {applicationCount}</p>
+      <p>Totalt antall søkere: {applicationCount}</p>
 
       <WebkomVsBedkom />
+      <WebkomVsConsulting />
 
       {isWebkom(user) && (
         <Button className="w-full" asChild>

@@ -13,32 +13,32 @@ const webkomCountStmt = db
   .from(applications)
   .where(eq(applications.groupId, "webkom"));
 
-const bedkomCountStmt = db
+const consultingCountStmt = db
   .select({
     count: sql<number>`count(*)`,
   })
   .from(applications)
-  .where(eq(applications.groupId, "bedkom"));
+  .where(eq(applications.groupId, "consulting"));
 
-export const WebkomVsBedkom = async () => {
+export const WebkomVsConsulting = async () => {
   const user = await auth();
 
   if (!user) {
     return null;
   }
 
-  const isWebkomOrBedkom = isMemberOf(user, ["webkom", "bedkom"]);
+  const isWebkomOrConsulting = isMemberOf(user, ["webkom", "consulting"]);
 
-  if (!isWebkomOrBedkom) {
+  if (!isWebkomOrConsulting) {
     return null;
   }
 
-  const [webkomCount, bedkomCount] = await Promise.all([
+  const [webkomCount, consultingCount] = await Promise.all([
     webkomCountStmt.execute(),
-    bedkomCountStmt.execute(),
+    consultingCountStmt.execute(),
   ]).then((res) => res.map((r) => r[0].count));
 
-  const percentageWebkom = (webkomCount / (Number(webkomCount) + Number(bedkomCount))) * 100;
+  const percentageWebkom = (webkomCount / (Number(webkomCount) + Number(consultingCount))) * 100;
 
   return (
     <div className="flex flex-col gap-10 py-4">
@@ -51,8 +51,8 @@ export const WebkomVsBedkom = async () => {
         <div className="text-lg">vs.</div>
 
         <div className="w-full text-center">
-          <h2 className="font-bold">Bedkom</h2>
-          <p className="text-6xl">{bedkomCount}</p>
+          <h2 className="font-bold">Consulting</h2>
+          <p className="text-6xl">{consultingCount}</p>
         </div>
       </div>
 

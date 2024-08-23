@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { FancyLink } from "@/components/fancy-link";
 import { FlipWords } from "@/components/flip-words";
 import { GroupLink } from "@/components/group-link";
+import { shuffle } from "@/lib/shuffle";
 
 const groups = [
   "Webkom",
@@ -35,7 +36,7 @@ export default function Home() {
 
         <h1 className="mb-8 space-y-3 text-5xl font-bold text-neutral-800 md:text-6xl">
           <span className="text-4xl">Søk verv i</span> <br />
-          <FlipWords words={groups} />
+          <FlipWords words={shuffle(groups)} />
         </h1>
 
         <motion.p

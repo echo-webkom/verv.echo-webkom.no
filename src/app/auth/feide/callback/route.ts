@@ -44,7 +44,7 @@ export const GET = async (request: Request) => {
 
     const userId = nanoid();
 
-    const user = await db.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       await tx.insert(users).values({
         id: userId,
         name: feideUser.name,

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 
+import { Countdown } from "@/components/countdown";
 import { FancyLink } from "@/components/fancy-link";
 import { FlipWords } from "@/components/flip-words";
 import { GroupLink } from "@/components/group-link";
@@ -24,6 +25,8 @@ const groups = [
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-2xl px-6">
+      <Countdown />
+
       <section className="mb-32 mt-12 flex flex-col gap-4 text-center">
         <Image
           src="/images/echo-logo.png"

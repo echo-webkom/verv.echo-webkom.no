@@ -37,7 +37,11 @@ export const viewport = {
   initialScale: 1,
 } satisfies Viewport;
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+type RootLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={cn("flex min-h-screen flex-col text-gray-900 antialiased", inter.className)}>

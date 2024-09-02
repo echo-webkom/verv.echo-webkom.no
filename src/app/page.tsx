@@ -25,8 +25,6 @@ const groups = [
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-2xl px-6">
-      <Countdown />
-
       <section className="mb-32 mt-12 flex flex-col gap-4 text-center">
         <Image
           src="/images/echo-logo.png"

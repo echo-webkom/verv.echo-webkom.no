@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth/lucia";
 import { Group, groupNames } from "@/lib/constants";
 import { selectApplicationsByGroup } from "@/lib/db/queries";
-import { isMemberOf, isWebkom } from "@/lib/is-member-of";
+import { isMemberOf } from "@/lib/is-member-of";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 

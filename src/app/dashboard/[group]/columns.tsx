@@ -1,6 +1,6 @@
 "use client";
 
-import { Dialog, DialogDescription, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
+import { Dialog, DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
@@ -15,6 +15,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
+import { groupNames } from "@/lib/constants";
+import { SelectApplicationByGroupQuery } from "@/lib/db/queries";
 import { Application } from "@/lib/db/schemas";
 
 const CopyIdButton = ({ application }: { application: Application }) => {
@@ -62,7 +64,7 @@ const ViewDetailsButton = ({ application }: { application: Application }) => {
   );
 };
 
-export const columns: Array<ColumnDef<Application>> = [
+export const columns: Array<ColumnDef<SelectApplicationByGroupQuery[number]>> = [
   {
     accessorKey: "name",
     header: "Navn",
@@ -78,6 +80,19 @@ export const columns: Array<ColumnDef<Application>> = [
   {
     accessorKey: "yearOfStudy",
     header: "Årstrinn",
+  },
+  {
+    id: "groups",
+    header: "Søkt hos",
+    cell: ({ row }) => {
+      const currentRow = row.original;
+
+      const listStr = currentRow.user.applications
+        .map((application) => groupNames[application.groupId])
+        .join(", ");
+
+      return <p>{listStr}</p>;
+    },
   },
   {
     id: "actions",

@@ -1,5 +1,4 @@
-.next/
-dev.db*
-node_modules/
-public/
-pnpmn-lock.yaml
+# Package Managers
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

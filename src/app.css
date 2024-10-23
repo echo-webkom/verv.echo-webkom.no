@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+	:root {
+		--background: #f9fafb;
+		--foreground: #171923;
+
+		--muted: #ebeef4;
+		--muted-foreground: #64748b;
+		--muted-dark: #9db2cd;
+
+		--table-foreground: #010408;
+		--table-background: #f1f2f3;
+		--table-background-alt: #eaeaea;
+		--table-header-background: #e3eeff;
+		--table-header-foreground: #16100b;
+
+		--popover: #f9fafb;
+		--popover-foreground: #171923;
+
+		--card-foreground: #171923;
+
+		--border: #9db2cd;
+		--input: #f1f5f9;
+
+		--primary: #008fa3;
+		--primary-foreground: #f9fafb;
+		--primary-hover: #32a5b5;
+		--primary-dark: #006f83;
+
+		--secondary: #fed879;
+		--secondary-foreground: #171923;
+		--secondary-hover: #ffe195;
+		--secondary-dark: #f9c652;
+
+		--accent: #ebeef4;
+		--accent-foreground: #0f172a;
+
+		--success: #48bb78;
+		--success-foreground: #f9fafb;
+		--success-hover: #6ee7b7;
+		--success-dark: #2f855a;
+
+		--destructive: #e53e3e;
+		--destructive-foreground: #f9fafb;
+		--destructive-hover: #f56565;
+		--destructive-dark: #c53030;
+
+		--warning: #f6ad55;
+		--warning-foreground: #171923;
+		--warning-hover: #f6c68b;
+		--warning-dark: #b7791f;
+
+		--info: #3182ce;
+		--info-foreground: #f9fafb;
+		--info-hover: #4299e1;
+		--info-dark: #2b6cb0;
+
+		--banner: #53adbd;
+
+		--ring: #94a3b8;
+
+		--selected: #ffeabb;
+
+		--radius: 0.5rem;
+
+		/* https://www.feide.no/designmanual */
+		--feide: #1f4798;
+		--feide-hover: #88b3e0;
+		--feide-dark: #062356;
+
+		--footer: #f2cc8f;
+		--footer-border: #d4a373;
+		--footer-foreground: #171923;
+	}
+
+	.dark {
+		--background: #151210;
+		--foreground: #eeeeee;
+
+		--muted: #181818;
+		--muted-foreground: #999999;
+		--muted-dark: #4d4d4d;
+
+		--table-foreground: #999999;
+		--table-background: #151210;
+		--table-background-alt: #181818;
+		--table-header-background: #242424;
+		--table-header-foreground: #eeeeee;
+
+		--popover: #181818;
+		--popover-foreground: #eeeeee;
+
+		--card: #171717;
+		--card-foreground: #eeeeee;
+
+		--border: #4d4d4d;
+		--input: #171717;
+
+		--primary: #008fa3;
+		--primary-foreground: #f9fafb;
+		--primary-hover: #32a5b5;
+		--primary-dark: #006f83;
+
+		--secondary: #fed879;
+		--secondary-foreground: #24292e;
+		--secondary-hover: #ffe195;
+		--secondary-dark: #f9c652;
+
+		--accent: #14171a;
+		--accent-foreground: #f9fafb;
+
+		--success: #48bb78;
+		--success-foreground: #f9fafb;
+		--success-hover: #6ee7b7;
+		--success-dark: #2f855a;
+
+		--destructive: #e53e3e;
+		--destructive-foreground: #f9fafb;
+		--destructive-hover: #f56565;
+		--destructive-dark: #c53030;
+
+		--warning: #f6ad55;
+		--warning-foreground: #14171a;
+		--warning-hover: #f6c68b;
+		--warning-dark: #b7791f;
+
+		--info: #3182ce;
+		--info-foreground: #f9fafb;
+		--info-hover: #4299e1;
+		--info-dark: #2b6cb0;
+
+		--banner: #53adbd;
+
+		--ring: #94a3b8;
+
+		--selected: #008fa3;
+
+		--radius: 0.5rem;
+
+		--footer: #21201f;
+		--footer-border: #1d1b17;
+		--footer-foreground: #f9fafb;
+	}
+
+	* {
+		@apply border-border;
+		transition: background-color 150ms ease-in-out;
+	}
+
+	body {
+		@apply bg-background text-foreground antialiased;
+	}
+
+	::-moz-selection {
+		background: var(--selected);
+	}
+
+	::selection {
+		background: var(--selected);
+	}
+}

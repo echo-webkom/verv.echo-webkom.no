@@ -8,6 +8,13 @@
       "when": 1729712420209,
       "tag": "0000_ancient_shinko_yamashiro",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1729716435265,
+      "tag": "0001_black_doctor_spectrum",
+      "breakpoints": true
     }
   ]
 }

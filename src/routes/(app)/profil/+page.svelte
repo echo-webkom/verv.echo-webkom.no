@@ -4,14 +4,30 @@
 	let authState = getAuthState();
 </script>
 
-<div class="max-w-[600px] mx-auto text-center space-y-4 py-24">
-	<h1 class="font-display text-6xl font-semibold mb-8">Profil</h1>
+<div class="max-w-screen-md mx-auto py-10 space-y-10 px-4">
+	<section>
+		<h2 class="font-display text-4xl font-semibold mb-6">Profil</h2>
 
-	<p class="text-2xl text-balance text-muted-foreground font-medium">
-		{authState.user!.name}
-	</p>
+		<div class="flex flex-col gap-4">
+			<input
+				type="text"
+				readonly
+				class="px-2 py-1 h-10 text-lg font-medium rounded-lg border-2 bg-background text-foreground w-full"
+				value={authState.user!.name}
+			/>
 
-	<p class="text-2xl text-balance text-muted-foreground font-medium">
-		{authState.user!.email}
-	</p>
+			<input
+				type="text"
+				readonly
+				class="px-2 py-1 h-10 text-lg font-medium rounded-lg border-2 bg-background text-foreground w-full"
+				value={authState.user!.email}
+			/>
+		</div>
+	</section>
+
+	<section>
+		<h2 class="font-display text-4xl font-semibold mb-6">Grupper</h2>
+
+		<p class="text-muted-foreground font-medium text-lg">Du er ikke medlem av noen grupper...</p>
+	</section>
 </div>

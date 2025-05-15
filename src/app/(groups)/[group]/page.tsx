@@ -63,23 +63,31 @@ export const generateStaticParams = async () => {
   return groups.map((group) => ({ group: group.id }));
 };
 
-export const generateMetadata = async ({ params }: { params: { group: string } }) => {
-  const group = getData(params.group);
+type Props = {
+  params: Promise<{
+    group: string;
+  }>;
+};
 
-  if (!group) {
+export const generateMetadata = async ({ params }: Props) => {
+  const { group } = await params;
+  const g = getData(group);
+
+  if (!g) {
     return notFound();
   }
 
   return {
-    title: `Søknad ${group.name}`,
-    description: `Send søknad til ${group.name}`,
+    title: `Søknad ${g.name}`,
+    description: `Send søknad til ${g.name}`,
   };
 };
 
-export default async function GroupPage({ params }: { params: { group: string } }) {
-  const group = getData(params.group);
+export default async function GroupPage({ params }: Props) {
+  const { group } = await params;
+  const g = getData(group);
 
-  const Content = await group.content.then((content) => content.default);
+  const Content = await g.content.then((content) => content.default);
 
   return <Content />;
 }

@@ -12,15 +12,16 @@ const parser = new Parser({
   withBOM: true,
 });
 
-const routeContextSchema = z.object({
-  params: z.object({
-    group: z.enum(groupEnum),
-  }),
-});
+type RouteContext = {
+  params: Promise<{
+    group: string;
+  }>;
+};
 
-export async function GET(_request: NextRequest, ctx: z.infer<typeof routeContextSchema>) {
+export async function GET(_request: NextRequest, { params }: RouteContext) {
   try {
-    const parsedCtx = routeContextSchema.parse(ctx);
+    const { group } = await params;
+    const groupId = z.enum(groupEnum).parse(group);
 
     const user = await auth();
 
@@ -30,13 +31,13 @@ export async function GET(_request: NextRequest, ctx: z.infer<typeof routeContex
       });
     }
 
-    if (!isMemberOf(user, [parsedCtx.params.group]) && !isWebkom(user)) {
+    if (!isMemberOf(user, [groupId]) && !isWebkom(user)) {
       return new Response("Unauthorized: You're not in the group.", {
         status: 401,
       });
     }
 
-    const applications = await selectApplicationsByGroup(parsedCtx.params.group);
+    const applications = await selectApplicationsByGroup(groupId);
 
     const mappedApplications = applications.map(
       ({ email, fieldOfStudy, name, reason, yearOfStudy }) => ({
@@ -54,7 +55,7 @@ export async function GET(_request: NextRequest, ctx: z.infer<typeof routeContex
       status: 200,
       headers: {
         "Content-Type": "application/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="${ctx.params.group}-soknader.csv"`,
+        "Content-Disposition": `attachment; filename="${groupId}-soknader.csv"`,
       },
     });
   } catch (error) {

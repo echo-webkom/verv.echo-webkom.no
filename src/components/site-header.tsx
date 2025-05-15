@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import { auth } from "@/lib/auth/lucia";
 import { APPLICATION_DEADLINE } from "@/lib/constants";
@@ -25,7 +26,7 @@ export async function SiteHeader() {
         )}
 
         <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-3">
-          <a href="/">
+          <Link href="/">
             <span className="sr-only">Hjem</span>
             <Image
               src="/images/echo-logo.png"
@@ -35,7 +36,7 @@ export async function SiteHeader() {
               className="h-12 w-12"
               quality={100}
             />
-          </a>
+          </Link>
 
           <nav>
             <ul className="flex">
@@ -43,9 +44,9 @@ export async function SiteHeader() {
                 {user ? (
                   <ProfileIcon user={user} />
                 ) : (
-                  <a href="/logg-inn" className="hover:underline">
+                  <Link href="/logg-inn" className="hover:underline">
                     Logg inn
-                  </a>
+                  </Link>
                 )}
               </li>
             </ul>

@@ -6,34 +6,36 @@ import { Group, groupNames } from "@/lib/constants";
 import { ApplicationForm } from "./_components/application-form";
 
 type Props = {
-  params: {
+  params: Promise<{
     group: string;
-  };
+  }>;
 };
 
-const getData = ({ params }: Props) => {
+const getData = (group: string) => {
   const groups = Object.keys(groupNames);
 
-  if (!groups.includes(params.group)) {
+  if (!groups.includes(group)) {
     return notFound();
   }
 
   return {
-    id: params.group as Group,
-    name: groupNames[params.group as Group],
+    id: group as Group,
+    name: groupNames[group as Group],
   };
 };
 
 export const generateMetadata = async ({ params }: Props) => {
-  const group = getData({ params });
+  const { group } = await params;
+  const g = getData(group);
 
   return {
-    title: `Søknad ${group.name}`,
-    description: `Send søknad til ${group.name}`,
+    title: `Søknad ${g.name}`,
+    description: `Send søknad til ${g.name}`,
   };
 };
 
 export default async function ApplicationPage({ params }: Props) {
+  const { group } = await params;
   const user = await auth();
 
   if (!user) {
@@ -51,13 +53,13 @@ export default async function ApplicationPage({ params }: Props) {
     );
   }
 
-  const group = getData({ params });
+  const g = getData(group);
 
   return (
     <main className="mx-auto w-full max-w-2xl space-y-4 px-6">
-      <h1 className="text-3xl font-bold">Send inn søknad til {group.name}</h1>
+      <h1 className="text-3xl font-bold">Send inn søknad til {g.name}</h1>
 
-      <ApplicationForm group={group.id} user={user} />
+      <ApplicationForm group={g.id} user={user} />
     </main>
   );
 }

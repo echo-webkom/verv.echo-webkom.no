@@ -1,7 +1,12 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @layer base {
   * {
     @apply border-gray-300;
+  }
+
+  .ProseMirror-focused {
+    @apply outline-none;
   }
 }

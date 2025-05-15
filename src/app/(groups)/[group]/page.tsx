@@ -1,62 +1,66 @@
 import { cache } from "react";
 import { notFound } from "next/navigation";
 
+import { FancyLink } from "@/components/fancy-link";
+import { RenderJSONContent } from "@/components/render-json-content";
+import { db } from "@/lib/db/drizzle";
+
 const groups = [
   {
     id: "webkom",
     name: "Webkom",
-    content: import("@/mdx/webkom.mdx"),
   },
   {
     id: "tilde",
     name: "Tilde",
-    content: import("@/mdx/tilde.mdx"),
   },
   {
     id: "bedkom",
     name: "Bedkom",
-    content: import("@/mdx/bedkom.mdx"),
   },
   {
     id: "makerspace",
     name: "Makerspace",
-    content: import("@/mdx/makerspace.mdx"),
   },
   {
     id: "hyggkom",
     name: "Hyggkom",
-    content: import("@/mdx/hyggkom.mdx"),
   },
   {
     id: "gnist",
     name: "Gnist",
-    content: import("@/mdx/gnist.mdx"),
   },
   {
     id: "esc",
     name: "echo Sports Club",
-    content: import("@/mdx/esc.mdx"),
   },
   {
     id: "programmerbar",
     name: "Programmerbar",
-    content: import("@/mdx/programmerbar.mdx"),
   },
   {
     id: "consulting",
     name: "echo Consulting",
-    content: import("@/mdx/consulting.mdx"),
   },
-];
+] as const;
 
-const getData = cache((id: string) => {
+const getData = cache(async (id: string) => {
   const group = groups.find((group) => group.id === id);
 
   if (!group) {
     return notFound();
   }
 
-  return group;
+  const content = await db.query.groups
+    .findFirst({
+      where: (row, { eq }) => eq(row.id, group.id),
+    })
+    .then((group) => group?.description ?? undefined);
+
+  return {
+    ...group,
+    content,
+  };
 });
 
 export const generateStaticParams = async () => {
@@ -71,7 +75,7 @@ type Props = {
 
 export const generateMetadata = async ({ params }: Props) => {
   const { group } = await params;
-  const g = getData(group);
+  const g = await getData(group);
 
   if (!g) {
     return notFound();
@@ -85,9 +89,15 @@ export const generateMetadata = async ({ params }: Props) => {
 
 export default async function GroupPage({ params }: Props) {
   const { group } = await params;
-  const g = getData(group);
+  const g = await getData(group);
 
-  const Content = await g.content.then((content) => content.default);
+  return (
+    <>
+      <RenderJSONContent json={g.content} />
 
-  return <Content />;
+      <FancyLink href={`/sok/${group}`} className="my-4">
+        Søk her!
+      </FancyLink>
+    </>
+  );
 }

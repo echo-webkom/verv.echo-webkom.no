@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth/lucia";
@@ -30,6 +31,10 @@ export default async function GroupDashboard({ params }: Props) {
   return (
     <main className="mx-auto w-full max-w-5xl space-y-8 px-6">
       <h1 className="text-3xl font-bold">Dashboard for {groupNames[group]}</h1>
+
+      <Link className="text-blue-500 hover:underline" href={`/${group}/rediger`}>
+        Rediger side
+      </Link>
 
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Søkere:</h2>

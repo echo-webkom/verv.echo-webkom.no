@@ -2,13 +2,11 @@
 
 import Image from "next/image";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
-import { Countdown } from "@/components/countdown";
 import { FancyLink } from "@/components/fancy-link";
 import { FlipWords } from "@/components/flip-words";
 import { GroupLink } from "@/components/group-link";
-import { shuffle } from "@/lib/shuffle";
 
 const groups = [
   "Webkom",
@@ -25,7 +23,7 @@ const groups = [
 export default function Home() {
   return (
     <main className="mx-auto w-full max-w-2xl px-6">
-      <section className="mb-32 mt-12 flex flex-col gap-4 text-center">
+      <section className="mt-12 mb-32 flex flex-col gap-4 text-center">
         <Image
           src="/images/echo-logo.png"
           className="z-10 mx-auto"
@@ -37,7 +35,7 @@ export default function Home() {
 
         <h1 className="mb-8 space-y-3 text-5xl font-bold text-neutral-800 md:text-6xl">
           <span className="text-4xl">Søk verv i</span> <br />
-          <FlipWords words={shuffle(groups)} />
+          <FlipWords words={groups} />
         </h1>
 
         <motion.p

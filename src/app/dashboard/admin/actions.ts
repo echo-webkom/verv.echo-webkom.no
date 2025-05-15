@@ -56,7 +56,7 @@ export const updateUserAction = async (
     return {
       result: "success",
     };
-  } catch (error) {
+  } catch {
     return {
       result: "error",
       message: "Something went wrong",

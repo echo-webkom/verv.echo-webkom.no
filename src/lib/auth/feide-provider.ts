@@ -1,4 +1,3 @@
-import { OAuth2Provider } from "arctic";
 import { OAuth2Client } from "oslo/oauth2";
 
 const authorizeEndpoint = "https://auth.dataporten.no/oauth/authorization";
@@ -12,7 +11,7 @@ export interface FeideTokens {
   idToken: string;
 }
 
-export class Feide implements OAuth2Provider {
+export class Feide {
   private client: OAuth2Client;
   private clientSecret: string;
 
@@ -50,7 +49,7 @@ export class Feide implements OAuth2Provider {
       scope: string;
       id_token: string;
     }>(code, {
-      authenticateWith: "request_body",
+      authenticateWith: "http_basic_auth",
       credentials: this.clientSecret,
     });
 

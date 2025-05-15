@@ -1,8 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
 import { ChevronRightIcon } from "lucide-react";
+import { motion, useInView } from "motion/react";
 
 type GroupLinkProps = {
   emoji: string;

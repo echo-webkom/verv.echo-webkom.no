@@ -24,13 +24,14 @@ export default async function GroupDashboard({ params }: Props) {
   }
 
   return (
-    <main className="mx-auto w-full max-w-5xl space-y-8 px-6">
+    <main className="mx-auto w-full max-w-3xl space-y-8 px-6">
       <h1 className="text-3xl font-bold">Dashboard for {groupNames[group]}</h1>
 
       <div className="flex flex-col gap-2">
         {[
-          { label: `Rediger side`, href: `/${group}/rediger` },
-          { label: `Se søkere`, href: `/dashboard/${group}/soknader` },
+          { label: "Rediger side", href: `/${group}/rediger` },
+          { label: "Se søkere", href: `/dashboard/${group}/soknader` },
+          { label: "Endre søknadstekst", href: `/dashboard/${group}/endre` },
         ].map(({ label, href }) => (
           <div key={href}>
             <Link

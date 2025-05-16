@@ -15,8 +15,6 @@ type RenderJSONContentProps = {
 };
 
 export const RenderJSONContent = ({ json }: RenderJSONContentProps) => {
-  console.log(JSON.stringify(json, null, 2));
-
   if (json?.type === "doc") {
     return (
       <div>

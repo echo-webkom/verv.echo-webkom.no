@@ -39,15 +39,13 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 
     const applications = await selectApplicationsByGroup(groupId);
 
-    const mappedApplications = applications.map(
-      ({ email, fieldOfStudy, name, reason, yearOfStudy }) => ({
-        navn: name,
-        "e-post": email,
-        studieretning: studyNames[fieldOfStudy],
-        årstrinn: yearNames[yearOfStudy],
-        grunn: reason,
-      }),
-    );
+    const mappedApplications = applications.map(({ email, study, name, body, year }) => ({
+      navn: name,
+      "e-post": email,
+      studieretning: studyNames[study],
+      årstrinn: yearNames[year],
+      grunn: body,
+    }));
 
     const csv = parser.parse(mappedApplications);
 

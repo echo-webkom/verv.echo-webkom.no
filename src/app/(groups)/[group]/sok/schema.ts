@@ -8,17 +8,17 @@ export const formSchema = z.object({
     .min(2, "Navnet ditt må være minst 2 tegn.")
     .max(255, "Navnet ditt kan ikke være lengre enn 255 tegn."),
   email: z.string().min(1, "E-post er påkrevd.").email("Må være en gyldig e-postadresse."),
-  yearOfStudy: z.enum(yearEnum, {
+  year: z.enum(yearEnum, {
     errorMap: () => ({
       message: "Du må velge et gyldig årstrinn.",
     }),
   }),
-  fieldOfStudy: z.enum(studyEnum, {
+  study: z.enum(studyEnum, {
     errorMap: () => ({
       message: "Du må velge en gyldig studieretning.",
     }),
   }),
-  reason: z
+  body: z
     .string()
     .min(10, "Søknaden din må innholde minst 10 tegn")
     .max(10000, "Søknaden din kan ikke være lengre enn 10000 tegn."),
@@ -26,7 +26,7 @@ export const formSchema = z.object({
 
 export const webkomFormSchema = formSchema
   .omit({
-    reason: true,
+    body: true,
   })
   .extend({
     about: z

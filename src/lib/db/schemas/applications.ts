@@ -11,9 +11,9 @@ export const applications = sqliteTable(
     id: text().notNull().primaryKey().$defaultFn(nanoid),
     name: text().notNull(),
     email: text().notNull(),
-    yearOfStudy: text({ enum: yearEnum }).notNull(),
-    fieldOfStudy: text({ enum: studyEnum }).notNull(),
-    reason: text().notNull(),
+    year: text({ enum: yearEnum }).notNull(),
+    study: text({ enum: studyEnum }).notNull(),
+    body: text().notNull(),
     userId: text()
       .notNull()
       .references(() => users.id),

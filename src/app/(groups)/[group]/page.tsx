@@ -95,7 +95,7 @@ export default async function GroupPage({ params }: Props) {
     <>
       <RenderJSONContent json={g.content} />
 
-      <FancyLink href={`/sok/${group}`} className="my-4">
+      <FancyLink href={`/${group}/sok`} className="my-4">
         Søk her!
       </FancyLink>
     </>

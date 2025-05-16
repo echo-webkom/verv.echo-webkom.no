@@ -47,13 +47,13 @@ const ViewDetailsButton = ({ application }: { application: Application }) => {
         <div className="flex flex-col gap-2">
           <p>ID: {application.id}</p>
           <p>E-post: {application.email}</p>
-          <p>Studieretning: {application.fieldOfStudy}</p>
-          <p>Årstrinn: {application.yearOfStudy}</p>
+          <p>Studieretning: {application.study}</p>
+          <p>Årstrinn: {application.year}</p>
           <p>Sendt inn: {application.createdAt.toLocaleString()}</p>
           <div>
             <p>Grunn:</p>
             <article className="font-monodiv max-h-52 overflow-y-auto rounded-lg border bg-gray-100 p-2">
-              {application.reason.split("\n").map((line, i) => (
+              {application.body.split("\n").map((line, i) => (
                 <p key={i}>{line}</p>
               ))}
             </article>

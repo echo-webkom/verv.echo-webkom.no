@@ -24,12 +24,12 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { studyNames, yearNames } from "@/lib/constants";
+import { groupNames, studyNames, yearNames } from "@/lib/constants";
 import { submitApplication } from "../actions";
 import { webkomFormSchema } from "../schema";
 import { ApplicationFormProps } from "./application-form";
 
-export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
+export const WebkomApplication = ({ group, user }: ApplicationFormProps) => {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof webkomFormSchema>>({
     resolver: zodResolver(webkomFormSchema),
@@ -46,7 +46,7 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
   const onSubmit = form.handleSubmit(async (data) => {
     const mappedData = {
       ...data,
-      reason:
+      body:
         "KORT OM:\n" +
         data.about +
         "\n\n" +
@@ -117,7 +117,7 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
 
         <FormField
           control={form.control}
-          name="yearOfStudy"
+          name="year"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Årstrinn</FormLabel>
@@ -144,7 +144,7 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
 
         <FormField
           control={form.control}
-          name="fieldOfStudy"
+          name="study"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Studieretning</FormLabel>
@@ -174,7 +174,9 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
           name="about"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Fortell litt om deg selv, og hvorfor du vil være med i Webkom!</FormLabel>
+              <FormLabel>
+                Fortell litt om deg selv, og hvorfor du vil være med i {groupNames[group]}!
+              </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />
               </FormControl>
@@ -204,7 +206,7 @@ export const BedkomApplication = ({ group, user }: ApplicationFormProps) => {
             <FormItem>
               <FormLabel>
                 Har du noe erfaring med web-utvikling? Har du kjennskap til TypeScript, HTML, CSS
-                eller NextJS?{" "}
+                eller {group === "consulting" ? "Remix" : "NextJS"}?
               </FormLabel>
               <FormControl>
                 <Textarea rows={3} {...field} />

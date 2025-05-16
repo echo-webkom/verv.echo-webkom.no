@@ -73,7 +73,7 @@ export default async function ProfilePage() {
 
                   <AccordionContent>
                     <article className="rounded-md border bg-slate-100 p-2">
-                      {application.reason.split("\n").map((line, i) => (
+                      {application.body.split("\n").map((line, i) => (
                         <p className="py-1" key={i}>
                           {line}
                         </p>

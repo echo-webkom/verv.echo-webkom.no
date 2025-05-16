@@ -36,7 +36,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
     defaultValues: {
       name: user.name ?? "",
       email: "",
-      reason: "",
+      body: "",
     },
   });
 
@@ -98,7 +98,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
 
         <FormField
           control={form.control}
-          name="yearOfStudy"
+          name="year"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Årstrinn</FormLabel>
@@ -125,7 +125,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
 
         <FormField
           control={form.control}
-          name="fieldOfStudy"
+          name="study"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Studieretning</FormLabel>
@@ -152,7 +152,7 @@ export const GeneralApplication = ({ group, user }: ApplicationFormProps) => {
 
         <FormField
           control={form.control}
-          name="reason"
+          name="body"
           render={({ field }) => (
             <FormItem>
               <FormLabel>

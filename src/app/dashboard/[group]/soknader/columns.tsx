@@ -74,11 +74,11 @@ export const columns: Array<ColumnDef<SelectApplicationByGroupQuery[number]>> = 
     header: "E-post",
   },
   {
-    accessorKey: "fieldOfStudy",
+    accessorKey: "study",
     header: "Studieretning",
   },
   {
-    accessorKey: "yearOfStudy",
+    accessorKey: "year",
     header: "Årstrinn",
   },
   {

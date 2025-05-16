@@ -6,18 +6,18 @@ import { users } from "./users";
 export const accounts = sqliteTable(
   "account",
   {
-    userId: text("user_id")
+    userId: text()
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
-    provider: text("provider").notNull(),
-    providerAccountId: text("provider_account_id").notNull(),
-    accessToken: text("access_token"),
+    provider: text().notNull(),
+    providerAccountId: text().notNull(),
+    accessToken: text(),
   },
-  (account) => ({
-    pk: primaryKey({
-      columns: [account.provider, account.providerAccountId],
+  (t) => [
+    primaryKey({
+      columns: [t.provider, t.providerAccountId],
     }),
-  }),
+  ],
 );
 
 export const accountsRelations = relations(accounts, ({ one }) => ({

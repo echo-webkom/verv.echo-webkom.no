@@ -6,9 +6,9 @@ import { applications } from "./applications";
 import { memberships } from "./memberships";
 
 export const users = sqliteTable("user", {
-  id: text("id").primaryKey().$defaultFn(nanoid),
-  name: text("name"),
-  email: text("email").unique(),
+  id: text().primaryKey().$defaultFn(nanoid),
+  name: text(),
+  email: text().unique(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

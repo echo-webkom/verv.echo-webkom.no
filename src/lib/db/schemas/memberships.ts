@@ -7,14 +7,12 @@ import { users } from "./users";
 export const memberships = sqliteTable(
   "membership",
   {
-    groupId: text("group_id", { enum: groupEnum }).notNull(),
-    userId: text("user_id")
+    groupId: text({ enum: groupEnum }).notNull(),
+    userId: text()
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
   },
-  (ugm) => ({
-    pk: primaryKey({ columns: [ugm.userId, ugm.groupId] }),
-  }),
+  (t) => [primaryKey({ columns: [t.userId, t.groupId] })],
 );
 
 export const userGroupMembershipsRelations = relations(memberships, ({ one }) => ({

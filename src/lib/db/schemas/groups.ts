@@ -6,8 +6,8 @@ import { groupEnum } from "./enums";
 import { memberships } from "./memberships";
 
 export const groups = sqliteTable("group", {
-  id: text("id", { enum: groupEnum }).notNull().primaryKey(),
-  description: text("description", { mode: "json" }).$type<JSONContent>(),
+  id: text({ enum: groupEnum }).notNull().primaryKey(),
+  description: text({ mode: "json" }).$type<JSONContent>(),
 });
 
 export const groupsRelations = relations(groups, ({ many }) => ({

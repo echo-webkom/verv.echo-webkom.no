@@ -8,26 +8,21 @@ import { users } from "./users";
 export const applications = sqliteTable(
   "application",
   {
-    id: text("id").notNull().primaryKey().$defaultFn(nanoid),
-    name: text("name").notNull(),
-    email: text("email").notNull(),
-    yearOfStudy: text("year", { enum: yearEnum }).notNull(),
-    fieldOfStudy: text("study", { enum: studyEnum }).notNull(),
-    reason: text("body").notNull(),
-    userId: text("user_id")
+    id: text().notNull().primaryKey().$defaultFn(nanoid),
+    name: text().notNull(),
+    email: text().notNull(),
+    yearOfStudy: text({ enum: yearEnum }).notNull(),
+    fieldOfStudy: text({ enum: studyEnum }).notNull(),
+    reason: text().notNull(),
+    userId: text()
       .notNull()
       .references(() => users.id),
-    groupId: text("group_id", { enum: groupEnum }).notNull(),
-    createdAt: integer("created_at", { mode: "timestamp" })
+    groupId: text({ enum: groupEnum }).notNull(),
+    createdAt: integer({ mode: "timestamp" })
       .notNull()
       .$defaultFn(() => new Date()),
   },
-  (application) => ({
-    groupEmailSemesterIndex: uniqueIndex("group_email_index").on(
-      application.groupId,
-      application.email,
-    ),
-  }),
+  (t) => [uniqueIndex("group_email_index").on(t.groupId, t.email)],
 );
 
 export const applicationsRelations = relations(applications, ({ one }) => ({

@@ -1,12 +1,22 @@
 import { JSONContent } from "@tiptap/react";
 
-import { MarkdownH1, MarkdownH2, MarkdownH3, MarkdownH4, MarkdownP } from "@/mdx-components";
+import {
+  MarkdownH1,
+  MarkdownH2,
+  MarkdownH3,
+  MarkdownH4,
+  MarkdownLi,
+  MarkdownP,
+  MarkdownUl,
+} from "@/mdx-components";
 
 type RenderJSONContentProps = {
   json?: JSONContent;
 };
 
 export const RenderJSONContent = ({ json }: RenderJSONContentProps) => {
+  console.log(JSON.stringify(json, null, 2));
+
   if (json?.type === "doc") {
     return (
       <div>
@@ -16,7 +26,16 @@ export const RenderJSONContent = ({ json }: RenderJSONContentProps) => {
   }
 
   if (json?.type === "text") {
-    return <span>{json.text}</span>;
+    const isLink = json.marks?.some((mark) => mark.type === "link");
+    if (isLink) {
+      return (
+        <a className="text-blue-500 hover:underline" href={json.marks?.[0].attrs?.href}>
+          {json.text}
+        </a>
+      );
+    } else {
+      return <span>{json.text}</span>;
+    }
   }
 
   if (json?.type === "heading") {
@@ -41,6 +60,20 @@ export const RenderJSONContent = ({ json }: RenderJSONContentProps) => {
       <MarkdownP>
         {json.content?.map((child, index) => <RenderJSONContent key={index} json={child} />)}
       </MarkdownP>
+    );
+  }
+
+  if (json?.type === "bulletList") {
+    return (
+      <MarkdownUl>
+        {json.content?.map((child, index) => (
+          <MarkdownLi key={index}>
+            {child.content?.map((grandChild, grandChildIndex) => (
+              <RenderJSONContent key={grandChildIndex} json={grandChild} />
+            ))}
+          </MarkdownLi>
+        ))}
+      </MarkdownUl>
     );
   }
 

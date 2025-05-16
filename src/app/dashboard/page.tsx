@@ -2,7 +2,6 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { sql } from "drizzle-orm";
 
-import { Editor } from "@/components/editor";
 import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth/lucia";
 import { Group, groupNames } from "@/lib/constants";

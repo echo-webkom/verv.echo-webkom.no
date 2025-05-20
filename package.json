@@ -15,6 +15,10 @@
     "db:start": "turso dev --db-file dev.db"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "5.0.1",
     "@json2csv/plainjs": "7.0.6",
     "@libsql/client": "0.15.6",
@@ -55,6 +59,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "7.56.3",
+    "resend": "^4.5.1",
     "tailwind-merge": "3.3.0",
     "zod": "3.24.4"
   },

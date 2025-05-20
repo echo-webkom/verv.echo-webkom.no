@@ -40,15 +40,15 @@ export const MarkdownP = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const MarkdownUl = ({ children }: { children: React.ReactNode }) => (
-  <ul className="list-disc">{children}</ul>
+  <ul className="list-disc py-2 pl-4">{children}</ul>
 );
 
 export const MarkdownOl = ({ children }: { children: React.ReactNode }) => (
-  <ol className="list-decimal">{children}</ol>
+  <ol className="list-decimal py-2 pl-4 marker:text-gray-500">{children}</ol>
 );
 
 export const MarkdownLi = ({ children }: { children: React.ReactNode }) => (
-  <li className="ml-6 text-lg">{children}</li>
+  <li className="ml-6 text-lg [&>p]:p-0">{children}</li>
 );
 
 export const MarkdownA = ({ children, href }: { children: React.ReactNode; href?: string }) => {

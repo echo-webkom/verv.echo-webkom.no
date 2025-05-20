@@ -27,7 +27,7 @@ export default async function Dashboard() {
   const applicationCount = await applicationCountStmt.execute().then((res) => res[0].count);
 
   return (
-    <main className="mx-auto w-full max-w-2xl space-y-4 px-6">
+    <>
       <h1 className="text-3xl font-bold">Dashboard</h1>
 
       <p>Totalt antall søkere: {applicationCount}</p>
@@ -59,6 +59,6 @@ export default async function Dashboard() {
           );
         })}
       </ul>
-    </main>
+    </>
   );
 }

@@ -8,7 +8,8 @@ import { auth } from "@/lib/auth/lucia";
 import { APPLICATION_DEADLINE, Group } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
 import { applications } from "@/lib/db/schemas";
-import { formSchema } from "./schema";
+import { isMemberOf } from "@/lib/is-member-of";
+import { createFormSchema } from "./_lib/schema";
 
 type Result =
   | {
@@ -19,10 +20,31 @@ type Result =
       message: string;
     };
 
-export const submitApplication = async (
+export const submitApplicationAction = async (
   group: Group,
-  data: z.infer<typeof formSchema>,
+  data: z.infer<ReturnType<typeof createFormSchema>>,
 ): Promise<Result> => {
+  const user = await auth();
+
+  if (!user) {
+    return {
+      result: "error",
+      message: "Du må logge inn for å søke",
+    };
+  }
+
+  if (!isMemberOf(user, [group, "webkom"])) {
+    return {
+      result: "error",
+      message: "Du er ikke medlem av gruppen",
+    };
+  }
+
+  const questions = await db.query.questions.findMany({
+    where: (row, { eq }) => eq(row.groupId, group),
+  });
+
+  const formSchema = createFormSchema(questions);
   const parsedForm = formSchema.safeParse(data);
 
   if (!parsedForm.success) {
@@ -39,18 +61,24 @@ export const submitApplication = async (
     };
   }
 
-  const user = await auth();
+  const mapped = {
+    name: parsedForm.data.name,
+    email: parsedForm.data.email,
+    year: parsedForm.data.year,
+    study: parsedForm.data.study,
+    body: Object.entries(parsedForm.data.questions)
+      .map(([id, answer]) => {
+        const title = questions.find((q) => q.id === id)?.label;
+        const ans = answer ?? "Ikke besvart";
 
-  if (!user) {
-    return {
-      result: "error",
-      message: "Du må logge inn for å søke",
-    };
-  }
+        return `${title}: ${ans}`;
+      })
+      .join("\n\n"),
+  };
 
   try {
     await db.insert(applications).values({
-      ...parsedForm.data,
+      ...mapped,
       groupId: group,
       userId: user.id,
     });

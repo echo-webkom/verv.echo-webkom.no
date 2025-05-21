@@ -72,7 +72,9 @@ export const AddQuestionModal = ({ group }: AddQuestionModalProps) => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Legg til spørsmål</Button>
+      <Button className="w-full" onClick={() => setIsOpen(true)}>
+        Legg til spørsmål
+      </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent>

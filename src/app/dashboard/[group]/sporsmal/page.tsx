@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth/lucia";
 import { Group, groupNames } from "@/lib/constants";
 import { db } from "@/lib/db/drizzle";
 import { isMemberOf } from "@/lib/is-member-of";
+import { MarkdownH1 } from "@/mdx-components";
 import { AddQuestionModal } from "./_components/add-question-modal";
 import { QuestionsDnd } from "./_components/questions-dnd";
 
@@ -31,9 +32,24 @@ export default async function ChangeQuestions({ params }: Props) {
 
   return (
     <div>
-      <h1>Spørsmål</h1>
+      <div className="mb-8">
+        <MarkdownH1>Spørsmål</MarkdownH1>
+        <p className="text-lg text-gray-500">
+          Her kan du endre rekkefølgen på spørsmålene ved å dra og slippe dem. Disse spørsmålene vil
+          bli vist når en person søker på undergruppen din. Vi vil også legge til standard spørsmål
+          som, navn, e-post, årstrinn og studieretning.
+        </p>
+      </div>
 
       <QuestionsDnd groupId={group} questions={questions} />
+
+      {questions.length === 0 && (
+        <div className="my-10 text-center">
+          <p className="text-gray-500">Ingen spørsmål er lagt til enda.</p>
+          <p className="text-gray-500">Legg til spørsmål for å komme i gang!</p>
+        </div>
+      )}
+
       <AddQuestionModal group={group} />
     </div>
   );

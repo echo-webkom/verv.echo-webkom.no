@@ -17,7 +17,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { DragHandleDots2Icon } from "@radix-ui/react-icons";
-import { Pencil, X } from "lucide-react";
+import { X } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
 import { Group } from "@/lib/constants";
@@ -127,12 +127,12 @@ const SortableItem = ({ id, label, isPending, onRemove }: SortableItemProps) => 
     >
       <div
         ref={setNodeRef}
-        {...attributes}
-        {...listeners}
+        {...(isPending ? {} : attributes)}
+        {...(isPending ? {} : listeners)}
         className={cn({
           "opacity-50": isPending,
           "cursor-grab": !isPending,
-          "cursor-grabbing": isPending,
+          "cursor-not-allowed": isPending,
         })}
       >
         <DragHandleDots2Icon className="size-6" />
@@ -147,10 +147,6 @@ const SortableItem = ({ id, label, isPending, onRemove }: SortableItemProps) => 
           className="text-gray-600 hover:text-red-600"
         >
           <X className="size-5" />
-        </button>
-
-        <button type="button" className="text-gray-600 hover:text-gray-900">
-          <Pencil className="size-5" />
         </button>
       </div>
     </div>

@@ -75,8 +75,6 @@ export const changeQuestionOrderAction = async (
     };
   }
 
-  console.log("newQuestionsOrder", newQuestionsOrder);
-
   const updateOrders = newQuestionsOrder.map((id) => {
     return db
       .update(questions)

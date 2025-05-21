@@ -160,35 +160,39 @@ export const ApplicationForm = ({ group, user, questions }: ApplicationFormProps
           )}
         />
 
-        {questions.map((question) => (
-          <FormField
-            key={question.id}
-            control={form.control}
-            name={`questions.${question.id}`}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{question.label}</FormLabel>
-                <FormControl>
-                  {question.type === "input" ? (
-                    <Input
-                      placeholder={question.placeholder ?? "Svar her"}
-                      type="text"
-                      {...field}
-                    />
-                  ) : (
-                    <Textarea
-                      rows={6}
-                      placeholder={question.placeholder ?? "Svar her"}
-                      {...field}
-                    />
+        {questions
+          .sort((a, b) => a.order - b.order)
+          .map((question) => (
+            <FormField
+              key={question.id}
+              control={form.control}
+              name={`questions.${question.id}`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{question.label}</FormLabel>
+                  <FormControl>
+                    {question.type === "input" ? (
+                      <Input
+                        placeholder={question.placeholder ?? "Svar her"}
+                        type="text"
+                        {...field}
+                      />
+                    ) : (
+                      <Textarea
+                        rows={6}
+                        placeholder={question.placeholder ?? "Svar her"}
+                        {...field}
+                      />
+                    )}
+                  </FormControl>
+                  {question.description && (
+                    <FormDescription>{question.description}</FormDescription>
                   )}
-                </FormControl>
-                {question.description && <FormDescription>{question.description}</FormDescription>}
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        ))}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
 
         <Button type="submit">
           <span>Send inn</span>

@@ -16,7 +16,6 @@ export const groupEnum = [
   "webkom",
   "tilde",
   "bedkom",
-  "makerspace",
   "hyggkom",
   "gnist",
   "esc",

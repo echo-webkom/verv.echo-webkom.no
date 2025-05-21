@@ -19,10 +19,6 @@ const groups = [
     name: "Bedkom",
   },
   {
-    id: "makerspace",
-    name: "Makerspace",
-  },
-  {
     id: "hyggkom",
     name: "Hyggkom",
   },

@@ -35,7 +35,6 @@ export const groupNames = {
   webkom: "Webkom",
   tilde: "Tilde",
   bedkom: "Bedkom",
-  makerspace: "Makerspace",
   hyggkom: "Hyggkom",
   gnist: "Gnist",
   esc: "echo Sports Club",

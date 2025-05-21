@@ -15,7 +15,6 @@ const groups = [
   "ESC",
   "Gnist",
   "Hyggkom",
-  "Makerspace",
   "Programmerbar",
   "Tilde",
 ].map((group) => group + "!");
@@ -97,7 +96,6 @@ export default function Home() {
           <GroupLink emoji="🏟️" name="ESC" to="/esc" />
           <GroupLink emoji="✨" name="Gnist" to="/gnist" />
           <GroupLink emoji="🫶🏻" name="Hyggkom" to="/hyggkom" />
-          <GroupLink emoji="🛠️" name="Makerspace" to="/makerspace" />
           <GroupLink emoji="🍻" name="Programmerbar" to="/programmerbar" />
           <GroupLink emoji="🥳" name="Tilde" to="/tilde" />
         </ul>

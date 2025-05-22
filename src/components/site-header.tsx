@@ -21,7 +21,7 @@ export async function SiteHeader() {
         {new Date() > APPLICATION_DEADLINE && (
           <div className="bg-secondary py-2">
             <p className="text-center text-sm font-bold">
-              Søknadsfristen for høstsemesteret 2024 har gått ut.
+              Søknadsfristen for høstsemesteret 2025 har gått ut.
             </p>
           </div>
         )}

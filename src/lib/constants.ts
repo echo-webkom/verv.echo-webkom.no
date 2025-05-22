@@ -9,7 +9,7 @@ export type Year = (typeof yearEnum)[number];
 export type Study = (typeof studyEnum)[number];
 export type Group = (typeof groupEnum)[number];
 
-export const APPLICATION_DEADLINE = new Date("Sep 1 2025 23:59:59 UTC+02:00");
+export const APPLICATION_DEADLINE = new Date("Aug 31 2025 23:59:59 UTC+02:00");
 
 export const yearNames = {
   1: "1. året",

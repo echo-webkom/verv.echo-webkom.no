@@ -34,7 +34,7 @@ export default async function ChangeQuestions({ params }: Props) {
     <div>
       <div className="mb-8">
         <MarkdownH1>Spørsmål</MarkdownH1>
-        <p className="text-lg text-gray-500">
+        <p className="text-muted-foreground text-lg">
           Her kan du endre rekkefølgen på spørsmålene ved å dra og slippe dem. Disse spørsmålene vil
           bli vist når en person søker på undergruppen din. Vi vil også legge til standard spørsmål
           som, navn, e-post, årstrinn og studieretning.
@@ -45,8 +45,8 @@ export default async function ChangeQuestions({ params }: Props) {
 
       {questions.length === 0 && (
         <div className="my-10 text-center">
-          <p className="text-gray-500">Ingen spørsmål er lagt til enda.</p>
-          <p className="text-gray-500">Legg til spørsmål for å komme i gang!</p>
+          <p className="text-muted-foreground">Ingen spørsmål er lagt til enda.</p>
+          <p className="text-muted-foreground">Legg til spørsmål for å komme i gang!</p>
         </div>
       )}
 

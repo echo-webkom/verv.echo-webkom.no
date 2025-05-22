@@ -55,8 +55,8 @@ export default async function ProfilePage() {
           <h2 className="text-2xl font-bold">Dine søknader</h2>
 
           <div className="flex flex-row gap-5 border p-4">
-            <AlertCircleIcon />
-            <p className="text-sm text-gray-600">
+            <AlertCircleIcon className="text-muted-foreground" />
+            <p className="text-muted-foreground text-sm">
               Du vil ikke få besvarelse på din søknad gjennom denne nettsiden.
             </p>
           </div>
@@ -72,7 +72,7 @@ export default async function ProfilePage() {
                   <AccordionTrigger>{groupNames[application.groupId]}</AccordionTrigger>
 
                   <AccordionContent>
-                    <article className="rounded-md border bg-slate-100 p-2">
+                    <article className="text-muted-foreground rounded-md border p-2">
                       {application.body.split("\n").map((line, i) => (
                         <p className="py-1" key={i}>
                           {line}

@@ -40,7 +40,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTML
     <tr
       ref={ref}
       className={cn(
-        "border-b transition-colors hover:bg-slate-100/50 data-[state=selected]:bg-slate-100",
+        "hover:bg-accent/30 border-b transition-colors data-[state=selected]:bg-slate-100",
         className,
       )}
       {...props}
@@ -56,7 +56,7 @@ const TableHead = React.forwardRef<
   <th
     ref={ref}
     className={cn(
-      "h-12 px-4 text-left align-middle font-medium text-slate-500 [&:has([role=checkbox])]:pr-0",
+      "text-muted-foreground h-12 px-4 text-left align-middle font-medium [&:has([role=checkbox])]:pr-0",
       className,
     )}
     {...props}

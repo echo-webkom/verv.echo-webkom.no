@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -9,7 +10,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { BASE_URL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = JetBrains_Mono({
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -43,12 +48,19 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <body className={cn("flex min-h-screen flex-col text-gray-900 antialiased", inter.className)}>
-        <SiteHeader />
-        <div className="flex-1 py-14">{children}</div>
-        <SiteFooter />
-        <Toaster />
+    <html lang="no" suppressHydrationWarning>
+      <body className={cn("flex min-h-screen flex-col antialiased", inter.className)}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SiteHeader />
+          <div className="flex-1 py-14">{children}</div>
+          <SiteFooter />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -35,7 +35,7 @@ export const GroupLink = ({ emoji, name, to }: GroupLinkProps) => {
 
       <a
         href={to}
-        className="flex h-14 w-14 items-center justify-center rounded-lg py-2 hover:bg-gray-100 hover:underline"
+        className="dark:hover:bg-secondary hover:bg-muted text-muted-foreground flex h-14 w-14 items-center justify-center rounded-lg py-2 hover:underline"
       >
         <ChevronRightIcon />
       </a>

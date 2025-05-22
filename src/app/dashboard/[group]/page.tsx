@@ -35,7 +35,7 @@ export default async function GroupDashboard({ params }: Props) {
         ].map(({ label, href }) => (
           <div key={href}>
             <Link
-              className="block border-2 bg-gray-200 p-4 text-center text-lg font-medium text-gray-800 transition-colors hover:border-gray-400 hover:bg-gray-300 hover:underline"
+              className="text-muted-foreground block border-2 p-4 text-center text-lg font-medium hover:underline"
               href={href}
             >
               {label}

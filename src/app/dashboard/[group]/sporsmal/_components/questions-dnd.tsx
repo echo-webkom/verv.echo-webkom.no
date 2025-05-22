@@ -121,7 +121,7 @@ const SortableItem = ({ id, label, isPending, onRemove }: SortableItemProps) => 
 
   return (
     <div
-      className="mb-4 flex items-center gap-4 rounded border bg-white p-4"
+      className="bg-popover mb-4 flex items-center gap-4 rounded border p-4"
       style={style}
       suppressHydrationWarning
     >

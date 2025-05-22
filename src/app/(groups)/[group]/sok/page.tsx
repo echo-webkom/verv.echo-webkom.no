@@ -46,10 +46,10 @@ export default async function ApplicationPage({ params }: Props) {
 
   if (!user) {
     return (
-      <main className="mx-auto flex w-full max-w-lg flex-col gap-10 px-6 text-center">
+      <main className="mx-auto flex w-full max-w-lg flex-col gap-10 px-6">
         <h1 className="text-3xl font-bold">Du må logge inn for å sende en søknad.</h1>
 
-        <p>
+        <p className="text-muted-foreground text-lg">
           Dette er for å forhindre spam og misbruk av søknadsskjemaet. Du kan logge inn med din
           feide-bruker.
         </p>

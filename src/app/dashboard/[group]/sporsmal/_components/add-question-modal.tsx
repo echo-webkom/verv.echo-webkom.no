@@ -66,6 +66,7 @@ export const AddQuestionModal = ({ group }: AddQuestionModalProps) => {
         variant: "default",
       });
       setIsOpen(false);
+      form.reset();
       router.refresh();
     }
   });
@@ -104,7 +105,7 @@ export const AddQuestionModal = ({ group }: AddQuestionModalProps) => {
                 name="type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Årstrinn</FormLabel>
+                    <FormLabel>Spørsmålstype</FormLabel>
                     <FormControl>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>

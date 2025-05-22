@@ -25,7 +25,7 @@ export const ProfileIcon = ({ user }: ProfileIconProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button>
+        <button className="flex items-center">
           <AvatarIcon className="h-7 w-7" />
         </button>
       </DropdownMenuTrigger>

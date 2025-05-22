@@ -4,6 +4,7 @@ import Link from "next/link";
 import { auth } from "@/lib/auth/lucia";
 import { APPLICATION_DEADLINE } from "@/lib/constants";
 import { ProfileIcon } from "./profile-icon";
+import { ThemeButton } from "./theme-button";
 
 export async function SiteHeader() {
   const user = await auth();
@@ -11,14 +12,14 @@ export async function SiteHeader() {
   return (
     <>
       {user && (
-        <div className="z-30 bg-[#ffeabb] py-2">
+        <div className="bg-secondary z-30 py-2">
           <p className="text-center text-sm font-bold">Du er logget inn som {user.name}</p>
         </div>
       )}
 
       <header className="sticky top-0 z-30 border-b backdrop-blur-xl">
         {new Date() > APPLICATION_DEADLINE && (
-          <div className="bg-[#ff9b9b] py-2">
+          <div className="bg-secondary py-2">
             <p className="text-center text-sm font-bold">
               Søknadsfristen for høstsemesteret 2024 har gått ut.
             </p>
@@ -39,7 +40,7 @@ export async function SiteHeader() {
           </Link>
 
           <nav>
-            <ul className="flex">
+            <ul className="flex items-center gap-4">
               <li>
                 {user ? (
                   <ProfileIcon user={user} />
@@ -48,6 +49,9 @@ export async function SiteHeader() {
                     Logg inn
                   </Link>
                 )}
+              </li>
+              <li>
+                <ThemeButton />
               </li>
             </ul>
           </nav>

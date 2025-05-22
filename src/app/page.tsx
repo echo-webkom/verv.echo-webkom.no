@@ -32,7 +32,7 @@ export default function Home() {
           quality={100}
         />
 
-        <h1 className="mb-8 space-y-3 text-5xl font-bold text-neutral-800 md:text-6xl">
+        <h1 className="mb-8 space-y-3 text-5xl font-bold md:text-6xl">
           <span className="text-4xl">Søk verv i</span> <br />
           <FlipWords words={groups} />
         </h1>
@@ -44,7 +44,7 @@ export default function Home() {
             delay: 0.2,
             duration: 0.3,
           }}
-          className="text-xl font-medium text-neutral-700"
+          className="text-muted-foreground text-xl font-medium"
         >
           echo har nå åpnet for søknader til verv. Søknadsfristen er 1. september. Det er lov å søke
           på flere grupper!
@@ -71,7 +71,7 @@ export default function Home() {
               delay: 0.1,
               duration: 0.2,
             }}
-            className="text-center text-gray-700"
+            className="text-muted-foreground text-center"
           >
             Trykk på en av undergruppene for å lære mer.
           </motion.p>

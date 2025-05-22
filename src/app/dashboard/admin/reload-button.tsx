@@ -17,10 +17,10 @@ export const ReloadButton = () => {
   };
 
   return (
-    <Button onClick={handleReload} disabled={animate}>
+    <Button size="icon" onClick={handleReload} disabled={animate}>
       <span className="sr-only">Reload</span>
       <ReloadIcon
-        className={cn("h-4 w-4", {
+        className={cn("size-4", {
           "animate-spin duration-700": animate,
         })}
       />

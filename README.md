@@ -1,4 +1,4 @@
-# verv.echo-webkom.no
+# verv.echo.uib.no
 
 Webkom sin nettside laget for å verve nye studenter til undergruppene i echo.
 
@@ -7,13 +7,13 @@ Webkom sin nettside laget for å verve nye studenter til undergruppene i echo.
 ### Klon repoet
 
 ```sh
-git clone git@github.com:echo-webkom/verv.echo-webkom.no
+git clone git@github.com:echo-webkom/verv.echo.uib.no
 ```
 
 ### Installer avhengigheter
 
 ```sh
-cd verv.echo-webkom.no
+cd verv.echo.uib.no
 ```
 
 ```sh

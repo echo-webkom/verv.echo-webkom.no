@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 
 import { SiteFooter } from "@/components/site-footer";
@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { BASE_URL } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-const inter = JetBrains_Mono({
+const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
